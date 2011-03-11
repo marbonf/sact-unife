@@ -1,0 +1,29 @@
+wait 500 ms
+"SYNC0"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNC1"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNCA"
+wait 0 sec
+0D 0A
+
+wait 400 ms
+"CMO 5"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SSF 35"
+wait 0 sec
+0D 0A
+
+wait 90 sec
+"CMO 0"
+wait 0 sec
+0D 0A
