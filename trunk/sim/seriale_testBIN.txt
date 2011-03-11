@@ -1,0 +1,26 @@
+wait 800 ms
+"SYNC0"
+wait 0 sec
+0D 0A
+
+wait 400 ms
+"SYNC1"
+wait 0 sec
+0D 0A
+
+wait 400 ms
+"SYNCB"
+wait 0 sec
+0D 0A
+
+wait 400 ms
+AA 55 06 0B 01 00 70 52 FF 
+
+wait 500 ms
+AA 55 04 0C 00 05 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 

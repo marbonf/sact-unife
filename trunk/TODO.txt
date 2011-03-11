@@ -1,0 +1,9 @@
+COMMANDS:
+- implement remote update of all robot/motor parameters..
+
+CALIBRATION:
+- A/D offsets (currents? others?)
+- H-Bridge direction (CW/CCW, Left/R, Robot FW..)
+  and Encoder leading channel (A or B?)
+  POSSIBILITY: automatic test?
+
