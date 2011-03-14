@@ -1,6 +1,7 @@
 COMMANDS:
 - implement remote update of all robot/motor parameters..
 
+
 CALIBRATION:
 - A/D offsets (currents? others?)
 - H-Bridge direction (CW/CCW, Left/R, Robot FW..)
