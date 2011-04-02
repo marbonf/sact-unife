@@ -50,7 +50,7 @@
 #include "Timers.h"
 #include "Controls.h"
 
-unsigned char speed_loop_count = 0;
+uint8_t speed_loop_count = 0;
 
 /******************************************************
 * TIMER INIT ROUTINES

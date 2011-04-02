@@ -102,7 +102,7 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =	{
 
 // PARAMETERS stored in RAM.. default values..
 // See additional comments below for scaling etc.
-volatile unsigned int parameters_RAM[N_PARAMS]=
+volatile uint16_t parameters_RAM[N_PARAMS]=
 {	
 	800,			// 0: MAX CURRENT (Command 12)
 	17500,			// 1: MAX VELOCITY (Command 13)
@@ -195,7 +195,7 @@ const unsigned char FaultMsg[4][30] =
 // - each line corresponds to a group
 // - each number in a line corresponds to the index of a command/parameter
 //   associated to that group
-const unsigned char help_info[MAX_HELPMSG][15] =
+const uint8_t help_info[MAX_HELPMSG][15] =
 {
 	{0,1,2,3,4,5,6,7,8,9,10,11,50,50,50}, // COMMANDS
 	{12,13,14,15,16,50,50,50,50,50,50,50,50,50,50}, // MOTOR
@@ -207,13 +207,13 @@ const unsigned char help_info[MAX_HELPMSG][15] =
 // LOCAL VARIABLES
 
 unsigned char rx1buf[MAX_ASCIILEN];
-unsigned char rx1cnt = 0;
+uint8_t rx1cnt = 0;
 unsigned char rx2buf[MAX_ASCIILEN];
-unsigned char rx2cnt = 0;
+uint8_t rx2cnt = 0;
 unsigned char BINRXbuf[MAX_ASCIILEN];
-unsigned char BINRXcnt = 0;
+uint8_t BINRXcnt = 0;
 unsigned char BINTXbuf[MAX_ASCIILEN];
-unsigned char BINTXcnt = 0;
+uint8_t BINTXcnt = 0;
 unsigned char u1temp = 0;
 unsigned char u1prev = 0;
 unsigned char u2temp = 0;
@@ -222,11 +222,11 @@ unsigned char u2prev = 0;
 unsigned char *tx1ptr;
 unsigned char *tx2ptr;
 
-unsigned char SACT_state = SACT_NOSYNC;
-unsigned char SYNC_U1_step = 0;
-unsigned char SYNC_U2_step = 0;
+uint8_t SACT_state = SACT_NOSYNC;
+uint8_t SYNC_U1_step = 0;
+uint8_t SYNC_U2_step = 0;
 
-unsigned char BINLastCommand;
+uint8_t BINLastCommand;
 
 tSACT_flags SACT_flags;
 
@@ -236,19 +236,19 @@ tSSP_config SSP_config;
 void process_SYNC_U1(void);
 void process_SYNC_U2(void);
 // for ASCII mode
-void process_ASCII(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg);
-void CheckHelp(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg);
-void SendHelpInfo(unsigned char table,volatile UART *ureg);
+void process_ASCII(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg);
+void CheckHelp(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg);
+void SendHelpInfo(uint8_t table,volatile UART *ureg);
 unsigned char GetMsgIndex(unsigned char *rxbuf);
-void GetParamASCII(unsigned char idx, volatile UART *ureg);
-void GetParamBIN(unsigned char idx, volatile UART *ureg);
+void GetParamASCII(uint8_t idx, volatile UART *ureg);
+void GetParamBIN(uint8_t idx, volatile UART *ureg);
 
 // for ASCII mode
-void process_BIN(unsigned char *rxbuf, unsigned char rxcnt);
+void process_BIN(unsigned char *rxbuf, uint8_t rxcnt);
 void ParseBINCommand(void);
 
 
-void ExecCommand(unsigned char idx,int *args);
+void ExecCommand(uint8_t idx,int16_t *args);
 
 /****************************************
  * UART1/2 TX interrupt (Unused)
@@ -522,7 +522,7 @@ while(U2STAbits.URXDA) // DATA AVAILABLE
  ***************************************/
 void process_SYNC_U1(void)
 {
-	int cmpres;
+	int16_t cmpres;
 	
 	switch(SYNC_U1_step)
 	{
@@ -577,7 +577,7 @@ void process_SYNC_U1(void)
  ***************************************/
 void process_SYNC_U2(void)
 {
-	int cmpres;
+	int16_t cmpres;
 	
 	switch(SYNC_U2_step)
 	{
@@ -636,14 +636,14 @@ void process_SYNC_U2(void)
  *                corresponding to received one
  * - GetParamASCII: shows to UART the value of requested parameter
  *****************************************************************************/
-void process_ASCII(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg)
+void process_ASCII(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
 {
-	unsigned char idx = 0;
-	unsigned char argcount = 0;
-	unsigned char count = 0;
-	unsigned char accum = 0;
-	int args[MAXARGS];
-	long temparg;
+	uint8_t idx = 0;
+	uint8_t argcount = 0;
+	uint8_t count = 0;
+	uint8_t accum = 0;
+	int16_t args[MAXARGS];
+	int32_t temparg;
 	unsigned char tempstr[8]; //ONLY INT VAL EXPECTED
 
 	CheckHelp(rxbuf,rxcnt,ureg);
@@ -701,7 +701,7 @@ void process_ASCII(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg
 					return;
 				}
 
-				args[argcount] = (int)temparg;
+				args[argcount] = (int16_t)temparg;
 				accum += count+1; //discard space or CR
 				count = 0;
 			}
@@ -763,8 +763,8 @@ void process_ASCII(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg
 // GET MESSAGE INDEX
 unsigned char GetMsgIndex(unsigned char *rxbuf)
 {
-	unsigned char tempidx = 0;
-	int cmpres;
+	uint8_t tempidx = 0;
+	int16_t cmpres;
 		
 	while(tempidx < (N_COMMANDS + N_PARAMS))
 	{
@@ -783,7 +783,7 @@ unsigned char GetMsgIndex(unsigned char *rxbuf)
 }//END GetMsgIndex
 
 // GET PARAMETER in ASCII MODE
-void GetParamASCII(unsigned char idx, volatile UART *ureg)
+void GetParamASCII(uint8_t idx, volatile UART *ureg)
 {
 	putsUART((unsigned char*)command_data[idx].line1_msg,ureg);
 	putcUART(HT,ureg);
@@ -792,9 +792,9 @@ void GetParamASCII(unsigned char idx, volatile UART *ureg)
 }
 
 // Check if a request for help is received
-void CheckHelp(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg)
+void CheckHelp(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
 {
-  unsigned char idx = 0;
+  uint8_t idx = 0;
 	
   
 	if (rxbuf[0] == '?')
@@ -851,11 +851,11 @@ void CheckHelp(unsigned char *rxbuf, unsigned char rxcnt,volatile UART *ureg)
 
 // SEND HELP AND PARAMS searching in the commanda_data table
 // for matching indexes
-void SendHelpInfo(unsigned char table,volatile UART *ureg)
+void SendHelpInfo(uint8_t table,volatile UART *ureg)
 {
 
-unsigned char idx = 0;
-unsigned char count = 0;
+uint8_t idx = 0;
+uint8_t count = 0;
 
 do
 	if (idx == help_info[table][count])
@@ -880,7 +880,7 @@ while (++idx < (N_COMMANDS + N_PARAMS));
  * - ParseBINCommand: parse the data packet
  * - GetParamBIN: sends current value of a parameter
  *****************************************************************************/
-void process_BIN(unsigned char *rxbuf, unsigned char rxcnt)
+void process_BIN(unsigned char *rxbuf, uint8_t rxcnt)
 {
 	if((!SACT_flags.valid_header) && (rxcnt>1))
 	{
@@ -921,11 +921,11 @@ void process_BIN(unsigned char *rxbuf, unsigned char rxcnt)
 void ParseBINCommand(void)
 {
 	
-    unsigned char idx = 0;
-	unsigned char argcount = 0;
-	unsigned char count = 0;
-	unsigned char accum = 0;
-	int args[MAXARGS];
+    uint8_t idx = 0;
+	uint8_t argcount = 0;
+	uint8_t count = 0;
+	uint8_t accum = 0;
+	int16_t args[MAXARGS];
 	WRD temparg;
 	
 	// to be compatible with lib_crc, u.short corresponds
@@ -938,7 +938,7 @@ void ParseBINCommand(void)
 		count++;
 	}
 
-	temparg.usi = crc_16;
+	temparg.ui = crc_16;
 
 	if((temparg.uc[0] == BINRXbuf[BINRXcnt-3]) && (temparg.uc[1] == BINRXbuf[BINRXcnt-2]))
 	{
@@ -960,7 +960,7 @@ void ParseBINCommand(void)
 		{
 			temparg.uc[0] = BINRXbuf[2+accum];
 			temparg.uc[1] = BINRXbuf[3+accum];
-			args[argcount] = temparg.si;
+			args[argcount] = temparg.i;
 			argcount++;
 			accum += 2;
 			
@@ -1006,13 +1006,13 @@ void ParseBINCommand(void)
 }//END ParseBINCommand()
 
 // GET PARAMETER VALUE IN BINARY MODE
-void GetParamBIN(unsigned char idx, volatile UART *ureg)
+void GetParamBIN(uint8_t idx, volatile UART *ureg)
 {
 	WRD temp;
 	// to be compatible with lib_crc, u.short corresponds
 	// to an u.int (16 bit) in MPLAB C30
 	unsigned short crc_16 = 0;
-	unsigned char count = 0;
+	uint8_t count = 0;
 	
 ////////PREPARE CONSTANT PART
 		BINTXbuf[0] = SACT_HEAD1;
@@ -1022,7 +1022,7 @@ void GetParamBIN(unsigned char idx, volatile UART *ureg)
 		BINTXbuf[4] = idx;
 	
 ///////PARAM VALUE
-		temp.usi = parameters_RAM[idx-N_COMMANDS];
+		temp.ui = parameters_RAM[idx-N_COMMANDS];
 		BINTXbuf[5] = temp.uc[0];
 		BINTXbuf[6] = temp.uc[1];
 		
@@ -1033,7 +1033,7 @@ void GetParamBIN(unsigned char idx, volatile UART *ureg)
 			count++;
 		}
 
-		temp.usi = crc_16;
+		temp.ui = crc_16;
 		BINTXbuf[7] = temp.uc[0];
 		BINTXbuf[8] = temp.uc[1];
 
@@ -1054,9 +1054,9 @@ void GetParamBIN(unsigned char idx, volatile UART *ureg)
 /******************************************************************************
  * CORE FUNCTION for commands execution
  *****************************************************************************/
-void ExecCommand(unsigned char idx,int *args)
+void ExecCommand(uint8_t idx,int16_t *args)
 {	
-	int temp1,temp2,temp3;
+	int16_t temp1,temp2,temp3;
 	
 	if(idx >= N_COMMANDS)
 	{ // IT IS A PARAMETER UPDATE REQUEST
@@ -1214,8 +1214,8 @@ void SACT_SendSSP(void)
 	volatile UART *ureg;
 	WRD temp;
 	LNG templong;
-	unsigned char accum = 0;
-	unsigned char count = 0;
+	uint8_t accum = 0;
+	uint8_t count = 0;
 	// to be compatible with lib_crc, u.short corresponds
 	// to an u.int (16 bit) in MPLAB C30
 	unsigned short crc_16 = 0;
@@ -1231,8 +1231,8 @@ void SACT_SendSSP(void)
 		else //if we are here we have certainly SACT_BIN_U2
 			ureg = &UART2;
 
-		temp.si = SSP_config.word;
-		putuiUART(temp.usi,ureg);
+		temp.i = SSP_config.word;
+		putuiUART(temp.ui,ureg);
 		putcUART(SC,ureg);
 
 /////////SENSOR DATA
@@ -1258,71 +1258,71 @@ void SACT_SendSSP(void)
 			templong.l = (x_odom / 10); // scale back in mm
 			temp.uc[0] = templong.uc[1];
 			temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-			putiUART(temp.si,ureg);
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 
 			templong.l = (y_odom / 10); // scale back in mm
 			temp.uc[0] = templong.uc[1];
 			temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-			putiUART(temp.si,ureg);
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);	
 
 			templong.l = (theta_odom >> 3); // in Q16 radians
-			temp.si = templong.i[0];
-			putiUART(temp.si,ureg);
+			temp.i = templong.i[0];
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 			
 			#ifdef DEVELOP_MODE
 				templong.l = (x_set / 10); // scale back in mm
 				temp.uc[0] = templong.uc[1];
 				temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-				putiUART(temp.si,ureg);
+				putiUART(temp.i,ureg);
 				putcUART(SC,ureg);
 
 				templong.l = (y_set / 10); // scale back in mm
 				temp.uc[0] = templong.uc[1];
 				temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-				putiUART(temp.si,ureg);
+				putiUART(temp.i,ureg);
 				putcUART(SC,ureg);
 				
-				temp.usi = NLFState;
-				putuiUART(temp.usi,ureg);
+				temp.ui = NLFState;
+				putuiUART(temp.ui,ureg);
 				putcUART(SC,ureg);
 			#endif
 		}// END if odometry
 		
 		if(SSP_config.analogs)
 		{
-			temp.usi = ADResult[0];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[0];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 			
-			temp.usi = ADResult[1];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[1];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[2];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[2];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[3];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[3];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[4];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[4];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[5];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[5];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[6];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[6];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 
-			temp.usi = ADResult[7];
-			putuiUART(temp.usi,ureg);
+			temp.ui = ADResult[7];
+			putuiUART(temp.ui,ureg);
 			putcUART(SC,ureg);
 		}// END if analogs
 
@@ -1339,28 +1339,28 @@ void SACT_SendSSP(void)
 		if(SSP_config.currents)
 		{
 			if(DIR1)
-				temp.si = -mcurrent1_filt;
+				temp.i = -mcurrent1_filt;
 			else
-				temp.si = mcurrent1_filt;
-			putiUART(temp.si,ureg);
+				temp.i = mcurrent1_filt;
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 
 			if(DIR2)
-				temp.si = mcurrent1_filt;
+				temp.i = mcurrent1_filt;
 			else
-				temp.si = -mcurrent1_filt;
-			putiUART(temp.si,ureg);
+				temp.i = -mcurrent1_filt;
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 		}// END if currents
 
 		if(SSP_config.wheel_vel)
 		{
-			temp.si = mvelocity1;
-			putiUART(temp.si,ureg);
+			temp.i = mvelocity1;
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 			
-			temp.si = mvelocity2;
-			putiUART(temp.si,ureg);
+			temp.i = mvelocity2;
+			putiUART(temp.i,ureg);
 			putcUART(SC,ureg);
 		}// END if wheel vel
 
@@ -1384,7 +1384,7 @@ void SACT_SendSSP(void)
 		BINTXbuf[0] = SACT_HEAD1;
 		BINTXbuf[1] = SACT_HEAD2;
 		BINTXbuf[3] = SACT_SSP;
-		temp.si = SSP_config.word;
+		temp.i = SSP_config.word;
 		BINTXbuf[4] = temp.uc[0];
 		BINTXbuf[5] = temp.uc[1];
 
@@ -1431,7 +1431,7 @@ void SACT_SendSSP(void)
 			accum++;	
 
 			templong.l = (theta_odom >> 3); // in Q16 radians
-			temp.si = templong.i[0];
+			temp.i = templong.i[0];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
@@ -1441,49 +1441,49 @@ void SACT_SendSSP(void)
 		
 		if(SSP_config.analogs)
 		{
-			temp.usi = ADResult[0];
+			temp.ui = ADResult[0];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 			
-			temp.usi = ADResult[1];
+			temp.ui = ADResult[1];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[2];
+			temp.ui = ADResult[2];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[3];
+			temp.ui = ADResult[3];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[4];
+			temp.ui = ADResult[4];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[5];
+			temp.ui = ADResult[5];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[6];
+			temp.ui = ADResult[6];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
-			temp.usi = ADResult[7];
+			temp.ui = ADResult[7];
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
@@ -1503,18 +1503,18 @@ void SACT_SendSSP(void)
 		if(SSP_config.currents)
 		{
 			if(DIR1)
-				temp.si = -mcurrent1_filt;
+				temp.i = -mcurrent1_filt;
 			else
-				temp.si = mcurrent1_filt;
+				temp.i = mcurrent1_filt;
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
 			accum++;
 
 			if(DIR2)
-				temp.si = mcurrent1_filt;
+				temp.i = mcurrent1_filt;
 			else
-				temp.si = -mcurrent1_filt;
+				temp.i = -mcurrent1_filt;
 			BINTXbuf[accum+6] = temp.uc[0];
 			accum++;
 			BINTXbuf[accum+6] = temp.uc[1];
@@ -1541,7 +1541,7 @@ void SACT_SendSSP(void)
 			count++;
 		}
 
-		temp.usi = crc_16;
+		temp.ui = crc_16;
 		BINTXbuf[accum+6] = temp.uc[0];
 		BINTXbuf[accum+7] = temp.uc[1];
 
@@ -1564,7 +1564,7 @@ void SACT_SendSDP(void)
 	static t_status_flags status_flags_prev;
 	
 	WRD temp;
-	unsigned char count = 0;
+	uint8_t count = 0;
 	// to be compatible with lib_crc, u.short corresponds
 	// to an u.int (16 bit) in MPLAB C30
 	unsigned short crc_16 = 0;
@@ -1615,7 +1615,7 @@ void SACT_SendSDP(void)
 			count++;
 		}
 
-		temp.usi = crc_16;
+		temp.ui = crc_16;
 		BINTXbuf[10] = temp.uc[0];
 		BINTXbuf[11] = temp.uc[1];
 

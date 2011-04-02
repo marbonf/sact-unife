@@ -48,6 +48,7 @@
 #ifndef MY_FRACTMATH_H
 #define MY_FRACTMATH_H
 
+#include "generic_defs.h" // for data types
 #include <libq.h>
 
 /* 2.30: 2 integral bits and 30 fractional bits
@@ -55,7 +56,7 @@
  * 30 fractional bits */
 #define FRACBITS 30 /* Must be even for FxSqrt (Turkowski) */
 #define ITERS (15 + (FRACBITS >> 1))
-//typedef long Fract;
+//typedef int32_t Fract;
 
 /* USEFUL TRIG CONSTANTS IN BRADS UNITS */
 #define PI_BRADS       0x7FFFFFFF
@@ -70,9 +71,9 @@
 #define PI_Q13		   0x6488 // PI*2^13 ~ 25736
 
 /* Prototypes for iSqrt() and FxAbs(), in FxSqrtAbs.c */
-unsigned long iSqrt(unsigned long a);
-unsigned long FxAbs(long var);
-unsigned long MyAbs(long var);
+uint32_t iSqrt(uint32_t a);
+uint32_t FxAbs(int32_t var);
+uint32_t MyAbs(int32_t var);
 
 /* Prototype for _Q16atan2(),_Q16atan2ByPI() (Q16wrappers.c) */
 _Q16 _Q16atan2(_Q16 x, _Q16 y); // output Q16

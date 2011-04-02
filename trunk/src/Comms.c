@@ -128,7 +128,7 @@ void putcUART(unsigned char symbol, volatile UART *ureg)
 }
 
 // putiUART(): sends an integer value as a string on the required UART
-void putiUART(int k,volatile UART *ureg)
+void putiUART(int16_t k,volatile UART *ureg)
 {
 unsigned char c;
 
@@ -166,7 +166,7 @@ else{
 }
 
 // putiUART(): sends an unsigned integer value as a string on the required UART
-void putuiUART(unsigned int k,volatile UART *ureg)
+void putuiUART(uint16_t k,volatile UART *ureg)
 {
 unsigned char c;
 
@@ -196,9 +196,9 @@ unsigned char c;
 
 
 // SendNUART(): sends N characters from a buffer (NOT necessarily NULL terminated) to the required UART
-void SendNUART(unsigned char *buffer, volatile UART *ureg, unsigned char N)
+void SendNUART(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 {
-	unsigned char idx = 0;
+	uint8_t idx = 0;
 	while(idx < N)
 	{
 		putcUART(buffer[idx],ureg);

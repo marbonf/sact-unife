@@ -40,7 +40,7 @@
  **********************************************************************
  *	Code Description
  *  
- *  Header file for ADC.
+ *  Header file for Quadrature Encoder Interface (QEI).
  *
  **********************************************************************/
  

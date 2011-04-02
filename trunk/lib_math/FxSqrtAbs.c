@@ -51,25 +51,25 @@
 /*********************************************
  * FxAbs
  *********************************************/
-unsigned long FxAbs(long var)
+uint32_t FxAbs(int32_t var)
   {
-	long tmp = 0;
+	int32_t tmp = 0;
 	tmp = (var^(var>>31)) - (var>>31);
-	return (unsigned long)tmp;
+	return (uint32_t)tmp;
   }
   
 /*********************************************
  * MyAbs: basic logic
  *********************************************/
-unsigned long MyAbs(long var)
+uint32_t MyAbs(int32_t var)
   {
-	long tmp = 0;
+	int32_t tmp = 0;
 	if(var>0)
 		tmp=var;
 	if(var<0)
 	    tmp=-var;
 	
-	return (unsigned long)tmp;
+	return (uint32_t)tmp;
   }
 
 /*********************************************
@@ -77,9 +77,9 @@ unsigned long MyAbs(long var)
  * result max 32767 -> MAX 32 bit input:
  * 0x40000000
  *********************************************/
-unsigned long iSqrt(unsigned long x)
+uint32_t iSqrt(uint32_t x)
 { 
-    unsigned long op, res, one;
+    uint32_t op, res, one;
 
     op = x;
     res = 0;

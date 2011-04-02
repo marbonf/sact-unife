@@ -104,14 +104,14 @@ typedef union {
 	unsigned linrot_vel : 1;
 	unsigned UNUSED : 8;
 	};
-	int word;
+	int16_t word;
 } tSSP_config;
 
 // COMMAND/PARAMETERS STRUCTURE
 typedef struct {
-	unsigned int min;	//minimum allowed parameter value 
-    unsigned int max;   //maximum allowed parameter value
-    unsigned char args; //number of command arguments
+	uint16_t min;	//minimum allowed parameter value 
+    uint16_t max;   //maximum allowed parameter value
+    uint8_t args; //number of command arguments
    	char *line1_msg;    //line 1 parameter screen message 
 	char *quick_msg;	//abbriviation for message 
     } t_command_data; 
@@ -122,7 +122,7 @@ typedef struct {
 
 extern const t_command_data command_data[N_COMMANDS+N_PARAMS];
 
-extern volatile unsigned int parameters_RAM[N_PARAMS];
+extern volatile uint16_t parameters_RAM[N_PARAMS];
 
 // PUBLIC FUNCTION FOR TIMEOUT INCREMENT AND MANAGEMENT
 #define SACT_TIME_LIMIT 3000 //in ms

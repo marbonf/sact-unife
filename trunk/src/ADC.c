@@ -52,11 +52,11 @@
 #include "Controls.h"
 
 // LOCALS
-int mcurrent1samp[MCURR_MAV_ORDER],mcurrent2samp[MCURR_MAV_ORDER];
-int mcurrent_temp;
-unsigned char mcurr_idxtemp;
-unsigned char mcurrsampIdx = 0;
-unsigned char ADindex = 0;
+int16_t mcurrent1samp[MCURR_MAV_ORDER],mcurrent2samp[MCURR_MAV_ORDER];
+int16_t mcurrent_temp;
+uint8_t mcurr_idxtemp;
+uint8_t mcurrsampIdx = 0;
+uint8_t ADindex = 0;
 
 
 // ADC_Init() is used to configure A/D to convert 
@@ -241,7 +241,7 @@ J10Pin1_OUT = 1;
 		
 		dataLOG3[dataLOGIdx] = PIDCurrent1.qOut;
 		
-		dataLOG4[dataLOGIdx] = (int)PIDCurrent1.qdSum;
+		dataLOG4[dataLOGIdx] = (int16_t)PIDCurrent1.qdSum;
 		if(DIR1)
 			dataLOG1[dataLOGIdx] = -(mcurrent1_filt-mcurrent1_offset);
 		else

@@ -46,25 +46,26 @@
 #ifndef EXTERN_GLOBALS_H
 #define EXTERN_GLOBALS_H 
 
+#include "generic_defs.h" // for data types
 #include "PID.h" //for PID parm/flags data-types
 #include "Trajectories.h" //for Trajectory gen. parm/flags types
 
 // FOR ADC samplings 
-extern volatile unsigned int ADResult[8];
-extern volatile int mcurrent1,mcurrent2,mcurrent1_filt,mcurrent2_filt;
-extern volatile int rcurrent1, rcurrent2,rcurrent1_req,rcurrent2_req;
-extern int mcurrent1_offset,mcurrent2_offset;
+extern volatile uint16_t ADResult[8];
+extern volatile int16_t mcurrent1,mcurrent2,mcurrent1_filt,mcurrent2_filt;
+extern volatile int16_t rcurrent1, rcurrent2,rcurrent1_req,rcurrent2_req;
+extern int16_t mcurrent1_offset,mcurrent2_offset;
 
 // Current limit
-extern int max_current;
+extern int16_t max_current;
 // FOR CURRENT REFERENCES LOW-PASS FILTERING
-extern int rcurrent1samp[],rcurrent2samp[];
+extern int16_t rcurrent1samp[],rcurrent2samp[];
 
 // For BASIC real-time scheduling
-extern volatile unsigned int slow_event_count;
-extern volatile unsigned int medium_event_count;
-extern unsigned int slow_ticks_limit;
-extern unsigned int medium_ticks_limit;
+extern volatile uint16_t slow_event_count;
+extern volatile uint16_t medium_event_count;
+extern uint16_t slow_ticks_limit;
+extern uint16_t medium_ticks_limit;
 #define SLOW_RATE  100 // in ms
 #define MEDIUM_RATE 20 // in ms
 
@@ -80,7 +81,7 @@ typedef union {
 	unsigned sw7 : 1;
 	unsigned sw8 : 1;
 	};
-	unsigned char b;
+	uint8_t b;
 } t_push_buttons;
 
 extern t_push_buttons push_buttons_state[];
@@ -94,7 +95,7 @@ typedef union{
 	unsigned cart_loop_active 	 : 1;
 	unsigned UNUSED : 4;
 	};
-	unsigned char b;
+	uint8_t b;
 } t_control_flags;
 
 extern t_control_flags control_flags;
@@ -111,7 +112,7 @@ typedef union{
 	unsigned bump_detect		 : 1;
 	unsigned comm_error 		 : 1;
 	};
-	unsigned char b;
+	uint8_t b;
 } t_status_flags;
 
 extern t_status_flags status_flags;
@@ -129,9 +130,9 @@ typedef struct{
 	unsigned off_mode_req     : 1;
 	unsigned UNUSED           : 2;
 	};
-	unsigned char trxs;
+	uint8_t trxs;
 	};
-	unsigned char state;
+	uint8_t state;
 } t_control_mode;
 
 // CONTROL MODE state values
@@ -171,11 +172,11 @@ extern tTRAJflags TRAJMotor1_f;
 extern tTRAJflags TRAJMotor2_f;
 
 // FOR POSITION feedback
-extern volatile int mvelocity1,mvelocity2,rvelocity1,rvelocity2;
-extern volatile long mposition1,mposition2;
+extern volatile int16_t mvelocity1,mvelocity2,rvelocity1,rvelocity2;
+extern volatile int32_t mposition1,mposition2;
 
 // FOR ODOMETRY estimate
-extern long x_odom,y_odom,theta_odom;
+extern int32_t x_odom,y_odom,theta_odom;
 
 // NONLINEAR FILTER structures
 // definitions are in the Controls.c source file
@@ -184,7 +185,7 @@ extern long x_odom,y_odom,theta_odom;
 #define SLOWING	 1
 #define ALIGNED  2
 #define STOPPING 3
-extern unsigned char NLFState;
+extern uint8_t NLFState;
 extern tNLFStatus VelocityNLFStatus;
 extern tNLFStatus OrientationNLFStatus;
 
@@ -194,43 +195,43 @@ extern tNLFOut OrientationNLFOut;
 // FINAL OUTPUTS OF THE NONLINEAR FILTER
 // definitions are in the Controls.c source file
 // NOT in globals.c
-extern long x_target,y_target, x_set, y_set; 
+extern int32_t x_target,y_target, x_set, y_set; 
 // PATH WAYPOINTS
 #define MAX_WAY 10
-extern int x_way[];
-extern int y_way[];
-extern int r_way[];
-extern unsigned char way_index;
+extern int16_t x_way[];
+extern int16_t y_way[];
+extern int16_t r_way[];
+extern uint8_t way_index;
 
 // SYSTEM-WIDE PARAMETERS
 // defined in SACT_Protocol.c,
 // stored in EEPROM, can be updated by
 // the user with SACT commands
-extern volatile unsigned int parameters_RAM[];
+extern volatile uint16_t parameters_RAM[];
 
 // VARIABLES FOR RUN-TIME USE OF PARAMETERS
-extern long encoder_counts_rev;
-extern int wheel_radius;
-extern int wheel_base;
-extern int robot_mass;
-extern int robot_inertia;
-extern long ADC_torque_scale;
+extern int32_t encoder_counts_rev;
+extern int16_t wheel_radius;
+extern int16_t wheel_base;
+extern int16_t robot_mass;
+extern int16_t robot_inertia;
+extern int32_t ADC_torque_scale;
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers
 #define MAXLOG 400
 #define LOGDECIM 100
 #ifdef LOG_LONG
-extern long dataLOG1[];
-extern long dataLOG2[];
+extern int32_t dataLOG1[];
+extern int32_t dataLOG2[];
 #else
-extern int dataLOG1[];
-extern int dataLOG2[];
-extern int dataLOG3[];
-extern int dataLOG4[];
+extern int16_t dataLOG1[];
+extern int16_t dataLOG2[];
+extern int16_t dataLOG3[];
+extern int16_t dataLOG4[];
 #endif
-extern unsigned int dataLOGIdx;
-extern unsigned char dataLOGdecim;
+extern uint16_t dataLOGIdx;
+extern uint8_t dataLOGdecim;
 #endif
 
 #endif

@@ -159,8 +159,8 @@ int main(void)
     PIDCurrent1.qKi = 80;              
     PIDCurrent1.qKd = 0;
     PIDCurrent1.qN	= 9; // SHIFT FINAL RESULT >> qN
-    PIDCurrent1.qdOutMax =  (long)(FULL_DUTY << (PIDCurrent1.qN-1));
-    PIDCurrent1.qdOutMin = -(long)(FULL_DUTY << (PIDCurrent1.qN-1));
+    PIDCurrent1.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
+    PIDCurrent1.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
 
  	InitPID(&PIDCurrent1, &PIDCurrent1_f,-1);
  	
@@ -169,8 +169,8 @@ int main(void)
     PIDCurrent2.qKi = 80;              
     PIDCurrent2.qKd = 0;       
     PIDCurrent2.qN	= 9; // SHIFT FINAL RESULT >> qN
- 	PIDCurrent2.qdOutMax =  (long)(FULL_DUTY << (PIDCurrent2.qN-1));
-    PIDCurrent2.qdOutMin = -(long)(FULL_DUTY << (PIDCurrent2.qN-1));
+ 	PIDCurrent2.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
+    PIDCurrent2.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
 
     InitPID(&PIDCurrent2, &PIDCurrent2_f,-1);		
     
@@ -179,7 +179,7 @@ int main(void)
     PIDSpeed1.qKi = 20;              
     PIDSpeed1.qKd = 0;
     PIDSpeed1.qN	= 9;  // SHIFT FINAL RESULT >> qN
-    PIDSpeed1.qdOutMax = ((long)max_current << PIDSpeed1.qN);
+    PIDSpeed1.qdOutMax = ((int32_t)max_current << PIDSpeed1.qN);
     PIDSpeed1.qdOutMin = -PIDSpeed1.qdOutMax;
 
     InitPID(&PIDSpeed1, &PIDSpeed1_f,0);
@@ -189,7 +189,7 @@ int main(void)
  	PIDSpeed2.qKi = 20;              
     PIDSpeed2.qKd = 0;
     PIDSpeed2.qN	= 9; // SHIFT FINAL RESULT >> qN
-    PIDSpeed2.qdOutMax = ((long)max_current << PIDSpeed2.qN);
+    PIDSpeed2.qdOutMax = ((int32_t)max_current << PIDSpeed2.qN);
     PIDSpeed2.qdOutMin = -PIDSpeed2.qdOutMax;
 
     InitPID(&PIDSpeed2, &PIDSpeed2_f,0);
@@ -199,7 +199,7 @@ int main(void)
     PIDPos1.qKi = 0;              
     PIDPos1.qKd = 0;
     PIDPos1.qN	= 18;  // SHIFT FINAL RESULT >> qN
-    PIDPos1.qdOutMax = ((long)600 << PIDPos1.qN);
+    PIDPos1.qdOutMax = ((int32_t)600 << PIDPos1.qN);
     PIDPos1.qdOutMin = -PIDPos1.qdOutMax;
 
     InitPID(&PIDPos1, &PIDPos1_f,0);
@@ -209,7 +209,7 @@ int main(void)
  	PIDPos2.qKi = 0;              
     PIDPos2.qKd = 0;
     PIDPos2.qN	= 18; // SHIFT FINAL RESULT >> qN
-    PIDPos2.qdOutMax = ((long)600 << PIDPos2.qN);
+    PIDPos2.qdOutMax = ((int32_t)600 << PIDPos2.qN);
     PIDPos2.qdOutMin = -PIDPos2.qdOutMax;
 
     InitPID(&PIDPos2, &PIDPos2_f,0);
@@ -284,9 +284,9 @@ J10Pin3_OUT = 0;
 ****************************************************/
 void diagnostics(void)
 {
-	static unsigned char overcurrent1_count = 0;
-	static unsigned char overcurrent2_count = 0;
-	long temp1,temp2;
+	static uint8_t overcurrent1_count = 0;
+	static uint8_t overcurrent2_count = 0;
+	int32_t temp1,temp2;
 	
 	// ACCUMULATE (SORT OF I^2T)
 	if(mcurrent1_filt > (max_current + 100))
@@ -433,7 +433,7 @@ J10Pin4_OUT = 0;
 ****************************************************/
 void control_mode_manager(void)
 {
-	unsigned char idxtemp;
+	uint8_t idxtemp;
 	
 	switch(control_mode.state)
 	{

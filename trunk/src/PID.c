@@ -52,7 +52,7 @@
 /************************************************
 * Init PID: resets integral, output and flags
 ************************************************/
-void InitPID(tPIDParm *pParm, tPIDflags *pFlags, char mode)
+void InitPID(tPIDParm *pParm, tPIDflags *pFlags, int8_t mode)
 {
 	switch(mode)
 	{
@@ -81,20 +81,20 @@ void InitPID(tPIDParm *pParm, tPIDflags *pFlags, char mode)
 ************************************************/
 void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	long p_term;
-	long d_term;
-	long temp;
-	long error;
+	int32_t p_term;
+	int32_t d_term;
+	int32_t temp;
+	int32_t error;
 	
 	//START ASSUMING NOT IN LIMITATION
 	pFlags->saturated = 0;
 	
 	error = pParm->qdInRef - pParm->qdInMeas;
 	
-	p_term = error * (long)pParm->qKp;
+	p_term = error * (int32_t)pParm->qKp;
 	
 	if(pFlags->d_term_enable)
-		d_term = (error - pParm->qdErrPrev) * (long)pParm->qKd;
+		d_term = (error - pParm->qdErrPrev) * (int32_t)pParm->qKd;
 	else
 		d_term = 0;
 		
@@ -123,7 +123,7 @@ void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
 	// If NOT in limit, update I term
 	if(!pFlags->saturated)
 	{
-		pParm->qdSum += error * (long)pParm->qKi;
+		pParm->qdSum += error * (int32_t)pParm->qKi;
 		temp += pParm->qdSum;
 		
 		if(temp > pParm->qdOutMax)
@@ -166,16 +166,16 @@ void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
 ************************************************/
 void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	long p_term;
-	long temp;
-	long error;
+	int32_t p_term;
+	int32_t temp;
+	int32_t error;
 	
 	//START ASSUMING NOT IN LIMITATION
 	pFlags->saturated = 0;
 	
 	error = pParm->qdInRef - pParm->qdInMeas;
 	
-	p_term = error * (long)pParm->qKp;
+	p_term = error * (int32_t)pParm->qKp;
 			
 	temp = p_term;
 	
@@ -202,7 +202,7 @@ void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
 	// If NOT in limit, update I term
 	if(!pFlags->saturated)
 	{
-		pParm->qdSum += error * (long)pParm->qKi;
+		pParm->qdSum += error * (int32_t)pParm->qKi;
 		temp += pParm->qdSum;
 		
 		if(temp > pParm->qdOutMax)
@@ -237,12 +237,12 @@ void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
 ************************************************/
 void CalcP(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	long temp;
+	int32_t temp;
 	
 	//START ASSUMING NOT IN LIMITATION
 	pFlags->saturated = 0;
 	
-	temp = (pParm->qdInRef - pParm->qdInMeas) * (long)pParm->qKp;
+	temp = (pParm->qdInRef - pParm->qdInMeas) * (int32_t)pParm->qKp;
 	
 	// If in limit, saturate output
 	if(temp > pParm->qdOutMax)

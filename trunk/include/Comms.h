@@ -76,9 +76,9 @@ void __attribute__((interrupt,auto_psv)) _U2RXInterrupt(void);
  *************************************************************/
 void putsUART(unsigned char *buffer, volatile UART *ureg);
 void putcUART(unsigned char byte, volatile UART *ureg);
-void putiUART(int k,volatile UART *ureg);
-void putuiUART(unsigned int k,volatile UART *ureg);
+void putiUART(int16_t k,volatile UART *ureg);
+void putuiUART(uint16_t k,volatile UART *ureg);
 
-void SendNUART(unsigned char *buffer, volatile UART *ureg, unsigned char N);
+void SendNUART(unsigned char *buffer, volatile UART *ureg, uint8_t N);
 
 #endif

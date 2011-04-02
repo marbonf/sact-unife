@@ -71,13 +71,13 @@
   
 
 // TO CHANGE PWM PIN POLARITY (inverted for better motor current sensing)
-unsigned int ReadConfig(int);
-void WriteConfig(int,int);
+uint16_t ReadConfig(int16_t);
+void WriteConfig(int16_t,int16_t);
 
 
 void PWM_Init(void)
 {
-	unsigned int config_value,temp;
+	uint16_t config_value,temp;
 	
 	// PTCON - Timebase Control
 		// Bit 15 1=Timebase is ON, 0=OFF
@@ -205,7 +205,7 @@ void PWM_Init(void)
 
 
 // READ/WRITE CONFIG BITS
-unsigned int ReadConfig(int address)
+uint16_t ReadConfig(int16_t address)
 {
 // OLD CODE GENERATING WARNING (on unsafe access of WREG0)
 //	// Set Table Page to point to config page
@@ -222,7 +222,7 @@ unsigned int ReadConfig(int address)
 	TBLPAG = 0x00F8;
    return __builtin_tblrdl(address);
 }
-void WriteConfig(int address, int value) 
+void WriteConfig(int16_t address, int16_t value) 
 { 
 // TODO: modify also write using builtin (how????)	
 

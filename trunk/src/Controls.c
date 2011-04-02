@@ -96,7 +96,7 @@ void UpdateEncoder2(void);
 //#define SLOWING	 1
 //#define ALIGNED  2
 //#define STOPPING 3
-unsigned char NLFState;
+uint8_t NLFState;
 // Switching logic function
 void NLFSwitchingLogic(void);
 
@@ -111,19 +111,19 @@ void TestNLFilters(void);
  * LOCAL VARIABLES
  ***********************************************/
 // Temps for odometry calc.
-int PosCount,UpCount,DownCount;
+int16_t PosCount,UpCount,DownCount;
 
 // Odometry derivatives
-int xdot_odom, ydot_odom; // auxiliary only for FAST RATE odometry estimate
-long x_odom_prev, y_odom_prev, xdot_odom_time, ydot_odom_time,
+int16_t xdot_odom, ydot_odom; // auxiliary only for FAST RATE odometry estimate
+int32_t x_odom_prev, y_odom_prev, xdot_odom_time, ydot_odom_time,
 	xdot_odom_prev, ydot_odom_prev, xddot_odom, yddot_odom,
 	vel_odom, theta_odom_prev, omega_odom;
 // Target and NLF outputs
-long x_target; //= 5120000;
-long y_target; //= 8000000;
-long r_target;
+int32_t x_target; //= 5120000;
+int32_t y_target; //= 8000000;
+int32_t r_target;
 
-long x_set, y_set, xdot_set, ydot_set,
+int32_t x_set, y_set, xdot_set, ydot_set,
 	 xddot_set, yddot_set, xdddot_set, ydddot_set,
 	 theta_set, omega_set, alpha_set, vel_set, acc_set, jerk_set;
 
@@ -134,42 +134,42 @@ long x_set, y_set, xdot_set, ydot_set,
 #define EPS_VEL 2560
 
 // PATH WAYPOINTS
-int x_way[MAX_WAY] = {2000, 2500, 2000,  500,  200,  500, 1500};
-int y_way[MAX_WAY] = {   0,  750, 1500, 1500, 2250, 3000, 3000};
-int r_way[MAX_WAY] = { 130,  158,  130,  160,  102,  160,    0};
-unsigned char way_index = 0;
+int16_t x_way[MAX_WAY] = {2000, 2500, 2000,  500,  200,  500, 1500};
+int16_t y_way[MAX_WAY] = {   0,  750, 1500, 1500, 2250, 3000, 3000};
+int16_t r_way[MAX_WAY] = { 130,  158,  130,  160,  102,  160,    0};
+uint8_t way_index = 0;
 
 // aux for derivatives
-long xdot_set_prev,ydot_set_prev,xddot_set_prev,yddot_set_prev,
+int32_t xdot_set_prev,ydot_set_prev,xddot_set_prev,yddot_set_prev,
 	 xdddot_set_prev,ydddot_set_prev;
 // Error variables 
-long x_delta, y_delta, target_dist;
-long theta_e, omega_e, theta_e_delta;
+int32_t x_delta, y_delta, target_dist;
+int32_t theta_e, omega_e, theta_e_delta;
 // set-points for Vel/Orient. NL Filters
-long theta_ref, omega_ref, vel_ref;
+int32_t theta_ref, omega_ref, vel_ref;
 
 // "dynamic" constraints for Vel/Orient. NL Filters
-long vel_BOUND = 512000; // SCALING: 0.1mm/s 23.8 fixed-point
-long acc_lin_BOUND = 512000; //corresponds to maximum linear acceleration
-long acc_rad_BOUND = 192000; // SCALING: 0.1mm/s^2 23.8 fixed-point
+int32_t vel_BOUND = 512000; // SCALING: 0.1mm/s 23.8 fixed-point
+int32_t acc_lin_BOUND = 512000; //corresponds to maximum linear acceleration
+int32_t acc_rad_BOUND = 192000; // SCALING: 0.1mm/s^2 23.8 fixed-point
 
-long omega_M;
-long omega_BOUND = 39321; // SCALING: Q16 rad (15.16 fixed-point)
+int32_t omega_M;
+int32_t omega_BOUND = 39321; // SCALING: Q16 rad (15.16 fixed-point)
 
 // "static" constraints for Vel/Orient. NL Filters
-long Umax_vel_SHIFT = 20; // corresponds to maximum linear jerk
+uint8_t Umax_vel_SHIFT = 20; // corresponds to maximum linear jerk
 						  // SCALING: 0.1mm/s^3, 23.8 fixed-point
 						  // theoretical value: 1000 (2560000 in 23.8 fxp)
 						  // 21 = round(log2(2560000)
-long Umax_theta_SHIFT = 17; // corresponds to maximum angular acceleration
+uint8_t Umax_theta_SHIFT = 17; // corresponds to maximum angular acceleration
 							// theoretical value (motor limit): 393216
 							// 18 = round(log2(393216))
 
 // variables for dynamic feedback linearization
-long V1, V2; //virtual inputs
-long U1, U2; //actual inputs
-long XI; //state of the control integrator
-long drive_force, steer_torque;
+int32_t V1, V2; //virtual inputs
+int32_t U1, U2; //actual inputs
+int32_t XI; //state of the control integrator
+int32_t drive_force, steer_torque;
 
 // linear control-loop parameters
 #define K1 14 // x gain
@@ -178,12 +178,12 @@ long drive_force, steer_torque;
 
 // TO MANAGE LMD18200 SIGN INVERSION
 #define BLANKS 5
-unsigned char DIR1_PREV, DIR2_PREV, DIR1_TMP, DIR2_TMP;
-unsigned char DIR1_blank_count,DIR2_blank_count;
+uint8_t DIR1_PREV, DIR2_PREV, DIR1_TMP, DIR2_TMP;
+uint8_t DIR1_blank_count,DIR2_blank_count;
 
 // FOR CURRENT REFERENCES LOW-PASS FILTERING
-int rcurrent1samp[RCURR_MAV_ORDER],rcurrent2samp[RCURR_MAV_ORDER];
-unsigned char rcurrsampIdx = 0;
+int16_t rcurrent1samp[RCURR_MAV_ORDER],rcurrent2samp[RCURR_MAV_ORDER];
+uint8_t rcurrsampIdx = 0;
 
 /*************************************
  * Current control loops
@@ -195,12 +195,12 @@ void CurrentLoops(void)
 	// MANAGE SIGN OF REFERENCE (sign/magnitude control of LMD18200)
 	if(rcurrent1 < 0)
 	{
-		PIDCurrent1.qdInRef  = (long)(-rcurrent1);
+		PIDCurrent1.qdInRef  = (int32_t)(-rcurrent1);
 		DIR1_TMP = 1;
 	}
 	else
 	{	
-		PIDCurrent1.qdInRef  = (long)rcurrent1;
+		PIDCurrent1.qdInRef  = (int32_t)rcurrent1;
 		DIR1_TMP = 0;
 	}
 	
@@ -213,8 +213,8 @@ void CurrentLoops(void)
 
 	if(DIR1_blank_count == 0)
 	{
-		PIDCurrent1.qdInMeas = (long)(mcurrent1_filt - mcurrent1_offset);
-		//PIDCurrent1.qdInMeas = (long)(mcurrent1 - mcurrent1_offset);
+		PIDCurrent1.qdInMeas = (int32_t)(mcurrent1_filt - mcurrent1_offset);
+		//PIDCurrent1.qdInMeas = (int32_t)(mcurrent1 - mcurrent1_offset);
 	
 		CalcPI(&PIDCurrent1, &PIDCurrent1_f);
 	}
@@ -228,12 +228,12 @@ void CurrentLoops(void)
 	// 2ND MOTOR HAS SIGN INVERTED ('cause of Faulhaber motor)
 	if(rcurrent2 < 0)
 	{
-		PIDCurrent2.qdInRef  = (long)(-rcurrent2);
+		PIDCurrent2.qdInRef  = (int32_t)(-rcurrent2);
 		DIR2_TMP = 0;
 	}
 	else
 	{	
-		PIDCurrent2.qdInRef  = (long)rcurrent2;
+		PIDCurrent2.qdInRef  = (int32_t)rcurrent2;
 		DIR2_TMP = 1;
 	}
 	
@@ -246,8 +246,8 @@ void CurrentLoops(void)
 	
 	if(DIR2_blank_count == 0)
 	{
-		PIDCurrent2.qdInMeas = (long)(mcurrent2_filt - mcurrent2_offset);
-		//PIDCurrent2.qdInMeas = (long)(mcurrent2 - mcurrent2_offset);
+		PIDCurrent2.qdInMeas = (int32_t)(mcurrent2_filt - mcurrent2_offset);
+		//PIDCurrent2.qdInMeas = (int32_t)(mcurrent2 - mcurrent2_offset);
 	
 		CalcPI(&PIDCurrent2, &PIDCurrent2_f);
 	}
@@ -269,8 +269,8 @@ void CurrentLoops(void)
  *************************************/
 void RefCurrentFilter(void)
 {
-int rcurrent_temp;
-unsigned char idxtemp;
+int16_t rcurrent_temp;
+uint8_t idxtemp;
 
 	rcurrent1samp[rcurrsampIdx] = rcurrent1_req;
 	rcurrent2samp[rcurrsampIdx] = rcurrent2_req;
@@ -317,8 +317,8 @@ void SpeedLoops(void)
 // FIRST MOTOR
 	//UpdateEncoder1();	
 
-	PIDSpeed1.qdInMeas = (long)mvelocity1;
-	PIDSpeed1.qdInRef  = (long)rvelocity1;
+	PIDSpeed1.qdInMeas = (int32_t)mvelocity1;
+	PIDSpeed1.qdInRef  = (int32_t)rvelocity1;
 	CalcPI(&PIDSpeed1, &PIDSpeed1_f);
 	
 	rcurrent1 = PIDSpeed1.qOut;
@@ -326,8 +326,8 @@ void SpeedLoops(void)
 // SECOND MOTOR
 	//UpdateEncoder2();
 	
-	PIDSpeed2.qdInMeas = (long)mvelocity2;
-	PIDSpeed2.qdInRef  = (long)rvelocity2;
+	PIDSpeed2.qdInMeas = (int32_t)mvelocity2;
+	PIDSpeed2.qdInRef  = (int32_t)rvelocity2;
 	CalcPI(&PIDSpeed2, &PIDSpeed2_f);
 	
 	rcurrent2 = PIDSpeed2.qOut;
@@ -338,14 +338,14 @@ void SpeedLoops(void)
 	dataLOGdecim++;
 	if(dataLOGdecim == LOGDECIM)
 	{ 
-		//dataLOG1[dataLOGIdx] = (int)TRAJMotor1.qdPosition;
-		//dataLOG1[dataLOGIdx] = (int)TRAJMotor2.qdPosition;
-		//dataLOG1[dataLOGIdx] = (int)mposition1;
-		dataLOG1[dataLOGIdx] = (int)PIDSpeed1.qdInRef;
-		//dataLOG2[dataLOGIdx] = (int)TRAJMotor1.qdVelocity.i[1];
+		//dataLOG1[dataLOGIdx] = (int16_t)TRAJMotor1.qdPosition;
+		//dataLOG1[dataLOGIdx] = (int16_t)TRAJMotor2.qdPosition;
+		//dataLOG1[dataLOGIdx] = (int16_t)mposition1;
+		dataLOG1[dataLOGIdx] = (int16_t)PIDSpeed1.qdInRef;
+		//dataLOG2[dataLOGIdx] = (int16_t)TRAJMotor1.qdVelocity.i[1];
 		dataLOG2[dataLOGIdx] = mvelocity1;
-		//dataLOG4[dataLOGIdx] = (int)PIDSpeed1.qdErrPrev;
-		//dataLOG3[dataLOGIdx] = (int)mposition2;
+		//dataLOG4[dataLOGIdx] = (int16_t)PIDSpeed1.qdErrPrev;
+		//dataLOG3[dataLOGIdx] = (int16_t)mposition2;
 		//dataLOG4[dataLOGIdx] = mvelocity2;
 		if(DIR1)
 			dataLOG3[dataLOGIdx] = -mcurrent1;
@@ -415,20 +415,20 @@ void PositionLoops(void)
 	dataLOGdecim++;
 	if(dataLOGdecim == LOGDECIM)
 	{ 
-		//dataLOG1[dataLOGIdx] = (int)mposition1;
-		//dataLOG2[dataLOGIdx] = (int)TRAJMotor1.qdPosition;
+		//dataLOG1[dataLOGIdx] = (int16_t)mposition1;
+		//dataLOG2[dataLOGIdx] = (int16_t)TRAJMotor1.qdPosition;
 		dataLOG1[dataLOGIdx] = mvelocity1;
-		dataLOG2[dataLOGIdx] = (int)PIDSpeed1.qdInRef;
-		//dataLOG3[dataLOGIdx] = (int)(TRAJMotor1.qdVelocity.i[1] >> (TRAJMotor1.qVELshift + SPEED_POS_SHIFT));
-		//dataLOG3[dataLOGIdx] = (int)(TRAJMotor1.qdVelocity.i[1] >> TRAJMotor1.qVELshift);
+		dataLOG2[dataLOGIdx] = (int16_t)PIDSpeed1.qdInRef;
+		//dataLOG3[dataLOGIdx] = (int16_t)(TRAJMotor1.qdVelocity.i[1] >> (TRAJMotor1.qVELshift + SPEED_POS_SHIFT));
+		//dataLOG3[dataLOGIdx] = (int16_t)(TRAJMotor1.qdVelocity.i[1] >> TRAJMotor1.qVELshift);
 		dataLOG3[dataLOGIdx] = rcurrent1;
-		//dataLOG4[dataLOGIdx] = (int)PIDSpeed1.qdErrPrev;
-		//dataLOG3[dataLOGIdx] = (int)mposition2;
+		//dataLOG4[dataLOGIdx] = (int16_t)PIDSpeed1.qdErrPrev;
+		//dataLOG3[dataLOGIdx] = (int16_t)mposition2;
 		//dataLOG4[dataLOGIdx] = mvelocity2;
-		//dataLOG1[dataLOGIdx] = (int)((x_odom / 10)>>8);
-		//dataLOG2[dataLOGIdx] = (int)((y_odom / 10)>>8);
-		//dataLOG3[dataLOGIdx] = (int)(theta_odom>>3);
-		//dataLOG4[dataLOGIdx] = (int)(xdot_odom>>16);
+		//dataLOG1[dataLOGIdx] = (int16_t)((x_odom / 10)>>8);
+		//dataLOG2[dataLOGIdx] = (int16_t)((y_odom / 10)>>8);
+		//dataLOG3[dataLOGIdx] = (int16_t)(theta_odom>>3);
+		//dataLOG4[dataLOGIdx] = (int16_t)(xdot_odom>>16);
 		//dataLOG1[dataLOGIdx] =  x_odom;
 		//dataLOG2[dataLOGIdx] =  y_odom;
 		//dataLOG3[dataLOGIdx] =  theta_odom;
@@ -475,14 +475,14 @@ void UpdateEncoder1(void)
 		mvelocity1 = 550;
 	else if(mvelocity1 < -550)
 		mvelocity1 = -550;
-	mposition1 += (long)mvelocity1;
+	mposition1 += (int32_t)mvelocity1;
 #endif
 
 #ifdef REV2_BOARD
 	mvelocity1 = PosCount;							
   	PosCount = POSCNT;
   	mvelocity1 -= PosCount;
-  	mposition1 += (long)mvelocity1;
+  	mposition1 += (int32_t)mvelocity1;
 #endif
 
 #ifdef REV1_BOARD
@@ -493,7 +493,7 @@ void UpdateEncoder1(void)
   	mvelocity1+=UpCount;
   	mvelocity1-=DownCount;
   	
-  	mposition1+=(long)mvelocity1;
+  	mposition1+=(int32_t)mvelocity1;
 #endif
 
 }
@@ -511,14 +511,14 @@ void UpdateEncoder2(void)
 		mvelocity2 = 550;
 	else if(mvelocity2 < -550)
 		mvelocity2 = -550;
-	mposition2 += (long)mvelocity2;
+	mposition2 += (int32_t)mvelocity2;
 #endif
 
 #ifdef REV1_BOARD
 	mvelocity2 = PosCount;							
   	PosCount = POSCNT;
   	mvelocity2 -= PosCount;
-  	mposition2 += (long)mvelocity2;
+  	mposition2 += (int32_t)mvelocity2;
 #endif
 
 #ifdef REV2_BOARD
@@ -529,7 +529,7 @@ void UpdateEncoder2(void)
   	mvelocity2+=UpCount;
   	mvelocity2-=DownCount;
   	
-  	mposition2+=(long)mvelocity2;
+  	mposition2+=(int32_t)mvelocity2;
 #endif
 }
 
@@ -539,48 +539,48 @@ void UpdateEncoder2(void)
  *******************************************/
 void UpdateOdometryFx(void)
 {
-	int dS, dTH;
-	long temp, tempcs;
+	int16_t dS, dTH;
+	int32_t temp, tempcs;
 
 	UpdateEncoder1();
 	UpdateEncoder2();
 	
 ////ESTIMATE TRAVELED DISTANCE
-	temp = (long)wheel_radius*(long)(mvelocity1 + mvelocity2); 
+	temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 + mvelocity2); 
 	
 	// MULTIPLY BY PI_Q16 to convert into linear units
 	temp = temp * (PI_Q16 >> 7);
-	dS = (int)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10) 
+	dS = (int16_t)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10) 
 	
 ////ESTIMATE ROTATION
-	temp = (long)wheel_radius*(long)(mvelocity1 - mvelocity2);
+	temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 - mvelocity2);
 	
 	// MULTIPLY BY PI_Q16
 	temp = temp * (PI_Q16>>7); 
 	temp = temp / wheel_base;
-	dTH = (int)((temp<<5) / encoder_counts_rev); // ANGLE INCREMENT IN Q13 (no need to scale)
+	dTH = (int16_t)((temp<<5) / encoder_counts_rev); // ANGLE INCREMENT IN Q13 (no need to scale)
 
 ////UPDATE ODOMETRY ESTIMATE
-	temp = theta_odom + ((long)dTH << 2); 		// in Q16 radians, is theta_dom (Q16) + dTH (Q13) / 2 
+	temp = theta_odom + ((int32_t)dTH << 2); 		// in Q16 radians, is theta_dom (Q16) + dTH (Q13) / 2 
 	tempcs = _Q16cos(temp)*dS;					// COS in Q16 (15.16), so we have 26 fractional bits
-	xdot_odom = (int)(tempcs >> 18);			// Xdot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
-	x_odom += ((long)xdot_odom);				// X FINAL SCALING: 0.1mm, 23.8 fixed-point
+	xdot_odom = (int16_t)(tempcs >> 18);			// Xdot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
+	x_odom += ((int32_t)xdot_odom);				// X FINAL SCALING: 0.1mm, 23.8 fixed-point
 	tempcs = _Q16sin(temp)*dS;					// SIN in Q16 (15.16), so we have 26 fractional bits
-	ydot_odom = (int)(tempcs >> 18);			// Ydot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
-	y_odom += ((long)ydot_odom);		 		// Y FINAL SCALING: 0.1mm, 23.8 fixed-point	
+	ydot_odom = (int16_t)(tempcs >> 18);			// Ydot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
+	y_odom += ((int32_t)ydot_odom);		 		// Y FINAL SCALING: 0.1mm, 23.8 fixed-point	
 	
-/*  theta_odom = (long)(theta_odom + dTH);		// FINAL UNITS: Q13 radians
+/*  theta_odom = (int32_t)(theta_odom + dTH);		// FINAL UNITS: Q13 radians
 	// KEEP ANGLE  between [-PI;PI]
 	while(temp < -PI_Q13)
-	{temp +=  ((long)PI_Q13) << 1;}
+	{temp +=  ((int32_t)PI_Q13) << 1;}
 		
 	while(temp > PI_Q13)
-	{temp -=  ((long)PI_Q13) << 1;}
+	{temp -=  ((int32_t)PI_Q13) << 1;}
 	
-	theta_odom = (int)temp;
+	theta_odom = (int16_t)temp;
 */	
 
-	theta_odom += ((long)dTH << 3);						// FINAL UNITS: Q16 radians
+	theta_odom += ((int32_t)dTH << 3);						// FINAL UNITS: Q16 radians
 	// KEEP ANGLE  between [-PI;PI]
 	while(theta_odom < -PI_Q16)
 		{theta_odom +=  (PI_Q16<<1);}
@@ -601,13 +601,24 @@ void CartesianLoops(void)
 	
 	if(way_index == 0)
 	{
-		x_target = ((long)x_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-		y_target = ((long)y_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-		r_target = ((long)r_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+		x_target = ((int32_t)x_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+		y_target = ((int32_t)y_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+		r_target = ((int32_t)r_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
 		way_index++;
 	}
-	
+
+#ifdef DEVELOP_MODE 	
+// FOR TEST PROBE
+J10Pin3_OUT = 1;
+#endif
+
 	NLFSwitchingLogic();
+
+#ifdef DEVELOP_MODE 	
+// FOR TEST PROBE
+J10Pin3_OUT = 0;
+#endif
+
 	
 	DynamicFLControl();
 
@@ -625,10 +636,10 @@ void CartesianLoops(void)
 		//dataLOG2[dataLOGIdx] = vel_set;
 		//dataLOG1[dataLOGIdx] = OrientationNLFOut.qdX;
 		//dataLOG2[dataLOGIdx] = OrientationNLFOut.qdXdot;
-		//dataLOG1[dataLOGIdx] = (int)((x_odom / 10)>>8);
-		//dataLOG2[dataLOGIdx] = (int)((y_odom / 10)>>8);
-		//dataLOG3[dataLOGIdx] = (int)(theta_odom>>3);
-		//dataLOG4[dataLOGIdx] = (int)(xdot_odom>>16);
+		//dataLOG1[dataLOGIdx] = (int16_t)((x_odom / 10)>>8);
+		//dataLOG2[dataLOGIdx] = (int16_t)((y_odom / 10)>>8);
+		//dataLOG3[dataLOGIdx] = (int16_t)(theta_odom>>3);
+		//dataLOG4[dataLOGIdx] = (int16_t)(xdot_odom>>16);
 		//dataLOG1[dataLOGIdx] =  x_odom>>16;
 		//dataLOG2[dataLOGIdx] =  y_odom>>16;
 		dataLOG1[dataLOGIdx] = x_set;
@@ -701,25 +712,25 @@ J10Pin3_OUT = 0;
  ***********************************************************/
  void NLFSwitchingLogic(void)
  {
-	long long templong, stemplong, ctemplong, ftemplong;
-	long sintemp,costemp;
+	int64_t templong, stemplong, ctemplong, ftemplong;
+	int32_t sintemp,costemp;
 	
 	// Distance from target
 	x_delta = x_target - x_set;
 	y_delta = y_target - y_set;
-	templong = (long long)x_delta *(long long) x_delta;
-	templong += (long long)y_delta * (long long)y_delta;
+	templong = (int64_t)x_delta *(int64_t) x_delta;
+	templong += (int64_t)y_delta * (int64_t)y_delta;
 	
 	templong >>= 16;
 	
 	// pursuit-evasion equations:
-	target_dist = iSqrt((unsigned long)templong) << 8;
+	target_dist = iSqrt((uint32_t)templong) << 8;
 	
 	if((target_dist <= (R_SLOW + r_target))&&(way_index < (MAX_WAY+1)))
 		{
-			x_target = ((long)x_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-			y_target = ((long)y_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-			r_target = ((long)r_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+			x_target = ((int32_t)x_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+			y_target = ((int32_t)y_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
+			r_target = ((int32_t)r_way[way_index] * 10 ) << 8; // 0.1 mm 23.8 fixed-point
 			way_index++;
 			x_delta = x_target - x_set;
 			y_delta = y_target - y_set;
@@ -738,7 +749,7 @@ J10Pin3_OUT = 0;
 		{theta_e_delta -=  (PI_Q16<<1);}
 	
 	sintemp = _Q16sin(theta_e_delta);
-	templong = (long long)vel_set * (long long) sintemp;
+	templong = (int64_t)vel_set * (int64_t) sintemp;
 	omega_e = templong / target_dist; // assuming theta target = 0
 									  // NOTE: is scaled as Q16 already..
 	 
@@ -868,22 +879,22 @@ J10Pin3_OUT = 0;
 	sintemp = _Q16sin(theta_set);
 	costemp = _Q16cos(theta_set);
 	
-	templong = (long long) vel_set * (long long) costemp;
+	templong = (int64_t) vel_set * (int64_t) costemp;
 	xdot_set = templong >> 16;
-	templong = (long long) vel_set * (long long) sintemp;
+	templong = (int64_t) vel_set * (int64_t) sintemp;
 	ydot_set = templong >> 16;
 	
-	templong = (long long) vel_set * (long long) omega_set;
+	templong = (int64_t) vel_set * (int64_t) omega_set;
 	templong >>= 16;
-	stemplong = - templong * (long long) sintemp;
+	stemplong = - templong * (int64_t) sintemp;
 	stemplong >>= 16;
-	stemplong += ((long long) acc_set * (long long) costemp) >> 16;
-	xddot_set = (long) stemplong;
+	stemplong += ((int64_t) acc_set * (int64_t) costemp) >> 16;
+	xddot_set = (int32_t) stemplong;
 	//xddot_set = acc_set * costemp - vel_set * omega_set * sintemp;
-	stemplong = templong * (long long) costemp;
+	stemplong = templong * (int64_t) costemp;
 	stemplong >>= 16;
-	stemplong += ((long long) acc_set * (long long) sintemp) >> 16;
-	yddot_set = (long) stemplong;
+	stemplong += ((int64_t) acc_set * (int64_t) sintemp) >> 16;
+	yddot_set = (int32_t) stemplong;
 	//yddot_set = acc_set * sintemp + vel_set * omega_set * costemp;
 	
 //	xddot_set_prev = (xdot_set - xdot_set_prev) << POS_LOOP_FcSHIFT;
@@ -892,17 +903,17 @@ J10Pin3_OUT = 0;
 //	ydot_set_prev = ydot_set;
 	
 	
-	templong = templong * (long long) omega_set; // is already vel_set * omega_set
+	templong = templong * (int64_t) omega_set; // is already vel_set * omega_set
 	templong >>= 16;
-	stemplong = (long long)acc_set * (long long)omega_set;
+	stemplong = (int64_t)acc_set * (int64_t)omega_set;
 	stemplong >>= 15; // is also *2
-	ctemplong = (long long)vel_set * (long long)alpha_set;
+	ctemplong = (int64_t)vel_set * (int64_t)alpha_set;
 	ctemplong >>= 16;
 	ftemplong = (- templong * costemp) >> 16;
 	ftemplong -= (ctemplong * sintemp) >> 16;
 	ftemplong -= (stemplong * sintemp) >> 16;
-	ftemplong += ((long long)jerk_set * (long long) costemp) >> 16;
-	xdddot_set = (long) ftemplong;
+	ftemplong += ((int64_t)jerk_set * (int64_t) costemp) >> 16;
+	xdddot_set = (int32_t) ftemplong;
 
 	//xdddot_set = jerk_set * costemp - 2*acc_set * omega_set * sintemp - vel_set * alpha_set * sintemp
 	//			 - vel_set * omega_set * omega_set * costemp;
@@ -910,8 +921,8 @@ J10Pin3_OUT = 0;
 	ftemplong = (- templong * sintemp) >> 16;
 	ftemplong += (ctemplong * costemp) >> 16;
 	ftemplong += (stemplong * costemp) >> 16;
-	ftemplong += ((long long)jerk_set * (long long) sintemp) >> 16;
-	ydddot_set = (long) ftemplong;
+	ftemplong += ((int64_t)jerk_set * (int64_t) sintemp) >> 16;
+	ydddot_set = (int32_t) ftemplong;
 	//ydddot_set = jerk_set * sintemp + 2*acc_set * omega_set * costemp + vel_set * alpha_set * costemp
 	//			 - vel_set * omega_set * omega_set * sintemp;
 
@@ -931,9 +942,9 @@ J10Pin3_OUT = 0;
  *************************************************************/
 void DynamicFLControl(void)
 {
-	long sintemp, costemp;
-	long long templong, stemplong, ctemplong;
-	int tempcurr;
+	int32_t sintemp, costemp;
+	int64_t templong, stemplong, ctemplong;
+	int16_t tempcurr;
 
 	// complete full state measurement (x/y dot TIME scaled, x/y ddot)
 	xdot_odom_time = (x_odom - x_odom_prev) << POS_LOOP_FcSHIFT;
@@ -946,10 +957,10 @@ void DynamicFLControl(void)
 	xdot_odom_prev = xdot_odom_time;
 	ydot_odom_prev = ydot_odom_time;
 
-	templong = (long long) xdot_odom_time * (long long)xdot_odom_time;
-	templong += (long long) ydot_odom_time * (long long)ydot_odom_time;
+	templong = (int64_t) xdot_odom_time * (int64_t)xdot_odom_time;
+	templong += (int64_t) ydot_odom_time * (int64_t)ydot_odom_time;
 	templong >>= 16;
-	vel_odom = iSqrt((unsigned long)templong) << 8;
+	vel_odom = iSqrt((uint32_t)templong) << 8;
 	
 	omega_odom = (theta_odom - theta_odom_prev) << POS_LOOP_FcSHIFT;
 	theta_odom_prev = theta_odom;
@@ -959,16 +970,16 @@ void DynamicFLControl(void)
 
 	// LINEAR FEEDBACK LOOP
 	templong = xdddot_set;
-	templong += K3 * (long long)(xddot_set - xddot_odom);
-	templong += K2 * (long long)(xdot_set - xdot_odom_time);
-	templong += K1 * (long long)(x_set - x_odom);
-	V1 = (long) templong;
+	templong += K3 * (int64_t)(xddot_set - xddot_odom);
+	templong += K2 * (int64_t)(xdot_set - xdot_odom_time);
+	templong += K1 * (int64_t)(x_set - x_odom);
+	V1 = (int32_t) templong;
 	
 	templong = ydddot_set;
-	templong += K3 * (long long)(yddot_set - yddot_odom);
-	templong += K2 * (long long)(ydot_set - ydot_odom_time);
-	templong += K1 * (long long)(y_set - y_odom);
-	V2 = (long) templong;
+	templong += K3 * (int64_t)(yddot_set - yddot_odom);
+	templong += K2 * (int64_t)(ydot_set - ydot_odom_time);
+	templong += K1 * (int64_t)(y_set - y_odom);
+	V2 = (int32_t) templong;
 
 	// FEEDBACK LINEARIZATION LOOP
 	// U1 = Linear Jerk = vel * omega * omega + V1 * costemp + V2 * sintemp
@@ -979,30 +990,30 @@ void DynamicFLControl(void)
 	//     and U2 (angular acceleration) which can be transformed into torque/current
 	//     references for the wheels according to the differential drive kinematics
 	
-	templong = (long long) omega_odom * (long long)omega_odom;
-	templong = templong * (long long) vel_odom; 
+	templong = (int64_t) omega_odom * (int64_t)omega_odom;
+	templong = templong * (int64_t) vel_odom; 
 	templong >>= 16; // 16+8 frac. bits
 
-	ctemplong = (long long)V1 * (long long) costemp;
-	stemplong = (long long)V2 * (long long) sintemp;
+	ctemplong = (int64_t)V1 * (int64_t) costemp;
+	stemplong = (int64_t)V2 * (int64_t) sintemp;
 	
 	templong += ctemplong; // 16+8 frac. bits
 	templong += stemplong; // 16+8 frac. bits
 	
-	U1 = (long) (templong >> 16); // 23.8 fixed-point
+	U1 = (int32_t) (templong >> 16); // 23.8 fixed-point
 
-	templong = - ((long long) XI * (long long)omega_odom); // 16+8 frac. bits
+	templong = - ((int64_t) XI * (int64_t)omega_odom); // 16+8 frac. bits
 	templong <<= 1; // is also *2
 
-	stemplong = (long long)V1 * (long long) sintemp;
-	ctemplong = (long long)V2 * (long long) costemp;
+	stemplong = (int64_t)V1 * (int64_t) sintemp;
+	ctemplong = (int64_t)V2 * (int64_t) costemp;
 	
 	templong += ctemplong; // 16+8 frac. bits
 	templong -= stemplong; // 16+8 frac. bits
 	
 	if(vel_set != 0)
 	{
-		U2 = (long) ( templong / vel_odom); // SCALING: Q16 rad/s^2
+		U2 = (int32_t) ( templong / vel_odom); // SCALING: Q16 rad/s^2
 	}
 	else
 	{
@@ -1022,14 +1033,14 @@ void DynamicFLControl(void)
 	// Torque right wheel = (driving force * (wheel_radius / 2) + (steering torque * wheelradius) / (2 * wheelbase)
 	// Torque left wheel  = (driving force * (wheel_radius / 2) - (steering torque * wheelradius) / (2 * wheelbase)
 	
-	stemplong = (long long)drive_force * (long long)(wheel_radius >> 1); // Nm * 10^-8 23.8
-	ctemplong = (long long)steer_torque * (long long)(wheel_radius >> 1); 
+	stemplong = (int64_t)drive_force * (int64_t)(wheel_radius >> 1); // Nm * 10^-8 23.8
+	ctemplong = (int64_t)steer_torque * (int64_t)(wheel_radius >> 1); 
 	ctemplong = ctemplong / wheel_base; // Nm * 10^-2 15.16
 	ctemplong >>= 8;
 	ctemplong *= 1000000; // Nm * 10^-6 23.8
 	
 	templong = stemplong + ctemplong; // Wheel torque in Nm * 10^-8 23.8
-	tempcurr = (int)( templong / ADC_torque_scale);
+	tempcurr = (int16_t)( templong / ADC_torque_scale);
 	if(tempcurr > max_current)
 		tempcurr = max_current;
 	else if(tempcurr < -max_current)
@@ -1037,7 +1048,7 @@ void DynamicFLControl(void)
 	rcurrent1_req = tempcurr;
 	
 	templong = stemplong - ctemplong;
-	tempcurr = (int) ( templong / ADC_torque_scale);
+	tempcurr = (int16_t) ( templong / ADC_torque_scale);
 	if(tempcurr > max_current)
 		tempcurr = max_current;
 	else if(tempcurr < -max_current)

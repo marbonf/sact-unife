@@ -54,21 +54,21 @@ typedef struct {
 } tPIDflags;
 
 typedef struct {
-    long 			qdSum;	// 1.31 format
-    int	 			qKp;
-    int  			qKi;
-    int 			qKd;
-    unsigned char	qN;		// 2^N scaling factor
-    long  			qdOutMax;
-    long  			qdOutMin;
-    long  			qdInRef; 
-    long  			qdInMeas;
-    long			qdErrPrev;
-    int  			qOut;
+    int32_t     qdSum;	// 1.31 format
+    int16_t     qKp;
+    int16_t     qKi;
+    int16_t     qKd;
+    uint8_t	    qN;		// 2^N scaling factor
+    int32_t     qdOutMax;
+    int32_t     qdOutMin;
+    int32_t     qdInRef; 
+    int32_t     qdInMeas;
+    int32_t     qdErrPrev;
+    int16_t     qOut;
     } tPIDParm;
 
 // INIT MODE: -1 -> Out = OutMin, +1 -> Out = OutMax, 0 -> Out = 0
-void InitPID( tPIDParm *pParm, tPIDflags *pFlags, char mode);
+void InitPID( tPIDParm *pParm, tPIDflags *pFlags, int8_t mode);
 void CalcPID( tPIDParm *pParm, tPIDflags *pFlags);
 void CalcPI( tPIDParm *pParm, tPIDflags *pFlags);
 void CalcP( tPIDParm *pParm, tPIDflags *pFlags);
