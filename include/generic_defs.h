@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       generic_defs.h          	                      *
+ *    Filename:       generic_defs.h                                  *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains generic and usefult defines.
  *
@@ -107,12 +107,12 @@ typedef signed long long int64_t;
 
 // LONG TYPE FOR BINARY MODE MANAGEMENT
 typedef union {
-  int32_t  	l;
-  uint32_t 	ul;
-  int16_t 	i[2];
-  uint16_t	ui[2];
-  int8_t 	c[4];
-  uint8_t 	uc[4];
+  int32_t      l;
+  uint32_t     ul;
+  int16_t     i[2];
+  uint16_t    ui[2];
+  int8_t     c[4];
+  uint8_t     uc[4];
 } LNG;
 
 // WORD TYPE FOR BINARY MODE MANAGEMENT

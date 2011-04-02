@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       extern_globals.h 	                              *
+ *    Filename:       extern_globals.h                                *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains the extern declarations for global variables.
  *
@@ -71,48 +71,48 @@ extern uint16_t medium_ticks_limit;
 
 // For push-buttons management and debounce (see medium_event_handler)
 typedef union {
-	struct {
-	unsigned sw1 : 1;
-	unsigned sw2 : 1;
-	unsigned sw3 : 1;
-	unsigned sw4 : 1;
-	unsigned sw5 : 1;
-	unsigned sw6 : 1;
-	unsigned sw7 : 1;
-	unsigned sw8 : 1;
-	};
-	uint8_t b;
+    struct {
+    unsigned sw1 : 1;
+    unsigned sw2 : 1;
+    unsigned sw3 : 1;
+    unsigned sw4 : 1;
+    unsigned sw5 : 1;
+    unsigned sw6 : 1;
+    unsigned sw7 : 1;
+    unsigned sw8 : 1;
+    };
+    uint8_t b;
 } t_push_buttons;
 
 extern t_push_buttons push_buttons_state[];
 
 // CONTROL flags
 typedef union{
-	struct {
-	unsigned first_scan 		 : 1;
-	unsigned current_loop_active : 1;
-	unsigned pos_loop_active 	 : 1;
-	unsigned cart_loop_active 	 : 1;
-	unsigned UNUSED : 4;
-	};
-	uint8_t b;
+    struct {
+    unsigned first_scan          : 1;
+    unsigned current_loop_active : 1;
+    unsigned pos_loop_active     : 1;
+    unsigned cart_loop_active    : 1;
+    unsigned UNUSED : 4;
+    };
+    uint8_t b;
 } t_control_flags;
 
 extern t_control_flags control_flags;
 
 // STATUS flags
 typedef union{
-	struct {
-	unsigned battery_fault 		 : 1;
-	unsigned overcurrent1        : 1;
-	unsigned overcurrent2        : 1;
-	unsigned track_error1        : 1;
-	unsigned track_error2        : 1;
-	unsigned sonar_fault		 : 1;
-	unsigned bump_detect		 : 1;
-	unsigned comm_error 		 : 1;
-	};
-	uint8_t b;
+    struct {
+    unsigned battery_fault       : 1;
+    unsigned overcurrent1        : 1;
+    unsigned overcurrent2        : 1;
+    unsigned track_error1        : 1;
+    unsigned track_error2        : 1;
+    unsigned sonar_fault         : 1;
+    unsigned bump_detect         : 1;
+    unsigned comm_error          : 1;
+    };
+    uint8_t b;
 } t_status_flags;
 
 extern t_status_flags status_flags;
@@ -120,28 +120,28 @@ extern t_status_flags status_flags;
 
 // CONTROL MODE state and transitions
 typedef struct{
-	union {
-	struct {
-	unsigned torque_mode1_req : 1; // torque mode "independent"
-	unsigned torque_mode2_req : 1; // torque mode "driving"
-	unsigned vel_mode1_req    : 1; // velocity mode "independent"
-	unsigned vel_mode2_req    : 1; // velocity mode "driving"
-	unsigned cart_mode_req    : 1; 
-	unsigned off_mode_req     : 1;
-	unsigned UNUSED           : 2;
-	};
-	uint8_t trxs;
-	};
-	uint8_t state;
+    union {
+    struct {
+    unsigned torque_mode1_req : 1; // torque mode "independent"
+    unsigned torque_mode2_req : 1; // torque mode "driving"
+    unsigned vel_mode1_req    : 1; // velocity mode "independent"
+    unsigned vel_mode2_req    : 1; // velocity mode "driving"
+    unsigned cart_mode_req    : 1; 
+    unsigned off_mode_req     : 1;
+    unsigned UNUSED           : 2;
+    };
+    uint8_t trxs;
+    };
+    uint8_t state;
 } t_control_mode;
 
 // CONTROL MODE state values
-#define OFF_MODE   		0
-#define TORQUE_MODE1	1
-#define TORQUE_MODE2	2
-#define VEL_MODE1		3
-#define VEL_MODE2		4
-#define CART_MODE		5
+#define OFF_MODE        0
+#define TORQUE_MODE1    1
+#define TORQUE_MODE2    2
+#define VEL_MODE1       3
+#define VEL_MODE2       4
+#define CART_MODE       5
 
 extern t_control_mode control_mode;
 
@@ -182,7 +182,7 @@ extern int32_t x_odom,y_odom,theta_odom;
 // definitions are in the Controls.c source file
 // NOT in globals.c
 #define TURNING  0
-#define SLOWING	 1
+#define SLOWING  1
 #define ALIGNED  2
 #define STOPPING 3
 extern uint8_t NLFState;
@@ -212,7 +212,7 @@ extern volatile uint16_t parameters_RAM[];
 // VARIABLES FOR RUN-TIME USE OF PARAMETERS
 extern int32_t encoder_counts_rev;
 extern int16_t wheel_radius;
-extern int16_t wheel_base;
+extern int16_t wheel_track;
 extern int16_t robot_mass;
 extern int16_t robot_inertia;
 extern int32_t ADC_torque_scale;

@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Q16wrappers.c 	                              *
+ *    Filename:       Q16wrappers.c                                   *
  *    Date:           21/1/2011                                       *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains wrappers for Microchip Fixed-Point Math library
  *  particularly _Q16Atan2.
@@ -50,57 +50,57 @@
 // WRAPPER TO USE _Q16atanYByX as a four-quadrant (atan2) version, output in Q16
 _Q16 _Q16atan2(_Q16 x, _Q16 y)
 {
-	_Q16 temp;
-	
-	if(x == 0)
-	{
-		if(y > 0)
-			temp = PI_Q16 >> 1; // PI/2
-		else if(y < 0)
-				 temp = - (PI_Q16 >> 1); // -PI/2
-			else temp = 0;
-	}	
-	else
-	{
-		 temp = _Q16atanYByX(x,y); //SCALED in Q16 (15.16)
-		 if(x < 0)
-		 {
-		  	if(y >= 0)
-		  		temp += PI_Q16;
-		 	else
-		 		temp -= PI_Q16;
-		 }
-	}
-	
-	return temp;
+    _Q16 temp;
+    
+    if(x == 0)
+    {
+        if(y > 0)
+            temp = PI_Q16 >> 1; // PI/2
+        else if(y < 0)
+                 temp = - (PI_Q16 >> 1); // -PI/2
+            else temp = 0;
+    }    
+    else
+    {
+         temp = _Q16atanYByX(x,y); //SCALED in Q16 (15.16)
+         if(x < 0)
+         {
+              if(y >= 0)
+                  temp += PI_Q16;
+             else
+                 temp -= PI_Q16;
+         }
+    }
+    
+    return temp;
 }// END _Q16atan2..
 
 // WRAPPER TO USE _Q16atanYByXByPI as a four-quadrant (atan2) version, output in BRADS
 _Q16 _Q16atan2ByPI(_Q16 x, _Q16 y)
 {
-	_Q16 temp;
-	
-	if(x == 0)
-	{
-		if(y > 0)
-			temp = HALF_PI_BRADS; // PI/2 in BRADS
-		else if(y < 0)
-				 temp = mHALF_PI_BRADS; // -PI/2 in BRADS
-			else temp = 0;
-	}	
-	else
-	{
-		 temp = _Q16atanYByXByPI(x,y)<<15; //OUTPUT SCALED
-		 								   //from Q16 (15.16) to BRADS
-		 if(x < 0)
-		 {
-		  	if(y >= 0)
-		  		temp += PI_BRADS;
-		 	else
-		 		temp += mPI_BRADS;
-		 }
-	}
-	
-	return temp;
+    _Q16 temp;
+    
+    if(x == 0)
+    {
+        if(y > 0)
+            temp = HALF_PI_BRADS; // PI/2 in BRADS
+        else if(y < 0)
+                 temp = mHALF_PI_BRADS; // -PI/2 in BRADS
+            else temp = 0;
+    }    
+    else
+    {
+         temp = _Q16atanYByXByPI(x,y)<<15; //OUTPUT SCALED
+                                            //from Q16 (15.16) to BRADS
+         if(x < 0)
+         {
+              if(y >= 0)
+                  temp += PI_BRADS;
+             else
+                 temp += mPI_BRADS;
+         }
+    }
+    
+    return temp;
 }// END _Q16atan2..
 

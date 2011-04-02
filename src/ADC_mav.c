@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       ADC.c          	                              *
+ *    Filename:       ADC.c                                            *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains the initialization and ISR for ADC.
  *
@@ -89,7 +89,7 @@ void ADC_Init(void)
         ADCON2bits.SMPI = 0;
         ADCON2bits.CHPS = 2; //CH0,1,2,3
         ADCON2bits.ALTS = 0; //Always use MUX A input multiplexer settings
-		//ADCON2bits.VCFG = 3; //0 - AVdd/AVss, 3 - (Ideally) use external references
+        //ADCON2bits.VCFG = 3; //0 - AVdd/AVss, 3 - (Ideally) use external references
 
         //ADCON3 Register
         //At 14.7 MIPS, Tcy = 67.8 ns = Instruction Cycle Time
@@ -117,23 +117,23 @@ void ADC_Init(void)
         //Recall that we configured all A/D pins as digital when code execution
         //entered main() out of reset
         ADPCFG = 0xFFFF;
-        	CURRSENSE1_PCFG = ANALOG;
-        	CURRSENSE2_PCFG = ANALOG;
-        	AN8_PCFG = ANALOG;
-        	AN9_PCFG = ANALOG;
-        	AN10_PCFG = ANALOG;
-        	AN11_PCFG = ANALOG;
-        	AN12_PCFG = ANALOG;
-        	AN13_PCFG = ANALOG;
-        	AN14_PCFG = ANALOG;
-        	AN15_PCFG = ANALOG;
+            CURRSENSE1_PCFG = ANALOG;
+            CURRSENSE2_PCFG = ANALOG;
+            AN8_PCFG = ANALOG;
+            AN9_PCFG = ANALOG;
+            AN10_PCFG = ANALOG;
+            AN11_PCFG = ANALOG;
+            AN12_PCFG = ANALOG;
+            AN13_PCFG = ANALOG;
+            AN14_PCFG = ANALOG;
+            AN15_PCFG = ANALOG;
         
         
         // FOR ARRAY STORAGE OF SAMPLING:
-		ADindex = 0;
-		mcurrsampIdx = 0;
+        ADindex = 0;
+        mcurrsampIdx = 0;
 
-		
+        
 
         //Clear the A/D interrupt flag bit
         IFS0bits.ADIF = 0;
@@ -143,8 +143,8 @@ void ADC_Init(void)
         
         //Set the interrupt priority
         //7 = maximum
-    	//4 = default
-    	//0 = disable int.
+        //4 = default
+        //0 = disable int.
         IPC2bits.ADIP = 7;
 
         //Turn on the A/D converter
@@ -165,98 +165,98 @@ void __attribute__((interrupt,auto_psv)) _ADCInterrupt(void)
 J10Pin1_OUT = 1;
 #endif
 
-	// motor currents
-	// N.1 (AN1)
-	mcurrent1 = ADCBUF2;
-	
-	// N.2 (AN0)
-	mcurrent2 = ADCBUF1;
-	
-	// standard Analog inputs
-	ADResult[ADindex] = ADCBUF0;
-	
-	//update index
-	ADindex++;
-	if(ADindex > 7) ADindex = 0;
-	
-	// scan channels 8-15
-	if(ADCHSbits.CH0SA == 15)
-		ADCHSbits.CH0SA = 8;
-	else
-		ADCHSbits.CH0SA++;
+    // motor currents
+    // N.1 (AN1)
+    mcurrent1 = ADCBUF2;
+    
+    // N.2 (AN0)
+    mcurrent2 = ADCBUF1;
+    
+    // standard Analog inputs
+    ADResult[ADindex] = ADCBUF0;
+    
+    //update index
+    ADindex++;
+    if(ADindex > 7) ADindex = 0;
+    
+    // scan channels 8-15
+    if(ADCHSbits.CH0SA == 15)
+        ADCHSbits.CH0SA = 8;
+    else
+        ADCHSbits.CH0SA++;
 
-	//idxtemp++;
-	//if(idxtemp > UNDERSAMPLE_COUNT)
-	//{
-	//	idxtemp = 0;
-		
-	// moving average filtering
-/*	mcurrent1samp[mcurrsampIdx] = mcurrent1;
-	mcurrent2samp[mcurrsampIdx] = mcurrent2;
-	
-	idxtemp = 0;
-	mcurrent_temp = 0;
-	while(idxtemp < CURR_MAV_ORDER)
-	{
-		mcurrent_temp += mcurrent1samp[idxtemp];
-		idxtemp++;
-	}
-	mcurrent1_filt = (mcurrent_temp >> MAV_ORDER_SHFT);
+    //idxtemp++;
+    //if(idxtemp > UNDERSAMPLE_COUNT)
+    //{
+    //    idxtemp = 0;
+        
+    // moving average filtering
+/*    mcurrent1samp[mcurrsampIdx] = mcurrent1;
+    mcurrent2samp[mcurrsampIdx] = mcurrent2;
+    
+    idxtemp = 0;
+    mcurrent_temp = 0;
+    while(idxtemp < CURR_MAV_ORDER)
+    {
+        mcurrent_temp += mcurrent1samp[idxtemp];
+        idxtemp++;
+    }
+    mcurrent1_filt = (mcurrent_temp >> MAV_ORDER_SHFT);
 
-	//mcurrent1_filt = (mcurrent1samp[0] + mcurrent1samp[1] + mcurrent1samp[2] + mcurrent1samp[3])>>2;
-	
-	idxtemp = 0;
-	mcurrent_temp = 0;
-	while(idxtemp < CURR_MAV_ORDER)
-	{
-		mcurrent_temp += mcurrent2samp[idxtemp];
-		idxtemp++;
-	}
-	mcurrent2_filt = (mcurrent_temp >> MAV_ORDER_SHFT);
-	
-	//mcurrent2_filt = (mcurrent2samp[0] + mcurrent2samp[1] + mcurrent2samp[2] + mcurrent2samp[3])>>2;
-	
-	//update index
-	mcurrsampIdx++;
-	if(mcurrsampIdx > (CURR_MAV_ORDER-1)) mcurrsampIdx = 0;
-*/	
-	//execute CURRENT CONTROL LOOP (if active)
-	if(control_flags.current_loop_active)// && (mcurrsampIdx == 0))
-	{
-		CurrentLoops();
-	}
-	//}//END IF UNDERSAMPLE
+    //mcurrent1_filt = (mcurrent1samp[0] + mcurrent1samp[1] + mcurrent1samp[2] + mcurrent1samp[3])>>2;
+    
+    idxtemp = 0;
+    mcurrent_temp = 0;
+    while(idxtemp < CURR_MAV_ORDER)
+    {
+        mcurrent_temp += mcurrent2samp[idxtemp];
+        idxtemp++;
+    }
+    mcurrent2_filt = (mcurrent_temp >> MAV_ORDER_SHFT);
+    
+    //mcurrent2_filt = (mcurrent2samp[0] + mcurrent2samp[1] + mcurrent2samp[2] + mcurrent2samp[3])>>2;
+    
+    //update index
+    mcurrsampIdx++;
+    if(mcurrsampIdx > (CURR_MAV_ORDER-1)) mcurrsampIdx = 0;
+*/    
+    //execute CURRENT CONTROL LOOP (if active)
+    if(control_flags.current_loop_active)// && (mcurrsampIdx == 0))
+    {
+        CurrentLoops();
+    }
+    //}//END IF UNDERSAMPLE
 
 #ifdef DEVELOP_MODE 
 #ifdef LOG_ADCINT
 // LOGS DATA FOR Data Monitor Control Interface (DMCI) of MPLAB IDE
-	dataLOGdecim++;
-	if(dataLOGdecim == LOGDECIM)
-	{ 
-		dataLOG1[dataLOGIdx] = mcurrent1-mcurrent1_offset;
-		dataLOG2[dataLOGIdx] = rcurrent1;
-		
-		dataLOG3[dataLOGIdx] = PIDCurrent1.qOut;
-		
-		dataLOG4[dataLOGIdx] = PIDCurrent2.qOut;
-//		if(DIR1)
-//			dataLOG3[dataLOGIdx] = -mcurrent1_filt;
-//		else
-//			dataLOG3[dataLOGIdx] = mcurrent1_filt;
-		
-//		if(DIR2)
-//			dataLOG3[dataLOGIdx] = mcurrent2_filt;
-//		else
-//			dataLOG3[dataLOGIdx] = -mcurrent2_filt;	
-			
-		//dataLOG4[dataLOGIdx] = rcurrent1;
-		//dataLOG4[dataLOGIdx] = rcurrent2;
-		
-		dataLOGIdx++;
-		if(dataLOGIdx == MAXLOG) dataLOGIdx = 0;
-		
-		dataLOGdecim = 0;
-	}// IF DECIMATION	
+    dataLOGdecim++;
+    if(dataLOGdecim == LOGDECIM)
+    { 
+        dataLOG1[dataLOGIdx] = mcurrent1-mcurrent1_offset;
+        dataLOG2[dataLOGIdx] = rcurrent1;
+        
+        dataLOG3[dataLOGIdx] = PIDCurrent1.qOut;
+        
+        dataLOG4[dataLOGIdx] = PIDCurrent2.qOut;
+//        if(DIR1)
+//            dataLOG3[dataLOGIdx] = -mcurrent1_filt;
+//        else
+//            dataLOG3[dataLOGIdx] = mcurrent1_filt;
+        
+//        if(DIR2)
+//            dataLOG3[dataLOGIdx] = mcurrent2_filt;
+//        else
+//            dataLOG3[dataLOGIdx] = -mcurrent2_filt;    
+            
+        //dataLOG4[dataLOGIdx] = rcurrent1;
+        //dataLOG4[dataLOGIdx] = rcurrent2;
+        
+        dataLOGIdx++;
+        if(dataLOGIdx == MAXLOG) dataLOGIdx = 0;
+        
+        dataLOGdecim = 0;
+    }// IF DECIMATION    
 #endif //LOG_ADCINT
 
 // FOR TEST PROBE

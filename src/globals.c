@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       globals.c          	                      *
+ *    Filename:       globals.c                                       *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains the definition of global variables.
  *
@@ -85,13 +85,13 @@ int32_t x_odom,y_odom,theta_odom;
 int32_t encoder_counts_rev = 86000; //TODO init with EEPROM
 int16_t wheel_radius = 500; // in 0.1mm
 //int16_t wheel_radius = 50; // in mm
-int16_t wheel_base = 4100;  // in 0.1mm
-//int16_t wheel_base = 410; // in mm
+int16_t wheel_track = 4100;  // in 0.1mm
+//int16_t wheel_track = 410; // in mm
 int16_t robot_mass = 15; // in Kg
 int16_t robot_inertia = 41; // in 0.01 Kg m^2 ??
 int32_t ADC_torque_scale = 42000000; // = 25 600 000 000 / 438
-					// since 438 is scaling ADC points / Nm
-					// and Torque ref is in Nm * 10^-8 23.8 fixed-point
+                    // since 438 is scaling ADC points / Nm
+                    // and Torque ref is in Nm * 10^-8 23.8 fixed-point
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers

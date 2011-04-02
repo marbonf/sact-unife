@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       PID.c          	                              *
+ *    Filename:       PID.c                                           *
  *    Date:           29/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  Header file for reusable PID controller.
  *
@@ -47,18 +47,20 @@
 #ifndef PID_H
 #define PID_H
 
+#include "generic_defs.h" // for data types
+
 typedef struct {
-	unsigned d_term_enable 		: 1; //must be disabled for first cycle
-	unsigned saturated			: 1; //saturation
-	unsigned UNUSED				: 6;
+    unsigned d_term_enable : 1; //must be disabled for first cycle
+    unsigned saturated     : 1; //saturation
+    unsigned UNUSED        : 6;
 } tPIDflags;
 
 typedef struct {
-    int32_t     qdSum;	// 1.31 format
+    int32_t     qdSum;    // 1.31 format
     int16_t     qKp;
     int16_t     qKi;
     int16_t     qKd;
-    uint8_t	    qN;		// 2^N scaling factor
+    uint8_t     qN;        // 2^N scaling factor
     int32_t     qdOutMax;
     int32_t     qdOutMin;
     int32_t     qdInRef; 
