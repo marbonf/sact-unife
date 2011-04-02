@@ -95,23 +95,33 @@
 #define _8BIT_6 0x40
 #define _8BIT_7 0x80
 
+// ISO C99 stdint.h compatible data types
+typedef unsigned char uint8_t;
+typedef unsigned int uint16_t;
+typedef unsigned long uint32_t;
+typedef unsigned long long uint64_t;
+typedef signed char int8_t;
+typedef signed int int16_t;
+typedef signed long int32_t;
+typedef signed long long int64_t;
+
 // LONG TYPE FOR BINARY MODE MANAGEMENT
 typedef union {
-  long l;
-  unsigned long ul;
-  int i[2];
-  unsigned int ui[2];
-  char c[4];
-  unsigned char uc[4];
+  int32_t  	l;
+  uint32_t 	ul;
+  int16_t 	i[2];
+  uint16_t	ui[2];
+  int8_t 	c[4];
+  uint8_t 	uc[4];
 } LNG;
 
 // WORD TYPE FOR BINARY MODE MANAGEMENT
 typedef union
 {
-	unsigned int usi;
-	int si;
-	char sc[2];
-	unsigned char uc[2];
+  uint16_t  ui;
+  int16_t   i;
+  int8_t    c[2];
+  uint8_t   uc[2];
 } WRD;
 
 #endif

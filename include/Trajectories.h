@@ -61,14 +61,14 @@ typedef struct {
 } tTRAJflags;
 
 typedef struct {
-    long 			qdPosition;	// 1.31 format
-    LNG				qdVelocity;
-    int				qVLIM;
-    int				qACC;
-    unsigned char   qVELshift;
-    unsigned char   qACCshift;
-    int				qVelCOM;
-  	long			qdPosFIN;
+    int32_t         qdPosition;	// 1.31 format
+    LNG             qdVelocity;
+    int16_t         qVLIM;
+    int16_t         qACC;
+    uint8_t         qVELshift;
+    uint8_t         qACCshift;
+    int16_t         qVelCOM;
+  	int32_t         qdPosFIN;
     } tTRAJParm;
 
 void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
@@ -83,27 +83,27 @@ void JogTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
  *   to be a power of 2, to use only shifting (no div.)
 *******************************************************/
 typedef struct {
-    long 			qdXint;	// 1.31 format
-    long			qdXdot_int;
-    long			qdRprev; // if MODE = 1 -> previous command
+    int32_t         qdXint;	// 1.31 format
+    int32_t         qdXdot_int;
+    int32_t         qdRprev; // if MODE = 1 -> previous command
 							 // if MODE = 2 -> command derivative
-  	long			qdRcommand; // if MODE = 1 -> current command
+  	int32_t         qdRcommand; // if MODE = 1 -> current command
 							 	// if MODE = 2 -> tracking error, calculated outside
-  	unsigned char   MODE;
+  	uint8_t         MODE;
     } tNLFStatus;
 
 typedef struct {
-    long 			qdX;	// 1.31 format
-    long			qdXdot;
-    long			qdXddot;
+    int32_t         qdX;	// 1.31 format
+    int32_t         qdXdot;
+    int32_t         qdXddot;
     } tNLFOut;
 
 
 void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus);
 
 void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, 			// DATA STRUCTURES
-				 unsigned long Xdot_max, unsigned char Umax_SHIFT,	// DYNAMIC LIMITS
-				 unsigned char Fc_SHIFT);							// SAMPLING FREQUENCY
+				 uint32_t Xdot_max, uint8_t Umax_SHIFT,	// DYNAMIC LIMITS
+				 uint8_t Fc_SHIFT);							// SAMPLING FREQUENCY
  
 #endif
 

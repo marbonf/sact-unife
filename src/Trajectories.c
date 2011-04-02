@@ -67,7 +67,7 @@ void JogTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
 		if(pParm->qdVelocity.i[1] < pParm->qVelCOM)
 		{
 			// commanded velocity
-      		pParm->qdVelocity.l += ((long)pParm->qACC << pParm->qACCshift); // accelerate
+      		pParm->qdVelocity.l += ((int32_t)pParm->qACC << pParm->qACCshift); // accelerate
       		if(pParm->qdVelocity.i[1] > pParm->qVelCOM) // don't exceed commanded velocity
         		pParm->qdVelocity.i[1] = pParm->qVelCOM;
       		if(pParm->qdVelocity.i[1] > pParm->qVLIM) // Don't exceed velocity limit parameter
@@ -76,14 +76,14 @@ void JogTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
     	else // Is velact1 >= velcom1
       		if(pParm->qdVelocity.i[1] > pParm->qVelCOM) // If current velocity is more than
       		{ // commanded velocity
-      			pParm->qdVelocity.l -= ((long)pParm->qACC << pParm->qACCshift); // decelerate
+      			pParm->qdVelocity.l -= ((int32_t)pParm->qACC << pParm->qACCshift); // decelerate
       			if(pParm->qdVelocity.i[1] < pParm->qVelCOM) // don't exceed commanded velocity
         			pParm->qdVelocity.i[1] = pParm->qVelCOM;
       			if( -pParm->qdVelocity.i[1] > pParm->qVLIM) // Don't exceed velocity limit parameter
         			pParm->qdVelocity.i[1] = -pParm->qVLIM;
       		} 
 
-    	pParm->qdPosition += (long)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+    	pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
 	}
 	else
 	{
@@ -118,12 +118,12 @@ void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus)
 
 // NLFilter calculation
 void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, 			// DATA STRUCTURES
-				 unsigned long Xdot_max, unsigned char Umax_SHIFT,	// DYNAMIC LIMITS
-				 unsigned char Fc_SHIFT)							// SAMPLING FREQUENCY
+				 uint32_t Xdot_max, uint8_t Umax_SHIFT,	// DYNAMIC LIMITS
+				 uint8_t Fc_SHIFT)							// SAMPLING FREQUENCY
 {
 	// LOCALS
-	long tempX1, tempDTF, tempU, sigma, S, abs_sigma, Y, m;
-	long long beta, longY;
+	int32_t tempX1, tempDTF, tempU, sigma, S, abs_sigma, Y, m;
+	int64_t beta, longY;
 	
 	if((NLFStatus->MODE != 1)&&(NLFStatus->MODE != 2)) return;
 
@@ -148,24 +148,24 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, 			// DATA STRUCTURES
 	
 ////SLIDING CONTROL LAW
 	// tracking error derivative
-	//longY = (long long)(tempX1 - tempDTF);
+	//longY = (int64_t)(tempX1 - tempDTF);
 	Y = tempX1 - tempDTF;
 	
 	// calculate sliding surface
 	if(NLFStatus->MODE == 1)
 	{
 		// tracking error
-		beta =  (long long)(NLFStatus->qdXint - NLFStatus->qdRcommand) << Fc_SHIFT;
+		beta =  (int64_t)(NLFStatus->qdXint - NLFStatus->qdRcommand) << Fc_SHIFT;
 	}
 	else // MODE = 2
 	{
-		beta = (long long)NLFStatus->qdRcommand << Fc_SHIFT;
+		beta = (int64_t)NLFStatus->qdRcommand << Fc_SHIFT;
 	}
 
-	beta += (long long)(Y >> 1);
+	beta += (int64_t)(Y >> 1);
 	
 	beta = (beta >> Umax_SHIFT);
-	sigma = (long)(beta << Fc_SHIFT);
+	sigma = (int32_t)(beta << Fc_SHIFT);
 	
 	abs_sigma = FxAbs(sigma);
 	
@@ -181,8 +181,8 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, 			// DATA STRUCTURES
 	sigma = sigma / m; // CAN WE AVOID THIS DIVISION????
 	
 	//(Y/Tc)/amax + sigma  + ((m - 1)/2) *S;
-	longY = ((long long)Y << Fc_SHIFT) >> Umax_SHIFT;
-	Y = (long)longY;
+	longY = ((int64_t)Y << Fc_SHIFT) >> Umax_SHIFT;
+	Y = (int32_t)longY;
 	sigma += Y + ((m - 1) >> 1) * S; 
 	
 	// THIS ONE IS sign(sigma_n)
