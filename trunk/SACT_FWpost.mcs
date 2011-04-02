@@ -2,7 +2,7 @@
 MagicCookie={0b13fe8c-dfe0-40eb-8900-6712719559a7}
 Version=1.0
 [File000]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\main.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\main.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -15,7 +15,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File001]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\globals.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\globals.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -28,7 +28,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File002]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\lib_crc.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\lib_crc.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -41,7 +41,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File003]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\Controls.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\Controls.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -54,7 +54,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File004]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\Trajectories.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\Trajectories.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -67,7 +67,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File005]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\Comms.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\Comms.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -80,7 +80,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File006]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\SACT_Protocol.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\SACT_Protocol.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -93,7 +93,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File007]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\PID.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\PID.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -106,7 +106,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File008]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\ADC.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\ADC.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -119,7 +119,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File009]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\PWM.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\PWM.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -132,7 +132,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File010]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\QEI.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\QEI.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -145,7 +145,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File011]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\Timers.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\Timers.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -158,7 +158,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File012]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\traps.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\traps.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -171,7 +171,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File013]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\FxSqrtAbs.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\FxSqrtAbs.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -184,7 +184,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File014]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\build\Q16wrappers.o
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\build\Q16wrappers.o
 Folder=Intermediary
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -197,7 +197,7 @@ ToolArgsString=-g -Wall
 TraceCmdString=
 DebugOptions=
 [File015]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\.\build\SACT_FWpost.cof
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\.\build\SACT_FWpost.cof
 Folder=Output
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}
@@ -210,7 +210,7 @@ ToolArgsString=-o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)" -Map="$(BINDIR_)$(TAR
 TraceCmdString=
 DebugOptions=
 [File016]
-Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\V0.4\.\build\SACT_FWpost.hex
+Location=C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\.\build\SACT_FWpost.hex
 Folder=Output
 DeviceName=dsPIC30F6015
 LanguageToolSuiteID={479DDE59-4D56-455E-855E-FFF59A3DB57E}

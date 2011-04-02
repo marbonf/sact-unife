@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Trajectories.h          	                      *
+ *    Filename:       Trajectories.h                                  *
  *    Date:           2/1/2011                                        *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  Header file for the trajectory generation functions.
  *
@@ -55,20 +55,20 @@
  * BASIC Trajectory planners, derived from Microchip AN696
  *********************************************************/
 typedef struct {
-	unsigned enable 			: 1; //enable <- INPUT
-	unsigned active				: 1; //motion active -> OUTPUT
-	unsigned UNUSED				: 6;
+    unsigned enable    : 1; //enable <- INPUT
+    unsigned active    : 1; //motion active -> OUTPUT
+    unsigned UNUSED    : 6;
 } tTRAJflags;
 
 typedef struct {
-    int32_t         qdPosition;	// 1.31 format
+    int32_t         qdPosition;    // 1.31 format
     LNG             qdVelocity;
     int16_t         qVLIM;
     int16_t         qACC;
     uint8_t         qVELshift;
     uint8_t         qACCshift;
     int16_t         qVelCOM;
-  	int32_t         qdPosFIN;
+    int32_t         qdPosFIN;
     } tTRAJParm;
 
 void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
@@ -83,17 +83,17 @@ void JogTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
  *   to be a power of 2, to use only shifting (no div.)
 *******************************************************/
 typedef struct {
-    int32_t         qdXint;	// 1.31 format
+    int32_t         qdXint;    // 1.31 format
     int32_t         qdXdot_int;
     int32_t         qdRprev; // if MODE = 1 -> previous command
-							 // if MODE = 2 -> command derivative
-  	int32_t         qdRcommand; // if MODE = 1 -> current command
-							 	// if MODE = 2 -> tracking error, calculated outside
-  	uint8_t         MODE;
+                             // if MODE = 2 -> command derivative
+    int32_t         qdRcommand; // if MODE = 1 -> current command
+                                // if MODE = 2 -> tracking error, calculated outside
+    uint8_t         MODE;
     } tNLFStatus;
 
 typedef struct {
-    int32_t         qdX;	// 1.31 format
+    int32_t         qdX;    // 1.31 format
     int32_t         qdXdot;
     int32_t         qdXddot;
     } tNLFOut;
@@ -101,9 +101,9 @@ typedef struct {
 
 void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus);
 
-void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, 			// DATA STRUCTURES
-				 uint32_t Xdot_max, uint8_t Umax_SHIFT,	// DYNAMIC LIMITS
-				 uint8_t Fc_SHIFT);							// SAMPLING FREQUENCY
+void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
+                 uint32_t Xdot_max, uint8_t Umax_SHIFT, // DYNAMIC LIMITS
+                 uint8_t Fc_SHIFT);                     // SAMPLING FREQUENCY
  
 #endif
 

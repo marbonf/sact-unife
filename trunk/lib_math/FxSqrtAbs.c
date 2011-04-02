@@ -38,7 +38,7 @@
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains Fixed-Point implementation of Sqrt and Abs
  *
@@ -53,9 +53,9 @@
  *********************************************/
 uint32_t FxAbs(int32_t var)
   {
-	int32_t tmp = 0;
-	tmp = (var^(var>>31)) - (var>>31);
-	return (uint32_t)tmp;
+    int32_t tmp = 0;
+    tmp = (var^(var>>31)) - (var>>31);
+    return (uint32_t)tmp;
   }
   
 /*********************************************
@@ -63,13 +63,13 @@ uint32_t FxAbs(int32_t var)
  *********************************************/
 uint32_t MyAbs(int32_t var)
   {
-	int32_t tmp = 0;
-	if(var>0)
-		tmp=var;
-	if(var<0)
-	    tmp=-var;
-	
-	return (uint32_t)tmp;
+    int32_t tmp = 0;
+    if(var>0)
+        tmp=var;
+    if(var<0)
+        tmp=-var;
+    
+    return (uint32_t)tmp;
   }
 
 /*********************************************
@@ -86,7 +86,7 @@ uint32_t iSqrt(uint32_t x)
 
     /* "one" starts at the highest power of four <= than the argument. */
     one = 1UL << 30;  /* second-to-top bit set, use 1u << 14 for uint16 type;
-    				     use 1uL<<30 for uint32 */
+                         use 1uL<<30 for uint32 */
     while (one > op) one = one >> 2;
 
     while (one != 0) {

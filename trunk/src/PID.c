@@ -32,16 +32,16 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       PID.c          	                              *
+ *    Filename:       PID.c                                           *
  *    Date:           29/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains the reusable code for PID controllers.
- *	- CalcPID computes full PID algorithm
+ *  - CalcPID computes full PID algorithm
  *  - CalcPI  computes only P+I terms
  *  - CalcP   computes only P term (and saturation)
  *
@@ -54,25 +54,25 @@
 ************************************************/
 void InitPID(tPIDParm *pParm, tPIDflags *pFlags, int8_t mode)
 {
-	switch(mode)
-	{
-		case 1:	pParm->qOut = (pParm->qdOutMax>>pParm->qN);
-				pParm->qdSum = pParm->qdOutMax;
-				break;
-		case -1:pParm->qOut = (pParm->qdOutMin>>pParm->qN);
-				pParm->qdSum = pParm->qdOutMin;
-				break;
-		case 0:	
-		default:pParm->qOut = 0;
-				pParm->qdSum = 0;
-				break; 
-	}
-	
-	pParm->qdErrPrev=0;
-		
-	pFlags->saturated = 0;
-	pFlags->d_term_enable = 0;
-	
+    switch(mode)
+    {
+        case 1:    pParm->qOut = (pParm->qdOutMax>>pParm->qN);
+                pParm->qdSum = pParm->qdOutMax;
+                break;
+        case -1:pParm->qOut = (pParm->qdOutMin>>pParm->qN);
+                pParm->qdSum = pParm->qdOutMin;
+                break;
+        case 0:    
+        default:pParm->qOut = 0;
+                pParm->qdSum = 0;
+                break; 
+    }
+    
+    pParm->qdErrPrev=0;
+        
+    pFlags->saturated = 0;
+    pFlags->d_term_enable = 0;
+    
 }
 
 
@@ -81,83 +81,83 @@ void InitPID(tPIDParm *pParm, tPIDflags *pFlags, int8_t mode)
 ************************************************/
 void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	int32_t p_term;
-	int32_t d_term;
-	int32_t temp;
-	int32_t error;
-	
-	//START ASSUMING NOT IN LIMITATION
-	pFlags->saturated = 0;
-	
-	error = pParm->qdInRef - pParm->qdInMeas;
-	
-	p_term = error * (int32_t)pParm->qKp;
-	
-	if(pFlags->d_term_enable)
-		d_term = (error - pParm->qdErrPrev) * (int32_t)pParm->qKd;
-	else
-		d_term = 0;
-		
-	temp = p_term + d_term;
-	
-	// If in limit due to just P+D term then clear
-	// off I term so that when we come out of limit
-	// the I term can smoothly take over to eliminate 
-	// steady state error.
-	if(temp > pParm->qdOutMax)
-	{
-		pFlags->saturated = 1;
-		temp = pParm->qdOutMax;
-		pParm->qdSum = 0;
-	}
-	else
-	{
-		if(temp < pParm->qdOutMin)
-		{
-			pFlags->saturated = 1;
-			temp = pParm->qdOutMin;
-			pParm->qdSum = 0;
-		}
-	}
-	
-	// If NOT in limit, update I term
-	if(!pFlags->saturated)
-	{
-		pParm->qdSum += error * (int32_t)pParm->qKi;
-		temp += pParm->qdSum;
-		
-		if(temp > pParm->qdOutMax)
-		{
-			pFlags->saturated = 1;
-			temp = pParm->qdOutMax;
-			// CLAMP I term
-			pParm->qdSum = temp - p_term - d_term;
-		}
-		else
-		{
-			if(temp < pParm->qdOutMin)
-			{
-				pFlags->saturated = 1;
-				temp = pParm->qdOutMin;
-				// CLAMP I term
-				pParm->qdSum = temp - p_term - d_term;
-			}
-			//else
-			//{
-				// Output = unclamped P+I+D (still in temp)
-			//}
-		}		
-	}
-	
-	// SCALE FINAL RESULT
-	pParm->qOut = (temp >> pParm->qN);
-	
-	// PREPARE NEXT CYCLE
-	pParm->qdErrPrev = error;
-	//enable D term, which must be disabled
-	//at least for 1st cycle, since we don't
-	//have a valid prev. error sample
-	pFlags->d_term_enable = 1; 	
+    int32_t p_term;
+    int32_t d_term;
+    int32_t temp;
+    int32_t error;
+    
+    //START ASSUMING NOT IN LIMITATION
+    pFlags->saturated = 0;
+    
+    error = pParm->qdInRef - pParm->qdInMeas;
+    
+    p_term = error * (int32_t)pParm->qKp;
+    
+    if(pFlags->d_term_enable)
+        d_term = (error - pParm->qdErrPrev) * (int32_t)pParm->qKd;
+    else
+        d_term = 0;
+        
+    temp = p_term + d_term;
+    
+    // If in limit due to just P+D term then clear
+    // off I term so that when we come out of limit
+    // the I term can smoothly take over to eliminate 
+    // steady state error.
+    if(temp > pParm->qdOutMax)
+    {
+        pFlags->saturated = 1;
+        temp = pParm->qdOutMax;
+        pParm->qdSum = 0;
+    }
+    else
+    {
+        if(temp < pParm->qdOutMin)
+        {
+            pFlags->saturated = 1;
+            temp = pParm->qdOutMin;
+            pParm->qdSum = 0;
+        }
+    }
+    
+    // If NOT in limit, update I term
+    if(!pFlags->saturated)
+    {
+        pParm->qdSum += error * (int32_t)pParm->qKi;
+        temp += pParm->qdSum;
+        
+        if(temp > pParm->qdOutMax)
+        {
+            pFlags->saturated = 1;
+            temp = pParm->qdOutMax;
+            // CLAMP I term
+            pParm->qdSum = temp - p_term - d_term;
+        }
+        else
+        {
+            if(temp < pParm->qdOutMin)
+            {
+                pFlags->saturated = 1;
+                temp = pParm->qdOutMin;
+                // CLAMP I term
+                pParm->qdSum = temp - p_term - d_term;
+            }
+            //else
+            //{
+                // Output = unclamped P+I+D (still in temp)
+            //}
+        }        
+    }
+    
+    // SCALE FINAL RESULT
+    pParm->qOut = (temp >> pParm->qN);
+    
+    // PREPARE NEXT CYCLE
+    pParm->qdErrPrev = error;
+    //enable D term, which must be disabled
+    //at least for 1st cycle, since we don't
+    //have a valid prev. error sample
+    pFlags->d_term_enable = 1;     
 }
 
 
@@ -166,70 +166,70 @@ void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
 ************************************************/
 void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	int32_t p_term;
-	int32_t temp;
-	int32_t error;
-	
-	//START ASSUMING NOT IN LIMITATION
-	pFlags->saturated = 0;
-	
-	error = pParm->qdInRef - pParm->qdInMeas;
-	
-	p_term = error * (int32_t)pParm->qKp;
-			
-	temp = p_term;
-	
-	// If in limit due to just P term then clear
-	// off I term so that when we come out of limit
-	// the I term can smoothly take over to eliminate 
-	// steady state error.
-	if(temp > pParm->qdOutMax)
-	{
-		pFlags->saturated = 1;
-		temp = pParm->qdOutMax;
-		pParm->qdSum = 0;
-	}
-	else
-	{
-		if(temp < pParm->qdOutMin)
-		{
-			pFlags->saturated = 1;
-			temp = pParm->qdOutMin;
-			pParm->qdSum = 0;
-		}
-	}
-	
-	// If NOT in limit, update I term
-	if(!pFlags->saturated)
-	{
-		pParm->qdSum += error * (int32_t)pParm->qKi;
-		temp += pParm->qdSum;
-		
-		if(temp > pParm->qdOutMax)
-		{
-			pFlags->saturated = 1;
-			temp = pParm->qdOutMax;
-			// CLAMP I term
-			pParm->qdSum = temp - p_term;
-		}
-		else
-		{
-			if(temp < pParm->qdOutMin)
-			{
-				pFlags->saturated = 1;
-				temp = pParm->qdOutMin;
-				// CLAMP I term
-				pParm->qdSum = temp - p_term;
-			}
-			//else
-			//{
-				// Output = unclamped P+I+D (still in temp)
-			//}
-		}		
-	}
-	
-	// SCALE FINAL RESULT
-	pParm->qOut = (temp >> pParm->qN);
+    int32_t p_term;
+    int32_t temp;
+    int32_t error;
+    
+    //START ASSUMING NOT IN LIMITATION
+    pFlags->saturated = 0;
+    
+    error = pParm->qdInRef - pParm->qdInMeas;
+    
+    p_term = error * (int32_t)pParm->qKp;
+            
+    temp = p_term;
+    
+    // If in limit due to just P term then clear
+    // off I term so that when we come out of limit
+    // the I term can smoothly take over to eliminate 
+    // steady state error.
+    if(temp > pParm->qdOutMax)
+    {
+        pFlags->saturated = 1;
+        temp = pParm->qdOutMax;
+        pParm->qdSum = 0;
+    }
+    else
+    {
+        if(temp < pParm->qdOutMin)
+        {
+            pFlags->saturated = 1;
+            temp = pParm->qdOutMin;
+            pParm->qdSum = 0;
+        }
+    }
+    
+    // If NOT in limit, update I term
+    if(!pFlags->saturated)
+    {
+        pParm->qdSum += error * (int32_t)pParm->qKi;
+        temp += pParm->qdSum;
+        
+        if(temp > pParm->qdOutMax)
+        {
+            pFlags->saturated = 1;
+            temp = pParm->qdOutMax;
+            // CLAMP I term
+            pParm->qdSum = temp - p_term;
+        }
+        else
+        {
+            if(temp < pParm->qdOutMin)
+            {
+                pFlags->saturated = 1;
+                temp = pParm->qdOutMin;
+                // CLAMP I term
+                pParm->qdSum = temp - p_term;
+            }
+            //else
+            //{
+                // Output = unclamped P+I+D (still in temp)
+            //}
+        }        
+    }
+    
+    // SCALE FINAL RESULT
+    pParm->qOut = (temp >> pParm->qN);
 }
 
 /************************************************
@@ -237,29 +237,29 @@ void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
 ************************************************/
 void CalcP(tPIDParm *pParm, tPIDflags *pFlags)
 {
-	int32_t temp;
-	
-	//START ASSUMING NOT IN LIMITATION
-	pFlags->saturated = 0;
-	
-	temp = (pParm->qdInRef - pParm->qdInMeas) * (int32_t)pParm->qKp;
-	
-	// If in limit, saturate output
-	if(temp > pParm->qdOutMax)
-	{
-		pFlags->saturated = 1;
-		temp = pParm->qdOutMax;
-	}
-	else
-	{
-		if(temp < pParm->qdOutMin)
-		{
-			pFlags->saturated = 1;
-			temp = pParm->qdOutMin;
-		}
-	}
-	
-	// SCALE FINAL RESULT
-	pParm->qOut = (temp >> pParm->qN);
+    int32_t temp;
+    
+    //START ASSUMING NOT IN LIMITATION
+    pFlags->saturated = 0;
+    
+    temp = (pParm->qdInRef - pParm->qdInMeas) * (int32_t)pParm->qKp;
+    
+    // If in limit, saturate output
+    if(temp > pParm->qdOutMax)
+    {
+        pFlags->saturated = 1;
+        temp = pParm->qdOutMax;
+    }
+    else
+    {
+        if(temp < pParm->qdOutMin)
+        {
+            pFlags->saturated = 1;
+            temp = pParm->qdOutMin;
+        }
+    }
+    
+    // SCALE FINAL RESULT
+    pParm->qOut = (temp >> pParm->qN);
 }
 

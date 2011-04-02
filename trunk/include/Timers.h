@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Timers.h          	                      *
+ *    Filename:       Timers.h                                        *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  Header file for any timer init and ISR.
  *
@@ -61,7 +61,5 @@ void Timer4_Init(void);
 void Timer5_Init(void);
 
 void __attribute__((interrupt,auto_psv)) _T5Interrupt(void);
-//void __attribute__((interrupt,auto_psv)) _T3Interrupt(void);
- 
- 
+
 #endif

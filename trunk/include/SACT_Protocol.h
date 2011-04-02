@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       SACT_Protocol.h          	                      *
+ *    Filename:       SACT_Protocol.h                                 *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  Header file for the management of SACT interface protocol
  *
@@ -48,11 +48,11 @@
 #define SACT_PROT_H
 
 // SACT connection state
-#define SACT_NOSYNC 	0
-#define SACT_ASCII_U1  	1
-#define SACT_ASCII_U2	2
-#define SACT_BIN_U1		3
-#define SACT_BIN_U2		4
+#define SACT_NOSYNC     0
+#define SACT_ASCII_U1      1
+#define SACT_ASCII_U2    2
+#define SACT_BIN_U1        3
+#define SACT_BIN_U2        4
 
 // HEADER PARTS
 #define SACT_HEAD1 0xAA
@@ -75,45 +75,45 @@
 
 // flags
 typedef struct {
-	unsigned valid_header : 1;
-	unsigned packet_full  : 1;
-	unsigned param_limit  : 1; //a parameter update request
+    unsigned valid_header : 1;
+    unsigned packet_full  : 1;
+    unsigned param_limit  : 1; //a parameter update request
                                //exceeds limits
-	unsigned cr_rec1       : 1;
-	unsigned cr_rec2	   : 1;
-	unsigned help_req      : 1;
-	unsigned valid_idx	   : 1; //In ASCII mode: valid Index detected 
-								//In BIN mode:command processed 
+    unsigned cr_rec1       : 1;
+    unsigned cr_rec2       : 1;
+    unsigned help_req      : 1;
+    unsigned valid_idx       : 1; //In ASCII mode: valid Index detected 
+                                //In BIN mode:command processed 
 
-	unsigned wrong_mode	   : 1; //received a command NOT consistent
-								//with control mode
-								//e.g.: set vel in torque mode..
-	unsigned timeout	   : 8;
-} tSACT_flags;	
+    unsigned wrong_mode       : 1; //received a command NOT consistent
+                                //with control mode
+                                //e.g.: set vel in torque mode..
+    unsigned timeout       : 8;
+} tSACT_flags;    
 
 // For Sabot Sensor Packet configuration
 typedef union {
-	struct {
-	unsigned encoders : 1;
-	unsigned odometry : 1;
-	unsigned analogs : 1;
-	unsigned digitals : 1;
-	unsigned sonars : 1;
-	unsigned currents : 1;
-	unsigned wheel_vel : 1;
-	unsigned linrot_vel : 1;
-	unsigned UNUSED : 8;
-	};
-	int16_t word;
+    struct {
+    unsigned encoders : 1;
+    unsigned odometry : 1;
+    unsigned analogs : 1;
+    unsigned digitals : 1;
+    unsigned sonars : 1;
+    unsigned currents : 1;
+    unsigned wheel_vel : 1;
+    unsigned linrot_vel : 1;
+    unsigned UNUSED : 8;
+    };
+    int16_t word;
 } tSSP_config;
 
 // COMMAND/PARAMETERS STRUCTURE
 typedef struct {
-	uint16_t min;	//minimum allowed parameter value 
+    uint16_t min;    //minimum allowed parameter value 
     uint16_t max;   //maximum allowed parameter value
     uint8_t args; //number of command arguments
-   	char *line1_msg;    //line 1 parameter screen message 
-	char *quick_msg;	//abbriviation for message 
+       char *line1_msg;    //line 1 parameter screen message 
+    char *quick_msg;    //abbriviation for message 
     } t_command_data; 
    
 #define N_COMMANDS 12

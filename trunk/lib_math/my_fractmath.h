@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       my_fractmath.h 	                              *
+ *    Filename:       my_fractmath.h                                  *
  *    Date:           18/1/2011                                       *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains prototypes for C implementation of
  *  several useful math operations, some wrapped from
@@ -65,10 +65,10 @@
 #define mHALF_PI_BRADS 0xC0000000
 
 /* MAIN TRIG CONSTANTS IN Q16 */
-#define PI_Q16		   0x0003243F // PI*2^16 ~ 205887
+#define PI_Q16           0x0003243F // PI*2^16 ~ 205887
 
 /* MAIN TRIG CONSTANTS IN Q13, 16bit */
-#define PI_Q13		   0x6488 // PI*2^13 ~ 25736
+#define PI_Q13           0x6488 // PI*2^13 ~ 25736
 
 /* Prototypes for iSqrt() and FxAbs(), in FxSqrtAbs.c */
 uint32_t iSqrt(uint32_t a);

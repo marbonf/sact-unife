@@ -32,20 +32,20 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Comms.c          	                              *
+ *    Filename:       Comms.c                                         *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains init and aux functions
  *  for ALL communication channels:
  *  UART1/2, I2C, CAN (not used..)
  *
- *  NOTE: 	related ISRs are defined in specific source files
- *  		for protocol management (e.g. SACT_Protocol.c)
+ *  NOTE:     related ISRs are defined in specific source files
+ *          for protocol management (e.g. SACT_Protocol.c)
  *
  **********************************************************************/
  
@@ -57,48 +57,48 @@
 void UART1_Init(void)
 {
 
-	U1MODE = 0x8000; // UART1 Enabled (bit 15)
-					 // all other standard configs (8bit,noparity, etc)
-	U1STA  = 0x0000; // resets all errors etc.
-	
-	U1BRG  = BRGVAL1; // See .h
-	
-	//reset flags
-	IFS0bits.U1RXIF = 0;
-	IFS0bits.U1TXIF = 0;
-	
-	IEC0bits.U1RXIE = 1; // RX interrupt ENABLED
-	IEC0bits.U1TXIE = 0; // TX interrupt DISABLED
-	
-	U1STAbits.UTXISEL = 1; 	//Optional: setup UART1 transmitter to interrupt
-                          	//when a character is transferred to the
-                          	//Transmit Shift register and as result,
-                          	//the transmit buffer becomes empty.
-  	U1STAbits.UTXEN = 1;	//Enable UART1 transmitter
+    U1MODE = 0x8000; // UART1 Enabled (bit 15)
+                     // all other standard configs (8bit,noparity, etc)
+    U1STA  = 0x0000; // resets all errors etc.
+    
+    U1BRG  = BRGVAL1; // See .h
+    
+    //reset flags
+    IFS0bits.U1RXIF = 0;
+    IFS0bits.U1TXIF = 0;
+    
+    IEC0bits.U1RXIE = 1; // RX interrupt ENABLED
+    IEC0bits.U1TXIE = 0; // TX interrupt DISABLED
+    
+    U1STAbits.UTXISEL = 1;     //Optional: setup UART1 transmitter to interrupt
+                              //when a character is transferred to the
+                              //Transmit Shift register and as result,
+                              //the transmit buffer becomes empty.
+    U1STAbits.UTXEN = 1;    //Enable UART1 transmitter
 
 } 
 
 void UART2_Init(void)
 {
 
-	U2MODE = 0x8000; // UART1 Enabled (bit 15)
-					 // all other standard configs (8bit,noparity, etc)
-	U2STA  = 0x0000; // resets all errors etc.
-	
-	U2BRG  = BRGVAL2; // See .h
-	
-	//reset flags
-	IFS1bits.U2RXIF = 0;
-	IFS1bits.U2TXIF = 0;
-	
-	IEC1bits.U2RXIE = 1; // RX interrupt ENABLED
-	IEC1bits.U2TXIE = 0; // TX interrupt DISABLED
-	
-	U2STAbits.UTXISEL = 1; 	//Optional: setup UART1 transmitter to interrupt
-                          	//when a character is transferred to the
-                          	//Transmit Shift register and as result,
-                          	//the transmit buffer becomes empty.
-  	U2STAbits.UTXEN = 1;	//Enable UART1 transmitter
+    U2MODE = 0x8000; // UART1 Enabled (bit 15)
+                     // all other standard configs (8bit,noparity, etc)
+    U2STA  = 0x0000; // resets all errors etc.
+    
+    U2BRG  = BRGVAL2; // See .h
+    
+    //reset flags
+    IFS1bits.U2RXIF = 0;
+    IFS1bits.U2TXIF = 0;
+    
+    IEC1bits.U2RXIE = 1; // RX interrupt ENABLED
+    IEC1bits.U2TXIE = 0; // TX interrupt DISABLED
+    
+    U2STAbits.UTXISEL = 1;     //Optional: setup UART1 transmitter to interrupt
+                              //when a character is transferred to the
+                              //Transmit Shift register and as result,
+                              //the transmit buffer becomes empty.
+    U2STAbits.UTXEN = 1;    //Enable UART1 transmitter
 
 }
 
@@ -109,11 +109,11 @@ void UART2_Init(void)
 // putsUART(): sends a NULL terminated buffer on the required UART
 void putsUART(unsigned char *buffer, volatile UART *ureg)
 {
-	unsigned char * temp_ptr = buffer;
-	
-	/* transmit till NULL character is encountered */
-	
-	while(*temp_ptr != NULLC)
+    unsigned char * temp_ptr = buffer;
+    
+    /* transmit till NULL character is encountered */
+    
+    while(*temp_ptr != NULLC)
         {
             while(ureg->uxsta & _16BIT_9);  /* wait if the buffer is full */
             ureg->uxtxreg = *temp_ptr++;   /* transfer data byte to TX reg */
@@ -123,7 +123,7 @@ void putsUART(unsigned char *buffer, volatile UART *ureg)
 // putcUART(): sends a single character on the required UART
 void putcUART(unsigned char symbol, volatile UART *ureg)
 {
-	while(ureg->uxsta & _16BIT_9);  /* wait if the buffer is full */
+    while(ureg->uxsta & _16BIT_9);  /* wait if the buffer is full */
     ureg->uxtxreg = symbol;   /* transfer data byte to TX reg */
 }
 
@@ -133,36 +133,36 @@ void putiUART(int16_t k,volatile UART *ureg)
 unsigned char c;
 
 if(k<0){
-	k=-1*k;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = MINUS;
+    k=-1*k;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = MINUS;
 }
 else{
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = PLUS;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = PLUS;
 }
-	c = k/10000;
-	if (c > 0)
-		k = k - c*10000;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	c = k/1000;
-	if (c > 0)
-		k = k - c*1000;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	c = k/100;
-	if (c > 0)
-		k = k - c*100;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	c = k/10;
-	if (c > 0)
-		k = k - c*10;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (char)(k + ZERO);
+    c = k/10000;
+    if (c > 0)
+        k = k - c*10000;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    c = k/1000;
+    if (c > 0)
+        k = k - c*1000;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    c = k/100;
+    if (c > 0)
+        k = k - c*100;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    c = k/10;
+    if (c > 0)
+        k = k - c*10;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (char)(k + ZERO);
 }
 
 // putiUART(): sends an unsigned integer value as a string on the required UART
@@ -170,38 +170,38 @@ void putuiUART(uint16_t k,volatile UART *ureg)
 {
 unsigned char c;
 
-	c = k/10000;
-	if (c > 0)
-		k = k - c*10000;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);	
-	c = k/1000;
-	if (c > 0)
-		k = k - c*1000;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	c = k/100;
-	if (c > 0)
-		k = k - c*100;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	c = k/10;
-	if (c > 0)
-		k = k - c*10;
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (c + ZERO);
-	while (ureg->uxsta & _16BIT_9);
-	ureg->uxtxreg = (char)(k + ZERO);
+    c = k/10000;
+    if (c > 0)
+        k = k - c*10000;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);    
+    c = k/1000;
+    if (c > 0)
+        k = k - c*1000;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    c = k/100;
+    if (c > 0)
+        k = k - c*100;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    c = k/10;
+    if (c > 0)
+        k = k - c*10;
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (c + ZERO);
+    while (ureg->uxsta & _16BIT_9);
+    ureg->uxtxreg = (char)(k + ZERO);
 }
 
 
 // SendNUART(): sends N characters from a buffer (NOT necessarily NULL terminated) to the required UART
 void SendNUART(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 {
-	uint8_t idx = 0;
-	while(idx < N)
-	{
-		putcUART(buffer[idx],ureg);
-		idx++;
-	}
+    uint8_t idx = 0;
+    while(idx < N)
+    {
+        putcUART(buffer[idx],ureg);
+        idx++;
+    }
 }

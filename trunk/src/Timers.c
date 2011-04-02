@@ -32,13 +32,13 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Timers.c          	                      *
+ *    Filename:       Timers.c                                        *
  *    Date:           28/12/2010                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains the initialization and ISR for any timer.
  *
@@ -59,126 +59,88 @@ uint8_t speed_loop_count = 0;
 // TIMER1 and TIMER4 used for encoder counting
 void Timer1_Init(void)
 {
-	// T1CON
-		// Bit 15 - 1=Timer 1 is on,o is off
-		// Bit 14 - Not Used
-		// Bit 13 - 0=continues in idle,1=discontinues
-		// Bits12-7 - 	Not Used
-		// Bit6 - 1=timer in gate mode using T1CK
-		// Bits5-4 = clk prescalar
-		// 11 = 1:256
-		// 10 = 1:64
-		// 01 = 1:8
-		// 00 = 1:1
-		// Bit 3 - Not Used
-		// Bit 2 - 1= Synch external clock input
-		// Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
-		// Bit0 - Not Used
-	T1CON = 0x0006;  //Timer1 settato per il conteggio sincrono
-	PR1 = 0xFFFF;    //Period Register
-	TMR1=0;
-	T1CONbits.TON=1; //Start Timer1
+    // T1CON
+        // Bit 15 - 1=Timer 1 is on,o is off
+        // Bit 14 - Not Used
+        // Bit 13 - 0=continues in idle,1=discontinues
+        // Bits12-7 -     Not Used
+        // Bit6 - 1=timer in gate mode using T1CK
+        // Bits5-4 = clk prescalar
+        // 11 = 1:256
+        // 10 = 1:64
+        // 01 = 1:8
+        // 00 = 1:1
+        // Bit 3 - Not Used
+        // Bit 2 - 1= Synch external clock input
+        // Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
+        // Bit0 - Not Used
+    T1CON = 0x0006;  //Timer1 settato per il conteggio sincrono
+    PR1 = 0xFFFF;    //Period Register
+    TMR1=0;
+    T1CONbits.TON=1; //Start Timer1
 }
 
 void Timer4_Init(void)
 {
-	// T4CON
-		// Bit 15 - 1=Timer 1 is on,o is off
-		// Bit 14 - Not Used
-		// Bit 13 - 0=continues in idle,1=discontinues
-		// Bits12-7 - 	Not Used
-		// Bit6 - 1=timer in gate mode using T4CK
-		// Bits5-4 = clk prescalar
-		// 11 = 1:256
-		// 10 = 1:64
-		// 01 = 1:8
-		// 00 = 1:1
-		// Bit 3 - T45 - 1=Timer4/5 as 32 bit timer
-		// Bit 2 - Not used
-		// Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
-		// Bit0 - Not Used
-	T4CON = 0x0002;  //Timer1 settato per il conteggio sincrono
-	PR4 = 0xFFFF;    //Period Register
-	TMR4=0;
-	T4CONbits.TON=1; //Start Timer1
+    // T4CON
+        // Bit 15 - 1=Timer 1 is on,o is off
+        // Bit 14 - Not Used
+        // Bit 13 - 0=continues in idle,1=discontinues
+        // Bits12-7 -     Not Used
+        // Bit6 - 1=timer in gate mode using T4CK
+        // Bits5-4 = clk prescalar
+        // 11 = 1:256
+        // 10 = 1:64
+        // 01 = 1:8
+        // 00 = 1:1
+        // Bit 3 - T45 - 1=Timer4/5 as 32 bit timer
+        // Bit 2 - Not used
+        // Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
+        // Bit0 - Not Used
+    T4CON = 0x0002;  //Timer1 settato per il conteggio sincrono
+    PR4 = 0xFFFF;    //Period Register
+    TMR4=0;
+    T4CONbits.TON=1; //Start Timer1
 }
 
 //TIMER5 used to schedule high-freq control loop
 void Timer5_Init(void)
 {
-	// T5CON
-		// Bit 15 - 1=Timer 1 is on,o is off
-		// Bit 14 - Not Used
-		// Bit 13 - 0=continues in idle,1=discontinues
-		// Bits12-7 - 	Not Used
-		// Bit6 - 1=timer in gate mode using T1CK
-		// Bits5-4 = clk prescalar
-		// 11 = 1:256
-		// 10 = 1:64
-		// 01 = 1:8
-		// 00 = 1:1
-		// Bit 3 - Not used
-		// Bit 2 - Not used
-		// Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
-		// Bit0 - Not Used
-	T5CON = 0x0010;	// Timer set w/1:8 prescaler
-	
-	// CHECK THAT FCY/N IS CONSISTENT WITH 1:N PRESCALER!!!
-  	PR5 = (FCY/8) / SPEED_LOOP_FREQ;
-  	
-  	// RESET INTERRUPT FLAG 
-  	IFS1bits.T5IF = 0;   
-  	
-  	// INTERRUPT ENABLE 
-  	IEC1bits.T5IE = 1;
-  	
-  	//Set the interrupt priority
+    // T5CON
+        // Bit 15 - 1=Timer 1 is on,o is off
+        // Bit 14 - Not Used
+        // Bit 13 - 0=continues in idle,1=discontinues
+        // Bits12-7 -     Not Used
+        // Bit6 - 1=timer in gate mode using T1CK
+        // Bits5-4 = clk prescalar
+        // 11 = 1:256
+        // 10 = 1:64
+        // 01 = 1:8
+        // 00 = 1:1
+        // Bit 3 - Not used
+        // Bit 2 - Not used
+        // Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
+        // Bit0 - Not Used
+    T5CON = 0x0010;    // Timer set w/1:8 prescaler
+    
+    // CHECK THAT FCY/N IS CONSISTENT WITH 1:N PRESCALER!!!
+      PR5 = (FCY/8) / SPEED_LOOP_FREQ;
+      
+      // RESET INTERRUPT FLAG 
+      IFS1bits.T5IF = 0;   
+      
+      // INTERRUPT ENABLE 
+      IEC1bits.T5IE = 1;
+      
+      //Set the interrupt priority
     //7 = maximum
     //4 = default
     //0 = disable int.
-  	IPC5bits.T5IP = 6;  
-  	
-  	//ENABLE TIMER
-  	T5CONbits.TON=1;     
+      IPC5bits.T5IP = 6;  
+      
+      //ENABLE TIMER
+      T5CONbits.TON=1;     
 }
-
-//TIMER3 used to schedule low-freq control loop
-//void Timer3_Init(void)
-//{
-//	// T2CON
-//		// Bit 15 - 1=Timer 1 is on,o is off
-//		// Bit 14 - Not Used
-//		// Bit 13 - 0=continues in idle,1=discontinues
-//		// Bits12-7 - 	Not Used
-//		// Bit6 - 1=timer in gate mode using T4CK
-//		// Bits5-4 = clk prescalar
-//		// 11 = 1:256
-//		// 10 = 1:64
-//		// 01 = 1:8
-//		// 00 = 1:1
-//		// Bit 3 - T32 - 1=Timer2/3 as 32 bit timer
-//		// Bit 2 - Not used
-//		// Bit 1 - 1=clk is rising edge of T1CK,0 = Tcy
-//		// Bit0 - Not Used
-//	T3CON = 0x0010;  //Timer2 set w/1:8 prescaler
-//	// CHECK THAT FCY/N IS CONSISTENT WITH 1:N PRESCALER!!!
-//  	PR3 = (FCY/8) / POS_LOOP_FREQ;
-//  	
-//  	// RESET INTERRUPT FLAG 
-//  	IFS0bits.T3IF = 0;   
-//  	
-//  	// INTERRUPT ENABLE 
-//  	IEC0bits.T3IE = 1;
-//  	
-//  	//Set the interrupt priority
-//    //7 = maximum
-//    //4 = default
-//    //0 = disable int.
-//  	IPC1bits.T3IP = 5;  
-//  	
-//  	//ENABLE TIMER
-//  	T3CONbits.TON=1;     
-//}
 
 /************************************************************
 * _T5Interrupt() is the Timer5 interrupt service routine (ISR).
@@ -192,29 +154,29 @@ void __attribute__((interrupt,auto_psv)) _T5Interrupt(void)
 J10Pin2_OUT = 1;
 #endif
 
-IFS1bits.T5IF = 0;	// Clear interrupt flag
+IFS1bits.T5IF = 0;    // Clear interrupt flag
 
-	if(control_flags.pos_loop_active)
-	{
-		SpeedLoops();
-	}
-	else if(control_flags.current_loop_active)
-	{
-		RefCurrentFilter();
-	}
+    if(control_flags.pos_loop_active)
+    {
+        SpeedLoops();
+    }
+    else if(control_flags.current_loop_active)
+    {
+        RefCurrentFilter();
+    }
 
-	// counter for loop frequency submultiple
-	speed_loop_count++;
-	
-	if(speed_loop_count > (SPEED_LOOP_FREQ/POS_LOOP_FREQ - 1))
-	{
-		speed_loop_count = 0;
-		UpdateOdometryFx();
-		if(control_flags.pos_loop_active)
-			PositionLoops();
-		else if(control_flags.cart_loop_active)
-			CartesianLoops();
-	}
+    // counter for loop frequency submultiple
+    speed_loop_count++;
+    
+    if(speed_loop_count > (SPEED_LOOP_FREQ/POS_LOOP_FREQ - 1))
+    {
+        speed_loop_count = 0;
+        UpdateOdometryFx();
+        if(control_flags.pos_loop_active)
+            PositionLoops();
+        else if(control_flags.cart_loop_active)
+            CartesianLoops();
+    }
 
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
@@ -222,28 +184,3 @@ J10Pin2_OUT = 0;
 #endif
 
 }
-
-/************************************************************
-* _T2Interrupt() is the Timer2 interrupt service routine (ISR).
-* The routine must have global scope in order to be an ISR.
-* The ISR name is chosen from the device linker script.
-************************************************************/
-//void __attribute__((interrupt,auto_psv)) _T3Interrupt(void)
-//{
-//#ifdef DEVELOP_MODE 
-//// FOR TEST PROBE
-//J10Pin3_OUT = 1;
-//#endif
-//
-//	if(control_flags.pos_loop_active)
-//	{
-//		PositionLoops();
-//	}
-//	
-//#ifdef DEVELOP_MODE 
-//// FOR TEST PROBE
-//J10Pin3_OUT = 0;
-//#endif
-//
-//	IFS0bits.T3IF = 0;	// Clear interrupt flat
-//}

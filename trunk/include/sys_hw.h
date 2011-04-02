@@ -32,13 +32,13 @@
  *                                                                *
  *    Author: Marcello Bonfe'                                     *
  *                                                                *
- *    Filename:       sys_hw.h          	                  *
+ *    Filename:       sys_hw.h                                    *
  *    Date:           28/12/2010                                  *
  *    File Version:   0.1                                         *
  *    Compiler:       MPLAB C30 v3.23                             *
  *                                                                *
  ******************************************************************
- *	Code Description
+ *    Code Description
  *  
  *  This file contains system and hardware specific definitions.
  *  Compatibility:
@@ -79,9 +79,9 @@
  * Device Throughput in MIPS = Fcy = 7372800*8/4 = ~14.74 MIPS
  * Instruction Cycle time = Tcy = 1/(Fcy) = ~68 nanoseconds
  ******************************************************************/
-#define XTFREQ          7372800         	//On-board Crystal fcy
-#define PLLMODE         16               	//On-chip PLL setting
-#define FCY             XTFREQ*PLLMODE/4  	//Instruction Cycle Fcy
+#define XTFREQ          7372800             //On-board Crystal fcy
+#define PLLMODE         16                   //On-chip PLL setting
+#define FCY             XTFREQ*PLLMODE/4      //Instruction Cycle Fcy
 
 /*******************************************************************
  * H-Bridge Control pins (PWM/DIR/BRAKE) 

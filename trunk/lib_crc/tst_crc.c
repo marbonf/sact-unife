@@ -78,7 +78,7 @@
     *                                                                   *
     \*******************************************************************/
 
-#define MAX_STRING_SIZE	2048
+#define MAX_STRING_SIZE    2048
 
 
 
@@ -136,7 +136,7 @@ void main( int argc, char *argv[] ) {
             if ( *ptr >= 'a'  &&  *ptr <= 'f' ) *dest++ = (char) ( (*ptr) - 'a' + 10 );
 
             ptr++;
-	}
+    }
 
         * dest    = '\x80';
         *(dest+1) = '\x80';
