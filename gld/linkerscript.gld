@@ -34,7 +34,7 @@
 
 /*INPUT(-lm)*/
 /*INPUT(-ldsp)*/
-/*INPUT(-lpic30)*/
 /*INPUT(-lc)*/
+INPUT(-lpic30)
 INPUT(-lq)
 INCLUDE p30f6015.gld

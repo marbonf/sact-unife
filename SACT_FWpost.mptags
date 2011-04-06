@@ -9,10 +9,10 @@
 ADC_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\ADC.h	48;"	d	line:48
 ADC_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\ADC.h	52;"	p	line:52	signature:(void)
 ADC_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\ADC.c	68;"	f	line:68	signature:(void)
-ADC_torque_scale	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	92;"	v	line:92
+ADC_torque_scale	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	93;"	v	line:93
 ADResult	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	51;"	v	line:51
 ADindex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\ADC.c	59;"	v	line:59
-ALIGNED::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	186;"	d	line:186
+ALIGNED::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	200;"	d	line:200
 AN10_PCFG::ADPCFGbits.PCFG10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	186;"	d	line:186
 AN10_TRIS::TRISBbits.TRISB10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	173;"	d	line:173
 AN11_PCFG::ADPCFGbits.PCFG11	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	187;"	d	line:187
@@ -32,11 +32,11 @@ AN9_TRIS::TRISBbits.TRISB9	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_
 ANALOG::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	52;"	d	line:52
 BAUDRATE1::115200	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	52;"	d	line:52
 BAUDRATE2::230400	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	53;"	d	line:53
-BINLastCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	226;"	v	line:226
-BINRXbuf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	213;"	v	line:213
-BINRXcnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	214;"	v	line:214
-BINTXbuf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	215;"	v	line:215
-BINTXcnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	216;"	v	line:216
+BINLastCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	219;"	v	line:219
+BINRXbuf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	206;"	v	line:206
+BINRXcnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	207;"	v	line:207
+BINTXbuf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	208;"	v	line:208
+BINTXcnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	209;"	v	line:209
 BLANKS::5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	180;"	d	line:180	file:
 BRAKE1::LATEbits.LATE4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	122;"	d	line:122
 BRAKE1_TRIS::TRISEbits.TRISE4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	100;"	d	line:100
@@ -44,17 +44,17 @@ BRAKE2::LATEbits.LATE5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\
 BRAKE2_TRIS::TRISEbits.TRISE5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	101;"	d	line:101
 BRGVAL1::((FCY/BAUDRATE1)/16)-1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	54;"	d	line:54
 BRGVAL2::((FCY/BAUDRATE2)/16)-1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	55;"	d	line:55
-CART_MODE::5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	144;"	d	line:144
-CODE_PROT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	65;"	v	line:65
+CART_MODE::5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	143;"	d	line:143
 CODE_PROT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	66;"	v	line:66
 CODE_PROT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	67;"	v	line:67
+CODE_PROT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	68;"	v	line:68
 COMMANDPARA::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	68;"	d	line:68
 COMMS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	48;"	d	line:48
 CONTROLPARA::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	71;"	d	line:71
 CONTROLS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	47;"	d	line:47
 CR::0x0D	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	59;"	d	line:59
 CRC_VERSION::"1.16"	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.h	52;"	d	line:52
-CRLFMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	154;"	v	line:154
+CRLFMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	147;"	v	line:147
 CURRSENSE1_PCFG::ADPCFGbits.PCFG1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	111;"	d	line:111
 CURRSENSE1_TRIS::TRISBbits.TRISB1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	106;"	d	line:106
 CURRSENSE2_PCFG::ADPCFGbits.PCFG0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	112;"	d	line:112
@@ -66,12 +66,12 @@ CalcPI	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PI
 CalcPID	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PID.h	74;"	p	line:74	signature:( tPIDParm *pParm, tPIDflags *pFlags)
 CalcPID	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	82;"	f	line:82	signature:(tPIDParm *pParm, tPIDflags *pFlags)
 CartesianLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	55;"	p	line:55	signature:(void)
-CartesianLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	597;"	f	line:597	signature:(void)
-CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	237;"	p	line:237	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	792;"	f	line:792	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-CommandParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	157;"	v	line:157
-ControlModeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	176;"	v	line:176
-ControlParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	160;"	v	line:160
+CartesianLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	541;"	f	line:541	signature:(void)
+CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	230;"	p	line:230	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	785;"	f	line:785	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+CommandParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	150;"	v	line:150
+ControlModeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	169;"	v	line:169
+ControlParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	153;"	v	line:153
 CurrentLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	49;"	p	line:49	signature:(void)
 CurrentLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	192;"	f	line:192	signature:(void)
 DEVELOP_MODE	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	67;"	d	line:67
@@ -88,41 +88,48 @@ DIR2_TRIS::TRISEbits.TRISE3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW
 DIR2_blank_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	182;"	v	line:182
 DownCount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	114;"	v	line:114
 DynamicFLControl	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	105;"	p	line:105	file:	signature:(void)
-DynamicFLControl	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	942;"	f	line:942	signature:(void)
+DynamicFLControl	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	821;"	f	line:821	signature:(void)
+EEPROM_PAR_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\EEPROM_params.h	48;"	d	line:48
+EEPROM_UpdReq	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	57;"	v	line:57
+EE_addr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	64;"	v	line:64
+EE_is_blank_RAM	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	61;"	v	line:61
+EE_is_blank_addr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	65;"	v	line:65
 EPS_ANGLE::600	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	132;"	d	line:132	file:
 EPS_DIST::2560	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	133;"	d	line:133	file:
 EPS_VEL::2560	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	134;"	d	line:134	file:
 EXTERN_GLOBALS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	47;"	d	line:47
-ErrorControlModeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	153;"	v	line:153
-ErrorMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	149;"	v	line:149
-ErrorParaLengthMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	151;"	v	line:151
-ErrorParaLimitMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	152;"	v	line:152
-ErrorParaMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	150;"	v	line:150
-ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1054;"	f	line:1054	signature:(uint8_t idx,int16_t *args)
-ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	248;"	p	line:248	file:	signature:(uint8_t idx,int16_t *args)
+ErrorControlModeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	146;"	v	line:146
+ErrorMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	142;"	v	line:142
+ErrorParaLengthMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	144;"	v	line:144
+ErrorParaLimitMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	145;"	v	line:145
+ErrorParaMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	143;"	v	line:143
+ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1047;"	f	line:1047	signature:(uint8_t idx,int16_t *args)
+ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	241;"	p	line:241	file:	signature:(uint8_t idx,int16_t *args)
 FALSE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	56;"	d	line:56
 FALSE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.h	56;"	d	line:56
 FCY::XTFREQ*PLLMODE/4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	84;"	d	line:84
 FCY_PWM::16000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	55;"	d	line:55
 FRACBITS::30	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	57;"	d	line:57
 FULL_DUTY::((FCY/(FCY_PWM*PWM_PRESC)-1)*2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	57;"	d	line:57
-FaultMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	186;"	v	line:186
+FaultMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	179;"	v	line:179
 FxAbs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	54;"	f	line:54	signature:(int32_t var)
 FxAbs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	75;"	p	line:75	signature:(int32_t var)
 GENERIC_DEFS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	47;"	d	line:47
-GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	239;"	p	line:239	file:	signature:(unsigned char *rxbuf)
-GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	761;"	f	line:761	signature:(unsigned char *rxbuf)
-GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	240;"	p	line:240	file:	signature:(uint8_t idx, volatile UART *ureg)
-GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	783;"	f	line:783	signature:(uint8_t idx, volatile UART *ureg)
-GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1006;"	f	line:1006	signature:(uint8_t idx, volatile UART *ureg)
-GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	241;"	p	line:241	file:	signature:(uint8_t idx, volatile UART *ureg)
+GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	232;"	p	line:232	file:	signature:(unsigned char *rxbuf)
+GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	754;"	f	line:754	signature:(unsigned char *rxbuf)
+GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	233;"	p	line:233	file:	signature:(uint8_t idx, volatile UART *ureg)
+GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	776;"	f	line:776	signature:(uint8_t idx, volatile UART *ureg)
+GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	234;"	p	line:234	file:	signature:(uint8_t idx, volatile UART *ureg)
+GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	999;"	f	line:999	signature:(uint8_t idx, volatile UART *ureg)
 HALF_PI_BRADS::0x40000000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	64;"	d	line:64
 HT::0x09	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	61;"	d	line:61
 HWIOPARA::4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	72;"	d	line:72
-HelpMsg_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	167;"	v	line:167
+HelpMsg_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	160;"	v	line:160
 INPUT::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	49;"	d	line:49
-IOParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	161;"	v	line:161
+IOParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	154;"	v	line:154
 ITERS::(15+(FRACBITS>>1))	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	58;"	d	line:58
+InitEEPROM	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\EEPROM_params.h	51;"	p	line:51	signature:(void)
+InitEEPROM	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	76;"	f	line:76	signature:(void)
 InitNLFilter2Fx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	102;"	p	line:102	signature:(tNLFOut *NLFOut,tNLFStatus *NLFStatus)
 InitNLFilter2Fx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	101;"	f	line:101	signature:(tNLFOut *NLFOut,tNLFStatus *NLFStatus)
 InitPID	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PID.h	73;"	p	line:73	signature:( tPIDParm *pParm, tPIDflags *pFlags, int8_t mode)
@@ -188,14 +195,16 @@ LED2::LATDbits.LATD4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0
 LED2_TRIS::TRISDbits.TRISD4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	144;"	d	line:144
 LF::0x0A	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	60;"	d	line:60
 LNG	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	116;"	t	line:116
-LOGDECIM::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	223;"	d	line:223
+LOGDECIM::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	241;"	d	line:241
 LOG_CARTLOOP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	72;"	d	line:72
 LOG_LONG	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	69;"	d	line:69
+LoadEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\EEPROM_params.h	52;"	p	line:52	signature:(void)
+LoadEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	102;"	f	line:102	signature:(void)
 MAXARGS::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	121;"	d	line:121
-MAXLOG::400	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	222;"	d	line:222
+MAXLOG::400	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	240;"	d	line:240
 MAX_ASCIILEN::255	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	66;"	d	line:66
 MAX_HELPMSG::5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	73;"	d	line:73
-MAX_WAY::10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	200;"	d	line:200
+MAX_WAY::10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	214;"	d	line:214
 MCURR_MAV_ORDER::(1<<MCURR_MAV_SHIFT)	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\ADC.h	57;"	d	line:57
 MCURR_MAV_SHIFT::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\ADC.h	56;"	d	line:56
 MEDIUM_RATE::20	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	70;"	d	line:70
@@ -203,19 +212,19 @@ MINUS::0x2D	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\i
 MODE	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	92;"	m	line:92
 MOTORPARA::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	69;"	d	line:69
 MY_FRACTMATH_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	49;"	d	line:49
-ModeErrorMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	156;"	v	line:156
-MotorParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	158;"	v	line:158
+ModeErrorMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	149;"	v	line:149
+MotorParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	151;"	v	line:151
 MyAbs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	64;"	f	line:64	signature:(int32_t var)
 MyAbs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	76;"	p	line:76	signature:(int32_t var)
 NLFState	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	99;"	v	line:99
 NLFSwitchingLogic	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	101;"	p	line:101	file:	signature:(void)
-NLFSwitchingLogic	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	712;"	f	line:712	signature:(void)
+NLFSwitchingLogic	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	591;"	f	line:591	signature:(void)
 NLFilter2Fx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	104;"	p	line:104	signature:(tNLFOut *NLFOut,tNLFStatus *NLFStatus, uint32_t Xdot_max, uint8_t Umax_SHIFT, uint8_t Fc_SHIFT)
 NLFilter2Fx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	120;"	f	line:120	signature:(tNLFOut *NLFOut,tNLFStatus *NLFStatus, uint32_t Xdot_max, uint8_t Umax_SHIFT, uint8_t Fc_SHIFT)
 NULLC::0x00	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	68;"	d	line:68
 N_COMMANDS::12	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	119;"	d	line:119
-N_PARAMS::25	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	120;"	d	line:120
-OFF_MODE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	139;"	d	line:139
+N_PARAMS::32	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	120;"	d	line:120
+OFF_MODE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	138;"	d	line:138
 OUTPUT::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	50;"	d	line:50
 OrientationNLFOut	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	85;"	v	line:85
 OrientationNLFStatus	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	82;"	v	line:82
@@ -247,20 +256,20 @@ PWM_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include
 PWM_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	64;"	p	line:64	signature:(void)
 PWM_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	78;"	f	line:78	signature:(void)
 PWM_PRESC::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	56;"	d	line:56
-PWRT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	63;"	v	line:63
+PWRT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	64;"	v	line:64
 P_16::0xA001	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	64;"	d	line:64	file:
 P_32::0xEDB88320L	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	65;"	d	line:65	file:
 P_CCITT::0x1021	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	66;"	d	line:66	file:
 P_DNP::0xA6BC	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	67;"	d	line:67	file:
 P_KERMIT::0x8408	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	68;"	d	line:68	file:
 P_SICK::0x8005	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	69;"	d	line:69	file:
-ParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	162;"	v	line:162
-ParaHeader_cmd	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	164;"	v	line:164
-ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	245;"	p	line:245	file:	signature:(void)
-ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	918;"	f	line:918	signature:(void)
+ParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	155;"	v	line:155
+ParaHeader_cmd	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	157;"	v	line:157
+ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	238;"	p	line:238	file:	signature:(void)
+ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	911;"	f	line:911	signature:(void)
 PosCount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	114;"	v	line:114
 PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	53;"	p	line:53	signature:(void)
-PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	379;"	f	line:379	signature:(void)
+PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	362;"	f	line:362	signature:(void)
 QEA_TRIS::TRISBbits.TRISB4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	134;"	d	line:134
 QEB_TRIS::TRISBbits.TRISB5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	135;"	d	line:135
 QEI_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\QEI.h	48;"	d	line:48
@@ -276,7 +285,7 @@ ReadConfig	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\sr
 ReadConfig	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	74;"	p	line:74	file:
 RefCurrentFilter	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	61;"	p	line:61	signature:(void)
 RefCurrentFilter	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	270;"	f	line:270	signature:(void)
-RobotParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	159;"	v	line:159
+RobotParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	152;"	v	line:152
 S	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 SACT_ASCII_U1::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	52;"	d	line:52
 SACT_ASCII_U2::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	53;"	d	line:53
@@ -290,38 +299,40 @@ SACT_PROT_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\i
 SACT_SDP::0xB1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	62;"	d	line:62
 SACT_SPP::0xC1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	63;"	d	line:63
 SACT_SSP::0xA1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	61;"	d	line:61
-SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	131;"	p	line:131	signature:(void)
-SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1559;"	f	line:1559	signature:(void)
-SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	130;"	p	line:130	signature:(void)
-SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1209;"	f	line:1209	signature:(void)
-SACT_TIME_LIMIT::3000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	128;"	d	line:128
-SACT_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	228;"	v	line:228
-SACT_state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	222;"	v	line:222
-SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	129;"	p	line:129	signature:(void)
-SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1193;"	f	line:1193	signature:(void)
+SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	127;"	p	line:127	signature:(void)
+SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1560;"	f	line:1560	signature:(void)
+SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	126;"	p	line:126	signature:(void)
+SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1210;"	f	line:1210	signature:(void)
+SACT_TIME_LIMIT::3000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	124;"	d	line:124
+SACT_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	221;"	v	line:221
+SACT_state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	215;"	v	line:215
+SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	125;"	p	line:125	signature:(void)
+SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1194;"	f	line:1194	signature:(void)
 SAMPLE_ADVANCE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	61;"	d	line:61
 SC::0x3B	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	63;"	d	line:63
-SLOWING::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	185;"	d	line:185
+SLOWING::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	199;"	d	line:199
 SLOW_RATE::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	69;"	d	line:69
 SPACE::0x20	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	67;"	d	line:67
 SPEED_LOOP_FREQ::(POS_LOOP_FREQ<<SPEED_POS_SHIF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	60;"	d	line:60
 SPEED_POS_SHIFT::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	59;"	d	line:59
-SSP_config	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	230;"	v	line:230
-STOPPING::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	187;"	d	line:187
+SSP_config	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	223;"	v	line:223
+STOPPING::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	201;"	d	line:201
 SW_TEST1::PORTDbits.RD1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	152;"	d	line:152
 SW_TEST1_TRIS::TRISDbits.TRISD1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	146;"	d	line:146
 SW_TEST2::PORTDbits.RD2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	153;"	d	line:153
 SW_TEST2_TRIS::TRISDbits.TRISD2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	147;"	d	line:147
-SYNC_U1_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	223;"	v	line:223
-SYNC_U2_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	224;"	v	line:224
+SYNC_U1_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	216;"	v	line:216
+SYNC_U2_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	217;"	v	line:217
 SYS_HW_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	51;"	d	line:51
-SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	238;"	p	line:238	file:	signature:(uint8_t table,volatile UART *ureg)
-SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	851;"	f	line:851	signature:(uint8_t table,volatile UART *ureg)
+SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	231;"	p	line:231	file:	signature:(uint8_t table,volatile UART *ureg)
+SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	844;"	f	line:844	signature:(uint8_t table,volatile UART *ureg)
 SendNUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	82;"	p	line:82	signature:(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 SendNUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	199;"	f	line:199	signature:(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 SpeedLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	51;"	p	line:51	signature:(void)
 SpeedLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	315;"	f	line:315	signature:(void)
-SyncMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	155;"	v	line:155
+StoreEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\EEPROM_params.h	53;"	p	line:53	signature:(void)
+StoreEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c	113;"	f	line:113	signature:(void)
+SyncMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	148;"	v	line:148
 T1CK_TRIS::TRISCbits.TRISC14	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	137;"	d	line:137
 T4CK_TRIS::TRISCbits.TRISC13	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	138;"	d	line:138
 THERMFLG1::PORTBbits.RB3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	125;"	d	line:125
@@ -329,8 +340,8 @@ THERMFLG1_TRIS::TRISBbits.TRISB3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SA
 THERMFLG2::PORTBbits.RB2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	126;"	d	line:126
 THERMFLG2_TRIS::TRISBbits.TRISB2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	104;"	d	line:104
 TIMERS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	48;"	d	line:48
-TORQUE_MODE1::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	140;"	d	line:140
-TORQUE_MODE2::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	141;"	d	line:141
+TORQUE_MODE1::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	139;"	d	line:139
+TORQUE_MODE2::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	140;"	d	line:140
 TRAJMotor1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	74;"	v	line:74
 TRAJMotor1_f	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	77;"	v	line:77
 TRAJMotor2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	75;"	v	line:75
@@ -338,9 +349,8 @@ TRAJMotor2_f	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\
 TRAJ_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	48;"	d	line:48
 TRUE::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	55;"	d	line:55
 TRUE::1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.h	57;"	d	line:57
-TURNING::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	184;"	d	line:184
+TURNING::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	198;"	d	line:198
 TestNLFilters	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	108;"	p	line:108	file:	signature:(void)
-TestNLFilters	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	667;"	f	line:667	signature:(void)
 Timer1_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	53;"	p	line:53	signature:(void)
 Timer1_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Timers.c	60;"	f	line:60	signature:(void)
 Timer4_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	54;"	p	line:54	signature:(void)
@@ -356,32 +366,33 @@ UART2_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\sr
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PID.h	55;"	m	line:55
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	105;"	m	line:105
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	60;"	m	line:60
-UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	131;"	m	line:131
+UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	130;"	m	line:130
+UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	155;"	m	line:155
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	96;"	m	line:96
 Umax_theta_SHIFT	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	164;"	v	line:164
 Umax_vel_SHIFT	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	160;"	v	line:160
 UpCount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	114;"	v	line:114
-UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	464;"	f	line:464	signature:(void)
+UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	423;"	f	line:423	signature:(void)
 UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	90;"	p	line:90	file:	signature:(void)
-UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	500;"	f	line:500	signature:(void)
+UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	457;"	f	line:457	signature:(void)
 UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	91;"	p	line:91	file:	signature:(void)
 UpdateOdometryFx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Controls.h	65;"	p	line:65	signature:(void)
-UpdateOdometryFx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	539;"	f	line:539	signature:(void)
+UpdateOdometryFx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	494;"	f	line:494	signature:(void)
 V1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	169;"	v	line:169
 V2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	169;"	v	line:169
-VEL_MODE1::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	142;"	d	line:142
-VEL_MODE2::4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	143;"	d	line:143
+VEL_MODE1::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	141;"	d	line:141
+VEL_MODE2::4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	142;"	d	line:142
 VL::0x7C	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	62;"	d	line:62
 VelocityNLFOut	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	84;"	v	line:84
 VelocityNLFStatus	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	81;"	v	line:81
-WDT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	62;"	v	line:62
+WDT_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	63;"	v	line:63
 WRD	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	125;"	t	line:125
-WelcomeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	77;"	v	line:77
+WelcomeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	78;"	v	line:78
 WriteConfig	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	225;"	f	line:225	signature:(int16_t address, int16_t value)
 WriteConfig	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	75;"	p	line:75	file:
 XI	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	171;"	v	line:171
 XTFREQ::7372800	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h	82;"	d	line:82
-XT_PLL16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	60;"	v	line:60
+XT_PLL16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	61;"	v	line:61
 Y	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 ZERO::0x30	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	66;"	d	line:66
 ZERO_DUTY::(FULL_DUTY/2)	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PWM.h	59;"	d	line:59
@@ -426,30 +437,30 @@ _Q16atan2ByPI	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode
 _Q16atan2ByPI	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	80;"	p	line:80	signature:(_Q16 x, _Q16 y)
 _StackError	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\traps.c	78;"	f	line:78	signature:(void)
 _T5Interrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Timers.h	63;"	p	line:63	signature:(void)
-_T5Interrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Timers.c	188;"	f	line:188	signature:(void)
+_T5Interrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Timers.c	150;"	f	line:150	signature:(void)
 _U1RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	63;"	p	line:63	signature:(void)
-_U1RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	266;"	f	line:266	signature:(void)
+_U1RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	259;"	f	line:259	signature:(void)
 _U1TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	62;"	p	line:62	signature:(void)
-_U1TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	253;"	f	line:253	signature:(void)
+_U1TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	246;"	f	line:246	signature:(void)
 _U2RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	65;"	p	line:65	signature:(void)
-_U2RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	398;"	f	line:398	signature:(void)
+_U2RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	391;"	f	line:391	signature:(void)
 _U2TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	64;"	p	line:64	signature:(void)
-_U2TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	258;"	f	line:258	signature:(void)
+_U2TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	251;"	f	line:251	signature:(void)
 abs_sigma	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 acc_lin_BOUND	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	153;"	v	line:153
 acc_rad_BOUND	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	154;"	v	line:154
 acc_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	128;"	v	line:128
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1214;"	l	line:1214
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	641;"	l	line:641
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	924;"	l	line:924
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1215;"	l	line:1215
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	634;"	l	line:634
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	917;"	l	line:917
 active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	59;"	m	line:59
 alpha_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	128;"	v	line:128
 analogs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	99;"	m	line:99
-argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	639;"	l	line:639
-argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	922;"	l	line:922
+argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	632;"	l	line:632
+argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	915;"	l	line:915
 args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	114;"	m	line:114
-args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	642;"	l	line:642
-args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	925;"	l	line:925
+args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	635;"	l	line:635
+args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	918;"	l	line:918
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	115;"	m	line:115
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	84;"	m	line:84
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	98;"	m	line:98
@@ -462,64 +473,67 @@ c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib
 c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	133;"	l	line:133
 c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	171;"	l	line:171
 cart_loop_active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	95;"	m	line:95
-cart_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	129;"	m	line:129
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	522;"	l	line:522
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	577;"	l	line:577
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	764;"	l	line:764
+cart_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	128;"	m	line:128
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	515;"	l	line:515
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	570;"	l	line:570
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	757;"	l	line:757
 comm_error	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	113;"	m	line:113
 command_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	65;"	v	line:65
 config_value	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	80;"	l	line:80
 control_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	74;"	v	line:74
 control_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	76;"	v	line:76
-control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	434;"	f	line:434	signature:(void)
-control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	73;"	p	line:73	file:	signature:(void)
-costemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	715;"	l	line:715
-costemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	944;"	l	line:944
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1012;"	l	line:1012
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1215;"	l	line:1215
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1564;"	l	line:1564
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	640;"	l	line:640
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	855;"	l	line:855
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	923;"	l	line:923
+control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	445;"	f	line:445	signature:(void)
+control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	74;"	p	line:74	file:	signature:(void)
+costemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	594;"	l	line:594
+costemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	823;"	l	line:823
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1005;"	l	line:1005
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1216;"	l	line:1216
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1565;"	l	line:1565
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	633;"	l	line:633
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	848;"	l	line:848
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	916;"	l	line:916
 cr_rec1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	82;"	m	line:82
 cr_rec2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	83;"	m	line:83
 crc	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	298;"	l	line:298
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1011;"	l	line:1011
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1218;"	l	line:1218
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1567;"	l	line:1567
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	930;"	l	line:930
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1004;"	l	line:1004
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1219;"	l	line:1219
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1568;"	l	line:1568
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	923;"	l	line:923
 crc_tab16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	96;"	v	line:96	file:
 crc_tab16_init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	90;"	v	line:90	file:
-ctemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	714;"	l	line:714
-ctemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	945;"	l	line:945
+ctemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	593;"	l	line:593
+ctemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	824;"	l	line:824
 current_loop_active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	93;"	m	line:93
 currents	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	102;"	m	line:102
-dS	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	541;"	l	line:541
-dTH	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	541;"	l	line:541
+dS	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	496;"	l	line:496
+dTH	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	496;"	l	line:496
 d_term	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	85;"	l	line:85
 d_term_enable	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PID.h	53;"	m	line:53
-dataLOG1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	102;"	v	line:102
-dataLOG1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	99;"	v	line:99
-dataLOG2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	100;"	v	line:100
-dataLOG2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	103;"	v	line:103
-dataLOG3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	104;"	v	line:104
-dataLOG4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	105;"	v	line:105
-dataLOGIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	108;"	v	line:108
-dataLOGdecim	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	109;"	v	line:109
-debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	552;"	f	line:552	signature:(void)
-debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	72;"	p	line:72	file:	signature:(void)
-diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	285;"	f	line:285	signature:(void)
-diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	74;"	p	line:74	file:	signature:(void)
+dataLOG1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	100;"	v	line:100
+dataLOG1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	103;"	v	line:103
+dataLOG2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	101;"	v	line:101
+dataLOG2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	104;"	v	line:104
+dataLOG3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	105;"	v	line:105
+dataLOG4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	106;"	v	line:106
+dataLOGIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	109;"	v	line:109
+dataLOGdecim	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	110;"	v	line:110
+debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	563;"	f	line:563	signature:(void)
+debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	73;"	p	line:73	file:	signature:(void)
+diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	289;"	f	line:289	signature:(void)
+diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	75;"	p	line:75	file:	signature:(void)
 digitals	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	100;"	m	line:100
+direction_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	77;"	v	line:77
 drive_force	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	172;"	v	line:172
 enable	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	58;"	m	line:58
-encoder_counts_rev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	85;"	v	line:85
+encoder1_chA_lead	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	153;"	m	line:153
+encoder2_chA_lead	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	154;"	m	line:154
+encoder_counts_rev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	86;"	v	line:86
 encoders	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	97;"	m	line:97
 error	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	171;"	l	line:171
 error	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	87;"	l	line:87
 first_scan	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	92;"	m	line:92
-ftemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	714;"	l	line:714
-help_info	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	198;"	v	line:198
+ftemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	593;"	l	line:593
+help_info	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	191;"	v	line:191
 help_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	84;"	m	line:84
 i	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	112;"	m	line:112
 i	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	122;"	m	line:122
@@ -527,12 +541,12 @@ i	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib
 iSqrt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	80;"	f	line:80	signature:(uint32_t x)
 iSqrt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	74;"	p	line:74	signature:(uint32_t a)
 idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	201;"	l	line:201
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	638;"	l	line:638
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	794;"	l	line:794
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	854;"	l	line:854
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	921;"	l	line:921
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	631;"	l	line:631
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	787;"	l	line:787
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	847;"	l	line:847
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	914;"	l	line:914
 idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	273;"	l	line:273
-idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	436;"	l	line:436
+idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	447;"	l	line:447
 init_crc16_tab	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	113;"	p	line:113	file:	signature:( void )
 init_crc16_tab	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	295;"	f	line:295	file:	signature:( void )
 int16_t	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	104;"	t	line:104
@@ -548,7 +562,7 @@ longY	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Tra
 m	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 mHALF_PI_BRADS::0xC0000000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	65;"	d	line:65
 mPI_BRADS::0x80000000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h	63;"	d	line:63
-main	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	89;"	f	line:89	signature:(void)
+main	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	90;"	f	line:90	signature:(void)
 max	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	113;"	m	line:113
 max_current	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	61;"	v	line:61
 mcurr_idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\ADC.c	57;"	v	line:57
@@ -563,16 +577,19 @@ mcurrent2samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode
 mcurrent_temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\ADC.c	56;"	v	line:56
 mcurrsampIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\ADC.c	58;"	v	line:58
 medium_event_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	66;"	v	line:66
-medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	259;"	f	line:259	signature:(void)
-medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	70;"	p	line:70	file:	signature:(void)
+medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	263;"	f	line:263	signature:(void)
+medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	71;"	p	line:71	file:	signature:(void)
 medium_ticks_limit	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	68;"	v	line:68
 min	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	112;"	m	line:112
-mposition1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
-mposition2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
-mvelocity1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	79;"	v	line:79
-mvelocity2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	79;"	v	line:79
+motor1_dir	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	150;"	m	line:150
+motor1_right_side	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	152;"	m	line:152
+motor2_dir	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	151;"	m	line:151
+mposition1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	81;"	v	line:81
+mposition2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	81;"	v	line:81
+mvelocity1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
+mvelocity2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
 odometry	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	98;"	m	line:98
-off_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	130;"	m	line:130
+off_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	129;"	m	line:129
 omega_BOUND	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	157;"	v	line:157
 omega_M	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	156;"	v	line:156
 omega_e	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	147;"	v	line:147
@@ -582,23 +599,23 @@ omega_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src
 one	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	82;"	l	line:82
 op	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	82;"	l	line:82
 overcurrent1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	107;"	m	line:107
-overcurrent1_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	287;"	l	line:287	file:
+overcurrent1_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	291;"	l	line:291	file:
 overcurrent2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	108;"	m	line:108
-overcurrent2_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	288;"	l	line:288	file:
+overcurrent2_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	292;"	l	line:292	file:
 p_term	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	169;"	l	line:169
 p_term	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	84;"	l	line:84
 packet_full	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	79;"	m	line:79
 param_limit	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	80;"	m	line:80
 parameters_RAM	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	105;"	v	line:105
 pos_loop_active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	94;"	m	line:94
-process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	236;"	p	line:236	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	636;"	f	line:636	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	244;"	p	line:244	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt)
-process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	880;"	f	line:880	signature:(unsigned char *rxbuf, uint8_t rxcnt)
-process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	233;"	p	line:233	file:	signature:(void)
-process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	520;"	f	line:520	signature:(void)
-process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	234;"	p	line:234	file:	signature:(void)
-process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	575;"	f	line:575	signature:(void)
+process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	229;"	p	line:229	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	629;"	f	line:629	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	237;"	p	line:237	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt)
+process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	873;"	f	line:873	signature:(unsigned char *rxbuf, uint8_t rxcnt)
+process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	226;"	p	line:226	file:	signature:(void)
+process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	513;"	f	line:513	signature:(void)
+process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	227;"	p	line:227	file:	signature:(void)
+process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	568;"	f	line:568	signature:(void)
 push_buttons_state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	71;"	v	line:71
 putcUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h	78;"	p	line:78	signature:(unsigned char byte, volatile UART *ureg)
 putcUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	124;"	f	line:124	signature:(unsigned char symbol, volatile UART *ureg)
@@ -646,32 +663,32 @@ rcurrent2samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode
 rcurrent_temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	272;"	l	line:272
 rcurrsampIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	186;"	v	line:186
 res	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	82;"	l	line:82
-robot_inertia	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	91;"	v	line:91
-robot_mass	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	90;"	v	line:90
-rvelocity1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	79;"	v	line:79
-rvelocity2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	79;"	v	line:79
-rx1buf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	209;"	v	line:209
-rx1cnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	210;"	v	line:210
-rx2buf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	211;"	v	line:211
-rx2cnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	212;"	v	line:212
+robot_inertia	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	92;"	v	line:92
+robot_mass	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	91;"	v	line:91
+rvelocity1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
+rvelocity2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	80;"	v	line:80
+rx1buf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	202;"	v	line:202
+rx1cnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	203;"	v	line:203
+rx2buf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	204;"	v	line:204
+rx2cnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	205;"	v	line:205
 saturated	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\PID.h	54;"	m	line:54
 short_c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	190;"	l	line:190
 sigma	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
-sintemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	715;"	l	line:715
-sintemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	944;"	l	line:944
+sintemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	594;"	l	line:594
+sintemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	823;"	l	line:823
 slow_event_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	65;"	v	line:65
-slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	353;"	f	line:353	signature:(void)
-slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	71;"	p	line:71	file:	signature:(void)
+slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	357;"	f	line:357	signature:(void)
+slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	72;"	p	line:72	file:	signature:(void)
 slow_ticks_limit	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	67;"	v	line:67
 sonar_fault	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	111;"	m	line:111
 sonars	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	101;"	m	line:101
 speed_loop_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Timers.c	53;"	v	line:53
-state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	135;"	m	line:135
+state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	134;"	m	line:134
 status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	75;"	v	line:75
-status_flags_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1561;"	l	line:1561	file:
+status_flags_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1562;"	l	line:1562	file:
 steer_torque	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	172;"	v	line:172
-stemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	714;"	l	line:714
-stemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	945;"	l	line:945
+stemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	593;"	l	line:593
+stemplong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	824;"	l	line:824
 sw1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	75;"	m	line:75
 sw2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	76;"	m	line:76
 sw3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	77;"	m	line:77
@@ -690,41 +707,42 @@ tTRAJParm	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\inc
 tTRAJflags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Trajectories.h	61;"	t	line:61
 t_command_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	117;"	t	line:117
 t_control_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	99;"	t	line:99
-t_control_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	136;"	t	line:136
+t_control_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	135;"	t	line:135
+t_direction_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	158;"	t	line:158
 t_push_buttons	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	85;"	t	line:85
 t_status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	116;"	t	line:116
 target_dist	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	146;"	v	line:146
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\Q16wrappers.c	53;"	l	line:53
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\Q16wrappers.c	81;"	l	line:81
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	542;"	l	line:542
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	497;"	l	line:497
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	170;"	l	line:170
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	240;"	l	line:240
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PID.c	86;"	l	line:86
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\PWM.c	80;"	l	line:80
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1008;"	l	line:1008
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1212;"	l	line:1212
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1563;"	l	line:1563
-temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1056;"	l	line:1056
-temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	289;"	l	line:289
-temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1056;"	l	line:1056
-temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	289;"	l	line:289
-temp3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1056;"	l	line:1056
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1001;"	l	line:1001
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1213;"	l	line:1213
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1564;"	l	line:1564
+temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1049;"	l	line:1049
+temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	293;"	l	line:293
+temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1049;"	l	line:1049
+temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\main.c	293;"	l	line:293
+temp3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1049;"	l	line:1049
 tempDTF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 tempU	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 tempX1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Trajectories.c	125;"	l	line:125
 temp_ptr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Comms.c	112;"	l	line:112
-temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	643;"	l	line:643
-temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	926;"	l	line:926
-tempcs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	542;"	l	line:542
-tempcurr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	946;"	l	line:946
-tempidx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	763;"	l	line:763
-templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	714;"	l	line:714
-templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	945;"	l	line:945
-templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1213;"	l	line:1213
-tempstr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	644;"	l	line:644
+temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	636;"	l	line:636
+temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	919;"	l	line:919
+tempcs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	497;"	l	line:497
+tempcurr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	825;"	l	line:825
+tempidx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	756;"	l	line:756
+templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	593;"	l	line:593
+templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	824;"	l	line:824
+templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1214;"	l	line:1214
+tempstr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	637;"	l	line:637
 theta_e	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	147;"	v	line:147
 theta_e_delta	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	147;"	v	line:147
-theta_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	83;"	v	line:83
+theta_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	84;"	v	line:84
 theta_odom_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	120;"	v	line:120
 theta_ref	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	149;"	v	line:149
 theta_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	128;"	v	line:128
@@ -732,15 +750,15 @@ timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\inclu
 tmp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	190;"	l	line:190
 tmp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	56;"	l	line:56
 tmp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c	66;"	l	line:66
-torque_mode1_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	125;"	m	line:125
-torque_mode2_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	126;"	m	line:126
+torque_mode1_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	124;"	m	line:124
+torque_mode2_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	125;"	m	line:125
 track_error1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	109;"	m	line:109
 track_error2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	110;"	m	line:110
-trxs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	133;"	m	line:133
-u1prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	218;"	v	line:218
-u1temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	217;"	v	line:217
-u2prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	220;"	v	line:220
-u2temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	219;"	v	line:219
+trxs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	132;"	m	line:132
+u1prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	211;"	v	line:211
+u1temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	210;"	v	line:210
+u2prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	213;"	v	line:213
+u2temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	212;"	v	line:212
 uc	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	115;"	m	line:115
 uc	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	124;"	m	line:124
 ui	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	113;"	m	line:113
@@ -752,23 +770,24 @@ uint8_t	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\inclu
 ul	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h	111;"	m	line:111
 update_crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.c	188;"	f	line:188	signature:( unsigned short crc, char c )
 update_crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_crc\lib_crc.h	61;"	p	line:61	signature:( unsigned short crc, char c )
-ureg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1211;"	l	line:1211
+ureg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\SACT_Protocol.c	1212;"	l	line:1212
 valid_header	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	78;"	m	line:78
 valid_idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	85;"	m	line:85
 vel_BOUND	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	152;"	v	line:152
-vel_mode1_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	127;"	m	line:127
-vel_mode2_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	128;"	m	line:128
+vel_mode1_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	126;"	m	line:126
+vel_mode2_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	127;"	m	line:127
 vel_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	120;"	v	line:120
 vel_ref	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	149;"	v	line:149
 vel_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	128;"	v	line:128
 way_index	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	140;"	v	line:140
-wheel_radius	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	86;"	v	line:86
-wheel_track	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	88;"	v	line:88
+wheel_radius	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	87;"	v	line:87
+wheel_track	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	89;"	v	line:89
 wheel_vel	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	103;"	m	line:103
 word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	107;"	m	line:107
+word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h	157;"	m	line:157
 wrong_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h	88;"	m	line:88
 x_delta	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	146;"	v	line:146
-x_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	83;"	v	line:83
+x_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	84;"	v	line:84
 x_odom_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	118;"	v	line:118
 x_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	126;"	v	line:126
 x_target	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	122;"	v	line:122
@@ -784,7 +803,7 @@ xdot_odom_time	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcod
 xdot_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	126;"	v	line:126
 xdot_set_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	143;"	v	line:143
 y_delta	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	146;"	v	line:146
-y_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	83;"	v	line:83
+y_odom	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\globals.c	84;"	v	line:84
 y_odom_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	118;"	v	line:118
 y_set	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	126;"	v	line:126
 y_target	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Controls.c	123;"	v	line:123

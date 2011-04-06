@@ -13,6 +13,7 @@ C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\Timers.c
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\traps.c
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\FxSqrtAbs.c
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\Q16wrappers.c
+C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\src\EEPROM_params.c
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\extern_globals.h
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\sys_hw.h
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\generic_defs.h
@@ -27,3 +28,4 @@ C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Traje
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\Comms.h
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\SACT_Protocol.h
 C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\lib_math\my_fractmath.h
+C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_NEW\v0.5gcode\include\EEPROM_params.h

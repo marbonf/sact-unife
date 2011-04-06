@@ -94,14 +94,14 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =    {
 {1,32767,1,         "POS. Loop D GAIN","PLD"},//27
 {0,15,1,            "POS. Loop SCALE ","PLS"},//28
 {1,32767,1,         "WHEEL RADIUS    ","WLR"},//29
-{0,15,1,            "WHEEL TRACK Len.","WLT"},//30
+{1  ,32767,1,         "WHEEL TRACK Len.","WLT"},//30
 {1,32767,1,         "WHEEL ENC. count","WEC"},//31
 {1,32767,1,         "ODOMETRY Correct","ODC"},//32
+{0,31,1,            "DIRECTION flags ","DRF"},//33
 }; 
 
 
 // PARAMETERS stored in RAM.. default values..
-// See additional comments below for scaling etc.
 volatile uint16_t parameters_RAM[N_PARAMS]=
 {    
     800,            // 0: MAX CURRENT (Command 12)
@@ -125,25 +125,18 @@ volatile uint16_t parameters_RAM[N_PARAMS]=
     0,              // 18: WHEEL TRACK  (Command 30)
     0,              // 19: WHEEL ENCODER COUNTS/REV (Command 31)
     0,              // 20: ODOMETRY Correction factor (Command 32)
+    1,              // 21: DIRECTION flags (Command 33)
+    0,              // 22: UNUSED (Command 34)
+    0,              // 23: UNUSED (Command 35)
+    0,              // 24: UNUSED (Command 36)
+    0,              // 25: UNUSED (Command 37)
+    0,              // 26: UNUSED (Command 38)
+    0,              // 27: UNUSED (Command 39)
+    0,              // 28: UNUSED (Command 40)
+    0,              // 29: UNUSED (Command 41)
+    0,              // 30: UNUSED (Command 42)
+    0,              // 31: UNUSED (Command 43)
 };        
-
-/*********************************************************************
- * EXAMPLE COMMENTS ON SCALING... (taken from BLDC sensorless project)
- * Current and Voltage Scaling X and / Parameters
- * These are used to scale ADC readings into Amps or Volts as follows: 
- * If you get 12.87 A/V for ibus or 12.87 V/V for vdc then
- * X = 100 and / = 1287 is one possible combination 
-
- * For LV Power Module Use The Following values: 
- * VX=100 V/=1305 i.e scaling is 13.05 V/V         
- * If LK11&12 Open     IX=100 I/=539 i.e scaling is 5.39A/V 
- * If LK11&12 Closed    IX=10  I/=119 i.e.scaling is 11.9A/V  
-
- * For HV Power Module Use The Following values: 
- * VX=10  V/910 i.e. scaling is 91.0 V/V 
- * If LK11&12 Open    IX=100 I/=108 i.e scaling is 1.08A/V 
- * if LK11&12 Closed IX=100 I/=239 i.e scaling is 2.39A/V 
- ***********************************************************************/
 
 // HELP MESSAGES
 const unsigned char ErrorMsg[] = {"\r\nIncorrect Command! Type '??' for command set.\r\n"};
@@ -198,9 +191,9 @@ const unsigned char FaultMsg[4][30] =
 const uint8_t help_info[MAX_HELPMSG][15] =
 {
     {0,1,2,3,4,5,6,7,8,9,10,11,50,50,50}, // COMMANDS
-    {12,13,14,15,16,50,50,50,50,50,50,50,50,50,50}, // MOTOR
-    {50,50,50,50,50,50,50,50,50,50,50,50,50,50,50}, // ROBOT
-    {17,18,19,20,21,22,23,24,50,50,50,50,50,50,50}, // CONTROL
+    {12,13,14,15,16,33,50,50,50,50,50,50,50,50,50}, // MOTOR
+    {29,30,31,32,50,50,50,50,50,50,50,50,50,50,50}, // ROBOT
+    {17,18,19,20,21,22,23,24,25,26,27,28,50,50,50}, // CONTROL
     {50,50,50,50,50,50,50,50,50,50,50,50,50,50,50}, // HW I/Os
 };
 
@@ -1172,7 +1165,15 @@ void ExecCommand(uint8_t idx,int16_t *args)
             case 8: // PULSE
                     Nop();
                     break;
-            case 9: break;
+            case 9: // UPDATE EEPROM;
+                    if(control_mode.state == OFF_MODE)
+                    {
+                        if(!EEPROM_UpdReq)
+                            EEPROM_UpdReq = 1;
+                    }
+                    else
+                        SACT_flags.wrong_mode = 1;
+                    break;
             case 10: break;
             case 11:// SET SSP configuration
                     SSP_config.word = args[0]; 
