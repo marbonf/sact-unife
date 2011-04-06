@@ -55,6 +55,7 @@
 #include "Timers.h"
 #include "Controls.h" // for RCURR_MAV_ORDER
 #include "SACT_protocol.h"
+#include "EEPROM_params.h"
 
 // CONFIGURATION BITS fuses (see dspic specific .h)
 _FOSC(CSW_FSCM_OFF & XT_PLL16);  // Clock-switching and monitor off
@@ -91,6 +92,9 @@ int main(void)
     control_flags.first_scan = 1;
     slow_ticks_limit = SLOW_RATE * (FCY_PWM / 1000) - 1 ;
     medium_ticks_limit = MEDIUM_RATE * (FCY_PWM / 1000) - 1;
+    
+    InitEEPROM();
+    LoadEEPROMparams();
  
      // UARTs init
      // no need to set TRISx, they are "Module controlled"
@@ -158,7 +162,7 @@ int main(void)
     PIDCurrent1.qKp = 600;
     PIDCurrent1.qKi = 80;              
     PIDCurrent1.qKd = 0;
-    PIDCurrent1.qN    = 9; // SHIFT FINAL RESULT >> qN
+    PIDCurrent1.qN  = 9; // SHIFT FINAL RESULT >> qN
     PIDCurrent1.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
     PIDCurrent1.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
 
@@ -168,8 +172,8 @@ int main(void)
     PIDCurrent2.qKp = 600;
     PIDCurrent2.qKi = 80;              
     PIDCurrent2.qKd = 0;       
-    PIDCurrent2.qN    = 9; // SHIFT FINAL RESULT >> qN
-     PIDCurrent2.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
+    PIDCurrent2.qN  = 9; // SHIFT FINAL RESULT >> qN
+    PIDCurrent2.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
     PIDCurrent2.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
 
     InitPID(&PIDCurrent2, &PIDCurrent2_f,-1);        
@@ -178,7 +182,7 @@ int main(void)
     PIDSpeed1.qKp = 1000;
     PIDSpeed1.qKi = 20;              
     PIDSpeed1.qKd = 0;
-    PIDSpeed1.qN    = 9;  // SHIFT FINAL RESULT >> qN
+    PIDSpeed1.qN  = 9;  // SHIFT FINAL RESULT >> qN
     PIDSpeed1.qdOutMax = ((int32_t)max_current << PIDSpeed1.qN);
     PIDSpeed1.qdOutMin = -PIDSpeed1.qdOutMax;
 
@@ -188,7 +192,7 @@ int main(void)
     PIDSpeed2.qKp = 1000;
     PIDSpeed2.qKi = 20;              
     PIDSpeed2.qKd = 0;
-    PIDSpeed2.qN    = 9; // SHIFT FINAL RESULT >> qN
+    PIDSpeed2.qN  = 9; // SHIFT FINAL RESULT >> qN
     PIDSpeed2.qdOutMax = ((int32_t)max_current << PIDSpeed2.qN);
     PIDSpeed2.qdOutMin = -PIDSpeed2.qdOutMax;
 
@@ -198,7 +202,7 @@ int main(void)
     PIDPos1.qKp = 400;
     PIDPos1.qKi = 0;              
     PIDPos1.qKd = 0;
-    PIDPos1.qN    = 18;  // SHIFT FINAL RESULT >> qN
+    PIDPos1.qN  = 18;  // SHIFT FINAL RESULT >> qN
     PIDPos1.qdOutMax = ((int32_t)600 << PIDPos1.qN);
     PIDPos1.qdOutMin = -PIDPos1.qdOutMax;
 
@@ -208,7 +212,7 @@ int main(void)
     PIDPos2.qKp = 400;
     PIDPos2.qKi = 0;              
     PIDPos2.qKd = 0;
-    PIDPos2.qN    = 18; // SHIFT FINAL RESULT >> qN
+    PIDPos2.qN  = 18; // SHIFT FINAL RESULT >> qN
     PIDPos2.qdOutMax = ((int32_t)600 << PIDPos2.qN);
     PIDPos2.qdOutMin = -PIDPos2.qdOutMax;
 
@@ -405,6 +409,13 @@ J10Pin4_OUT = 1;
         
         // UPDATE Switch states for next cycle
         push_buttons_state[0].b = push_buttons_state[1].b;
+
+        // EEPROM update management
+        if(EEPROM_UpdReq)
+        {
+            StoreEEPROMparams();
+            EEPROM_UpdReq = 0;
+        }
 
         // SACT protocol timeout manager (see SACT_protocol.c)
         SACT_timeout();

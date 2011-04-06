@@ -49,10 +49,10 @@
 
 // SACT connection state
 #define SACT_NOSYNC     0
-#define SACT_ASCII_U1      1
-#define SACT_ASCII_U2    2
-#define SACT_BIN_U1        3
-#define SACT_BIN_U2        4
+#define SACT_ASCII_U1   1
+#define SACT_ASCII_U2   2
+#define SACT_BIN_U1     3
+#define SACT_BIN_U2     4
 
 // HEADER PARTS
 #define SACT_HEAD1 0xAA
@@ -66,10 +66,10 @@
 #define MAX_ASCIILEN 255
 
 #define COMMANDPARA 0
-#define MOTORPARA 1
-#define ROBOTPARA 2
+#define MOTORPARA   1
+#define ROBOTPARA   2
 #define CONTROLPARA 3
-#define HWIOPARA 4
+#define HWIOPARA    4
 #define MAX_HELPMSG 5
 
 
@@ -82,10 +82,10 @@ typedef struct {
     unsigned cr_rec1       : 1;
     unsigned cr_rec2       : 1;
     unsigned help_req      : 1;
-    unsigned valid_idx       : 1; //In ASCII mode: valid Index detected 
+    unsigned valid_idx     : 1; //In ASCII mode: valid Index detected 
                                 //In BIN mode:command processed 
 
-    unsigned wrong_mode       : 1; //received a command NOT consistent
+    unsigned wrong_mode    : 1; //received a command NOT consistent
                                 //with control mode
                                 //e.g.: set vel in torque mode..
     unsigned timeout       : 8;
@@ -94,15 +94,15 @@ typedef struct {
 // For Sabot Sensor Packet configuration
 typedef union {
     struct {
-    unsigned encoders : 1;
-    unsigned odometry : 1;
-    unsigned analogs : 1;
-    unsigned digitals : 1;
-    unsigned sonars : 1;
-    unsigned currents : 1;
-    unsigned wheel_vel : 1;
+    unsigned encoders   : 1;
+    unsigned odometry   : 1;
+    unsigned analogs    : 1;
+    unsigned digitals   : 1;
+    unsigned sonars     : 1;
+    unsigned currents   : 1;
+    unsigned wheel_vel  : 1;
     unsigned linrot_vel : 1;
-    unsigned UNUSED : 8;
+    unsigned UNUSED     : 8;
     };
     int16_t word;
 } tSSP_config;
@@ -117,12 +117,8 @@ typedef struct {
     } t_command_data; 
    
 #define N_COMMANDS 12
-#define N_PARAMS   25
+#define N_PARAMS   32
 #define MAXARGS 3
-
-extern const t_command_data command_data[N_COMMANDS+N_PARAMS];
-
-extern volatile uint16_t parameters_RAM[N_PARAMS];
 
 // PUBLIC FUNCTION FOR TIMEOUT INCREMENT AND MANAGEMENT
 #define SACT_TIME_LIMIT 3000 //in ms

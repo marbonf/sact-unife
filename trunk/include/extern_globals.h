@@ -117,7 +117,6 @@ typedef union{
 
 extern t_status_flags status_flags;
 
-
 // CONTROL MODE state and transitions
 typedef struct{
     union {
@@ -144,6 +143,21 @@ typedef struct{
 #define CART_MODE       5
 
 extern t_control_mode control_mode;
+
+// DIRECTION flags
+typedef union{
+    struct {
+    unsigned motor1_dir          : 1;
+    unsigned motor2_dir          : 1;
+    unsigned motor1_right_side   : 1;
+    unsigned encoder1_chA_lead   : 1;
+    unsigned encoder2_chA_lead   : 1;
+    unsigned UNUSED              : 11;
+    };
+    uint16_t word;
+} t_direction_flags;
+
+extern t_direction_flags direction_flags;
 
 // PID parameters and flags structures
 // definitions are in the Controls.c source file
@@ -208,6 +222,10 @@ extern uint8_t way_index;
 // stored in EEPROM, can be updated by
 // the user with SACT commands
 extern volatile uint16_t parameters_RAM[];
+
+// REQUEST FOR EEPROM UPDATE
+// defined in EEPROM_params.c
+extern uint8_t EEPROM_UpdReq;
 
 // VARIABLES FOR RUN-TIME USE OF PARAMETERS
 extern int32_t encoder_counts_rev;

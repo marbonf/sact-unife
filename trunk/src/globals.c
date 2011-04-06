@@ -74,6 +74,7 @@ t_push_buttons push_buttons_state[5];
 t_control_flags control_flags;
 t_status_flags status_flags;
 t_control_mode control_mode;
+t_direction_flags direction_flags;
 
 // FOR POSITION feedback
 volatile int16_t mvelocity1,mvelocity2,rvelocity1,rvelocity2;
