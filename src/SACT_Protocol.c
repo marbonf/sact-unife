@@ -94,15 +94,18 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =    {
 {1,32767,1,         "POS. Loop D GAIN","PLD"},//27
 {0,15,1,            "POS. Loop SCALE ","PLS"},//28
 {1,32767,1,         "WHEEL RADIUS    ","WLR"},//29
-{1  ,32767,1,         "WHEEL TRACK Len.","WLT"},//30
+{1,32767,1,         "WHEEL TRACK Len.","WLT"},//30
 {1,32767,1,         "WHEEL ENC. count","WEC"},//31
 {1,32767,1,         "ODOMETRY Correct","ODC"},//32
 {0,31,1,            "DIRECTION flags ","DRF"},//33
+{1,32767,1,         "ROBOT MASS      ","ROM"},//34
+{1,32767,1,         "ROBOT INERTIA   ","ROI"},//35
+{1,32767,1,         "ADC TORQUE SCALE","ATS"},//36
 }; 
 
 
 // PARAMETERS stored in RAM.. default values..
-volatile uint16_t parameters_RAM[N_PARAMS]=
+uint16_t parameters_RAM[N_PARAMS]=
 {    
     800,            // 0: MAX CURRENT (Command 12)
     17500,          // 1: MAX VELOCITY (Command 13)
@@ -117,18 +120,18 @@ volatile uint16_t parameters_RAM[N_PARAMS]=
     20,             // 10: VELOCITY LOOP I GAIN (Command 22)
     0,              // 11: VELOCITY LOOP D GAIN (Command 23)
     9,              // 12: VELOCITY LOOP SCALING SHIFT (Command 24)
-    0,              // 13: POSITION LOOP P GAIN (Command 25)
+    400,            // 13: POSITION LOOP P GAIN (Command 25)
     0,              // 14: POSITION LOOP I GAIN (Command 26)
     0,              // 15: POSITION LOOP D GAIN (Command 27)
-    0,              // 16: POSITION LOOP SCALING SHIFT (Command 28)
-    0,              // 17: WHEEL RADIUS (Command 29)
-    0,              // 18: WHEEL TRACK  (Command 30)
-    0,              // 19: WHEEL ENCODER COUNTS/REV (Command 31)
+    18,             // 16: POSITION LOOP SCALING SHIFT (Command 28)
+    500,            // 17: WHEEL RADIUS (Command 29)
+    4100,           // 18: WHEEL TRACK  (Command 30)
+    21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 31)
     0,              // 20: ODOMETRY Correction factor (Command 32)
-    1,              // 21: DIRECTION flags (Command 33)
-    0,              // 22: UNUSED (Command 34)
-    0,              // 23: UNUSED (Command 35)
-    0,              // 24: UNUSED (Command 36)
+    30,             // 21: DIRECTION flags (Command 33)
+    0,              // 22: ROBOT MASS (Command 34)
+    0,              // 23: ROBOT INERTIA (Command 35)
+    0,              // 24: ADC TORQUE SCALE (Command 36)
     0,              // 25: UNUSED (Command 37)
     0,              // 26: UNUSED (Command 38)
     0,              // 27: UNUSED (Command 39)
@@ -192,7 +195,7 @@ const uint8_t help_info[MAX_HELPMSG][15] =
 {
     {0,1,2,3,4,5,6,7,8,9,10,11,50,50,50}, // COMMANDS
     {12,13,14,15,16,33,50,50,50,50,50,50,50,50,50}, // MOTOR
-    {29,30,31,32,50,50,50,50,50,50,50,50,50,50,50}, // ROBOT
+    {29,30,31,32,34,35,36,50,50,50,50,50,50,50,50}, // ROBOT
     {17,18,19,20,21,22,23,24,25,26,27,28,50,50,50}, // CONTROL
     {50,50,50,50,50,50,50,50,50,50,50,50,50,50,50}, // HW I/Os
 };
@@ -1050,10 +1053,18 @@ void ExecCommand(uint8_t idx,int16_t *args)
     
     if(idx >= N_COMMANDS)
     { // IT IS A PARAMETER UPDATE REQUEST
-        if((args[0] >= command_data[idx].min)&&(args[0] <= command_data[idx].max))
-            parameters_RAM[idx-N_COMMANDS] = args[0];
+        if(control_mode.state == OFF_MODE)
+        {
+            if((args[0] >= command_data[idx].min)&&(args[0] <= command_data[idx].max))
+                {
+                    parameters_RAM[idx-N_COMMANDS] = args[0];
+                    control_flags.PAR_update_req = 1;
+                }    
+            else
+                SACT_flags.param_limit = 1;
+        }
         else
-            SACT_flags.param_limit = 1;
+            SACT_flags.wrong_mode = 1;
     }
     else
     { // IT IS AN ACTION COMMAND    
@@ -1097,7 +1108,7 @@ void ExecCommand(uint8_t idx,int16_t *args)
                         if(temp1 < 0) temp1 = -temp1;
                         if(temp2 < 0) temp2 = -temp2;
                         
-                        if((temp1 > parameters_RAM[0])||(temp2 > parameters_RAM[0]))
+                        if((temp1 > max_current)||(temp2 > max_current))
                         {
                             SACT_flags.param_limit = 1;
                         }
@@ -1122,7 +1133,7 @@ void ExecCommand(uint8_t idx,int16_t *args)
                         if(temp1 < 0) temp1 = -temp1;
                         if(temp2 < 0) temp2 = -temp2;
                         
-                        if((temp1 > parameters_RAM[1])||(temp2 > parameters_RAM[1]))
+                        if((temp1 > max_velocity)||(temp2 > max_velocity))
                         {
                             SACT_flags.param_limit = 1;
                         }
@@ -1168,8 +1179,8 @@ void ExecCommand(uint8_t idx,int16_t *args)
             case 9: // UPDATE EEPROM;
                     if(control_mode.state == OFF_MODE)
                     {
-                        if(!EEPROM_UpdReq)
-                            EEPROM_UpdReq = 1;
+                        if(!control_flags.EE_update_req)
+                            control_flags.EE_update_req = 1;
                     }
                     else
                         SACT_flags.wrong_mode = 1;
@@ -1344,9 +1355,9 @@ void SACT_SendSSP(void)
             putcUART(SC,ureg);
 
             if(DIR2)
-                temp.i = mcurrent1_filt;
+                temp.i = mcurrent2_filt;
             else
-                temp.i = -mcurrent1_filt;
+                temp.i = -mcurrent2_filt;
             putiUART(temp.i,ureg);
             putcUART(SC,ureg);
         }// END if currents
@@ -1510,9 +1521,9 @@ void SACT_SendSSP(void)
             accum++;
 
             if(DIR2)
-                temp.i = mcurrent1_filt;
+                temp.i = mcurrent2_filt;
             else
-                temp.i = -mcurrent1_filt;
+                temp.i = -mcurrent2_filt;
             BINTXbuf[accum+6] = temp.uc[0];
             accum++;
             BINTXbuf[accum+6] = temp.uc[1];
@@ -1598,8 +1609,12 @@ void SACT_SendSDP(void)
         BINTXbuf[7] = 0; // FIRMWARE REVISION v0.1
         BINTXbuf[8] = 1;
 
+#ifdef SIMULATE
+        BINTXbuf[9] = 0; // BOARD REVISION X
+#endif
+
 #ifdef REV1_BOARD 
-        BINTXbuf[9] = 1; // BOARD REVISION 2
+        BINTXbuf[9] = 1; // BOARD REVISION 1
 #endif
 
 #ifdef REV2_BOARD 

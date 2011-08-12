@@ -222,27 +222,29 @@ uint16_t ReadConfig(int16_t address)
     TBLPAG = 0x00F8;
    return __builtin_tblrdl(address);
 }
+
+//NOTE: setup of NVMCON differs from dsPIC30F (0x4008)
+//      and dsPIC33F (0x4000)
 void WriteConfig(int16_t address, int16_t value) 
 { 
 // TODO: modify also write using builtin (how????)    
 
     // Set Table Page to point to config page
-    asm(" mov.w    #0x00F8,w2");
+    asm(" mov.w #0x00F8,w2");
     asm(" mov.w w2,TBLPAG");
     // Set NVMCON with correct value for program of
     // config location
-    asm(" mov.w    #0x4008,w2");
+    asm(" mov.w #0x4008,w2");
     asm(" mov.w w2,NVMCON");
     // Address will be in w0 and value in w1
     // load these into the programming registers  
-    asm(" tblwtl    W1,[W0]");
-    asm(" bset        NVMCON,#14"); 
-    asm(" mov        #0x55,W2 ");
-    asm(" mov        W2,NVMKEY ");
-    asm(" mov        #0xaa,W2 ");
-    asm(" mov        W2,NVMKEY ");
-    asm(" bset        NVMCON,#15"); 
-     
+    asm(" tblwtl W1,[W0]");
+    asm(" bset   NVMCON,#14"); 
+    asm(" mov    #0x55,W2 ");
+    asm(" mov    W2,NVMKEY ");
+    asm(" mov    #0xaa,W2 ");
+    asm(" mov    W2,NVMKEY ");
+    asm(" bset   NVMCON,#15"); 
 
     while(NVMCONbits.WR); 
 }
@@ -250,9 +252,8 @@ void WriteConfig(int16_t address, int16_t value)
 /*****************************************************
  * ISRs for PWM interrupt: manage ticks count for a
  * quite simple real-time process scheduling
- *
  ****************************************************/
-void __attribute__((interrupt,auto_psv)) _PWMInterrupt(void)
+void __attribute__((interrupt,no_auto_psv)) _PWMInterrupt(void)
 {
     slow_event_count++;
     medium_event_count++;

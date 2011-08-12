@@ -45,6 +45,7 @@
  **********************************************************************/
  
 #include "sys_hw.h"
+#include "extern_globals.h"
 #include "QEI.h"
 
   
@@ -69,11 +70,16 @@ void QEI_Init(void)
         // Bit1 - Timer Clock Select 1=QEA (rising),0 = Tcy
         // Bit0 - Counter Dir - 1=QEB state determines, 0=Bit11 determines
     QEICONbits.QEIM = 0;     // Disable QEI Module, SEE LATER!!
-    QEICONbits.CNTERR = 0;     // Clear any count errors
-    QEICONbits.QEISIDL = 0; // Continue operation during sleep
-    QEICONbits.SWPAB = 1;    // QEA and QEB swapped
-    QEICONbits.PCDOUT = 0;     // Normal I/O pin operation
-    QEICONbits.POSRES = 0;     // Index pulse DO NOT resets position counter
+    QEICONbits.CNTERR = 0;   // Clear any count errors
+    QEICONbits.QEISIDL = 0;  // Continue operation during sleep
+#ifdef REV1_BOARD
+    QEICONbits.SWPAB = direction_flags.encoder2_chB_lead;//1;    // QEA and QEB swapped
+#endif
+#ifdef REV2_BOARD
+    QEICONbits.SWPAB = direction_flags.encoder1_chB_lead;//1;    // QEA and QEB swapped
+#endif
+    QEICONbits.PCDOUT = 0;   // Normal I/O pin operation
+    QEICONbits.POSRES = 0;   // Index pulse DO NOT resets position counter
             
     // DFLTCON - Digital Filter Control Register
         // Bit15-8 - Not Used
@@ -86,10 +92,10 @@ void QEI_Init(void)
         // Bit3 -1=Filter enabled on index, 0=disabled
         // Bits2-0 - INDEX Filter Clock Divide ratio as per Bits6-4
     DFLTCONbits.CEID = 1;     // Count error interrupts disabled
-    DFLTCONbits.QEOUT = 1;     // Digital filters output enabled for QEn pins
+    DFLTCONbits.QEOUT = 1;    // Digital filters output enabled for QEn pins
     DFLTCONbits.QECK = 1;     // 1:2 clock divide for digital filter for QEn
 
-    POSCNT = 0;                 // Reset position counter
+    POSCNT = 0;               // Reset position counter
     MAXCNT = 0xFFFF; //Set maximum count to full scale
 
     IFS2bits.QEIIF=0; //Clear off any interrupt due to config

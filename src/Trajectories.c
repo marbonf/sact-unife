@@ -44,9 +44,9 @@
  *
  **********************************************************************/
 
-
 #include "Trajectories.h"
 
+#include "my_fractmath.h" // for all math stuffs
 
 /************************************************
 * Init TRAJ: resets, output and flags

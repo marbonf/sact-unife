@@ -57,8 +57,10 @@ volatile int16_t rcurrent2_req = 0;
 int16_t mcurrent1_offset = 10;
 int16_t mcurrent2_offset = 11;
 
-// Current limit
-int16_t max_current = 800;
+// Current/velocity limits
+int16_t max_current;
+int16_t max_velocity;
+int16_t max_velocity_scaled;
 
 // For BASIC real-time scheduling
 // As these are incremented in PWM ISR they are declared as volatile (???)
@@ -75,6 +77,7 @@ t_control_flags control_flags;
 t_status_flags status_flags;
 t_control_mode control_mode;
 t_direction_flags direction_flags;
+uint16_t direction_flags_prev;
 
 // FOR POSITION feedback
 volatile int16_t mvelocity1,mvelocity2,rvelocity1,rvelocity2;
@@ -83,10 +86,10 @@ volatile int32_t mposition1,mposition2;
 // FOR ODOMETRY estimate
 int32_t x_odom,y_odom,theta_odom;
 
-int32_t encoder_counts_rev = 86000; //TODO init with EEPROM
-int16_t wheel_radius = 500; // in 0.1mm
+int32_t encoder_counts_rev;// = 86000; //TODO init with EEPROM
+int16_t wheel_radius;// = 500; // in 0.1mm
 //int16_t wheel_radius = 50; // in mm
-int16_t wheel_track = 4100;  // in 0.1mm
+int16_t wheel_track;// = 4100;  // in 0.1mm
 //int16_t wheel_track = 410; // in mm
 int16_t robot_mass = 15; // in Kg
 int16_t robot_inertia = 41; // in 0.01 Kg m^2 ??
