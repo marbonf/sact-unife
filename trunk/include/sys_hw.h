@@ -57,14 +57,14 @@
  ***************************************************************/
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING
 //#define SIMULATE
-#define REV2_BOARD
-//#define REV1_BOARD
+//#define REV2_BOARD
+#define REV1_BOARD
 
 /****************************************************************
  * IF COMPILED FOR DEVELOP MODE
  * ADDS DATALOGS AND TEST PROBE OUTPUTS FOR TASK MONITORING
  ***************************************************************/
-#define DEVELOP_MODE
+//#define DEVELOP_MODE
 //UNCOMMENT THE FOLLOWING IF LONG (data-type) DATALOG IS DESIRED
 #define LOG_LONG
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING
@@ -79,9 +79,9 @@
  * Device Throughput in MIPS = Fcy = 7372800*8/4 = ~14.74 MIPS
  * Instruction Cycle time = Tcy = 1/(Fcy) = ~68 nanoseconds
  ******************************************************************/
-#define XTFREQ          7372800             //On-board Crystal fcy
+#define XTFREQ          7372800UL            //On-board Crystal fcy
 #define PLLMODE         16                   //On-chip PLL setting
-#define FCY             XTFREQ*PLLMODE/4      //Instruction Cycle Fcy
+#define FCY             XTFREQ*PLLMODE/4     //Instruction Cycle Fcy
 
 /*******************************************************************
  * H-Bridge Control pins (PWM/DIR/BRAKE) 

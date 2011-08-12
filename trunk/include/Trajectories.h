@@ -49,8 +49,6 @@
 
 #include "generic_defs.h" // FOR LNG datatype
 
-#include "my_fractmath.h" // for all math stuffs
-
 /**********************************************************
  * BASIC Trajectory planners, derived from Microchip AN696
  *********************************************************/
@@ -68,7 +66,7 @@ typedef struct {
     uint8_t         qVELshift;
     uint8_t         qACCshift;
     int16_t         qVelCOM;
-    int32_t         qdPosFIN;
+    int32_t         qdPosCOM;
     } tTRAJParm;
 
 void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);

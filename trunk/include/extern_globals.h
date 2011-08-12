@@ -56,8 +56,10 @@ extern volatile int16_t mcurrent1,mcurrent2,mcurrent1_filt,mcurrent2_filt;
 extern volatile int16_t rcurrent1, rcurrent2,rcurrent1_req,rcurrent2_req;
 extern int16_t mcurrent1_offset,mcurrent2_offset;
 
-// Current limit
+// Current/velocity limit
 extern int16_t max_current;
+extern int16_t max_velocity;
+extern int16_t max_velocity_scaled;
 // FOR CURRENT REFERENCES LOW-PASS FILTERING
 extern int16_t rcurrent1samp[],rcurrent2samp[];
 
@@ -93,7 +95,9 @@ typedef union{
     unsigned current_loop_active : 1;
     unsigned pos_loop_active     : 1;
     unsigned cart_loop_active    : 1;
-    unsigned UNUSED : 4;
+    unsigned EE_update_req       : 1;
+    unsigned PAR_update_req      : 1;
+    unsigned UNUSED              : 2;
     };
     uint8_t b;
 } t_control_flags;
@@ -150,14 +154,15 @@ typedef union{
     unsigned motor1_dir          : 1;
     unsigned motor2_dir          : 1;
     unsigned motor1_right_side   : 1;
-    unsigned encoder1_chA_lead   : 1;
-    unsigned encoder2_chA_lead   : 1;
+    unsigned encoder1_chB_lead   : 1;
+    unsigned encoder2_chB_lead   : 1;
     unsigned UNUSED              : 11;
     };
     uint16_t word;
 } t_direction_flags;
 
 extern t_direction_flags direction_flags;
+extern uint16_t direction_flags_prev;
 
 // PID parameters and flags structures
 // definitions are in the Controls.c source file
@@ -221,11 +226,7 @@ extern uint8_t way_index;
 // defined in SACT_Protocol.c,
 // stored in EEPROM, can be updated by
 // the user with SACT commands
-extern volatile uint16_t parameters_RAM[];
-
-// REQUEST FOR EEPROM UPDATE
-// defined in EEPROM_params.c
-extern uint8_t EEPROM_UpdReq;
+extern uint16_t parameters_RAM[];
 
 // VARIABLES FOR RUN-TIME USE OF PARAMETERS
 extern int32_t encoder_counts_rev;

@@ -52,6 +52,8 @@
 #include "PID.h"
 #include "PWM.h"
 
+#include "my_fractmath.h" // for all math stuffs
+
 /********************************************
  * GLOBAL VARIABLES
  *******************************************/
@@ -196,12 +198,12 @@ void CurrentLoops(void)
     if(rcurrent1 < 0)
     {
         PIDCurrent1.qdInRef  = (int32_t)(-rcurrent1);
-        DIR1_TMP = 1;
+        DIR1_TMP = ~direction_flags.motor1_dir;
     }
     else
     {    
         PIDCurrent1.qdInRef  = (int32_t)rcurrent1;
-        DIR1_TMP = 0;
+        DIR1_TMP = direction_flags.motor1_dir;
     }
     
     // Manage sign inversion
@@ -229,12 +231,12 @@ void CurrentLoops(void)
     if(rcurrent2 < 0)
     {
         PIDCurrent2.qdInRef  = (int32_t)(-rcurrent2);
-        DIR2_TMP = 0;
+        DIR2_TMP = ~direction_flags.motor2_dir;
     }
     else
     {    
         PIDCurrent2.qdInRef  = (int32_t)rcurrent2;
-        DIR2_TMP = 1;
+        DIR2_TMP = direction_flags.motor2_dir;
     }
     
     // Manage sign inversion
@@ -444,8 +446,18 @@ void UpdateEncoder1(void)
 #ifdef REV1_BOARD
     mvelocity1 = DownCount;
     mvelocity1 -=UpCount;
-    DownCount=TMR1;
-    UpCount=TMR4;
+    //DownCount=TMR1;
+    //UpCount=TMR4;
+    if(direction_flags.encoder1_chB_lead)
+    {
+        DownCount=TMR4;
+        UpCount=TMR1;
+    }
+    else
+    {
+        DownCount=TMR1;
+        UpCount=TMR4;
+    }
     mvelocity1+=UpCount;
     mvelocity1-=DownCount;
       
@@ -478,9 +490,19 @@ void UpdateEncoder2(void)
 #ifdef REV2_BOARD
     mvelocity2 = DownCount;
     mvelocity2 -=UpCount;
-    DownCount=TMR4;
-    UpCount=TMR1;
-    mvelocity2+=UpCount;
+    //DownCount=TMR4;
+    //UpCount=TMR1;
+    if(direction_flags.encoder2_chB_lead)
+    {
+        DownCount=TMR4;
+        UpCount=TMR1;
+    }
+    else
+    {
+        DownCount=TMR1;
+        UpCount=TMR4;
+    }
+    mvelocity2+=UpCount;    
     mvelocity2-=DownCount;
       
     mposition2+=(int32_t)mvelocity2;
@@ -507,7 +529,10 @@ void UpdateOdometryFx(void)
     dS = (int16_t)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10) 
     
 ////ESTIMATE ROTATION
-    temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 - mvelocity2);
+    if(direction_flags.motor1_right_side)
+        temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 - mvelocity2);
+    else
+        temp = (int32_t)wheel_radius*(int32_t)(mvelocity2 - mvelocity1);
     
     // MULTIPLY BY PI_Q16
     temp = temp * (PI_Q16>>7); 

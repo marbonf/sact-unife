@@ -74,6 +74,9 @@ void debounce_switches(void);
 void control_mode_manager(void);
 void diagnostics(void);
 
+// Function prototype for parameters udpate
+void update_params(void);
+
 // WELCOME MESSAGE!
 const unsigned char WelcomeMsg[] = 
 {"\r\n-----  Sabot ACTuator Board  -----\r\n"
@@ -95,6 +98,10 @@ int main(void)
     
     InitEEPROM();
     LoadEEPROMparams();
+    
+    update_params();
+    
+    direction_flags_prev = direction_flags.word;
  
      // UARTs init
      // no need to set TRISx, they are "Module controlled"
@@ -104,8 +111,8 @@ int main(void)
     // Setup control pins and PWM module,
     // which is needed also to schedule "soft"
     // real-time tasks w/PWM interrupt tick counts
-    DIR1 = 0;
-    DIR2 = 1; // inverted sign, 'cause of Faulhaber motors 
+    DIR1 = direction_flags.motor1_dir;//0;
+    DIR2 = direction_flags.motor2_dir;//1; // inverted sign, 'cause of Faulhaber motors 
              
     BRAKE1 = 0;
     BRAKE2 = 0;
@@ -156,82 +163,6 @@ int main(void)
     // Timer5 used to schedule speed loops
     Timer5_Init(); // AND POSITION LOOP!!!
     
-///////////////////////////////////////////////////////////////////
-// CONTROL LOOPS and TRAJ PLANNERS INIT
-////INIT PID CURRENT 1
-    PIDCurrent1.qKp = 600;
-    PIDCurrent1.qKi = 80;              
-    PIDCurrent1.qKd = 0;
-    PIDCurrent1.qN  = 9; // SHIFT FINAL RESULT >> qN
-    PIDCurrent1.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
-    PIDCurrent1.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
-
-     InitPID(&PIDCurrent1, &PIDCurrent1_f,-1);
-     
-////INIT PID CURRENT 2
-    PIDCurrent2.qKp = 600;
-    PIDCurrent2.qKi = 80;              
-    PIDCurrent2.qKd = 0;       
-    PIDCurrent2.qN  = 9; // SHIFT FINAL RESULT >> qN
-    PIDCurrent2.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
-    PIDCurrent2.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
-
-    InitPID(&PIDCurrent2, &PIDCurrent2_f,-1);        
-    
-////INIT PID SPEED 1
-    PIDSpeed1.qKp = 1000;
-    PIDSpeed1.qKi = 20;              
-    PIDSpeed1.qKd = 0;
-    PIDSpeed1.qN  = 9;  // SHIFT FINAL RESULT >> qN
-    PIDSpeed1.qdOutMax = ((int32_t)max_current << PIDSpeed1.qN);
-    PIDSpeed1.qdOutMin = -PIDSpeed1.qdOutMax;
-
-    InitPID(&PIDSpeed1, &PIDSpeed1_f,0);
-    
-////INIT PID SPEED 2
-    PIDSpeed2.qKp = 1000;
-    PIDSpeed2.qKi = 20;              
-    PIDSpeed2.qKd = 0;
-    PIDSpeed2.qN  = 9; // SHIFT FINAL RESULT >> qN
-    PIDSpeed2.qdOutMax = ((int32_t)max_current << PIDSpeed2.qN);
-    PIDSpeed2.qdOutMin = -PIDSpeed2.qdOutMax;
-
-    InitPID(&PIDSpeed2, &PIDSpeed2_f,0);
-
-////INIT PID POSITION 1
-    PIDPos1.qKp = 400;
-    PIDPos1.qKi = 0;              
-    PIDPos1.qKd = 0;
-    PIDPos1.qN  = 18;  // SHIFT FINAL RESULT >> qN
-    PIDPos1.qdOutMax = ((int32_t)600 << PIDPos1.qN);
-    PIDPos1.qdOutMin = -PIDPos1.qdOutMax;
-
-    InitPID(&PIDPos1, &PIDPos1_f,0);
-    
-////INIT PID POSITION 2
-    PIDPos2.qKp = 400;
-    PIDPos2.qKi = 0;              
-    PIDPos2.qKd = 0;
-    PIDPos2.qN  = 18; // SHIFT FINAL RESULT >> qN
-    PIDPos2.qdOutMax = ((int32_t)600 << PIDPos2.qN);
-    PIDPos2.qdOutMin = -PIDPos2.qdOutMax;
-
-    InitPID(&PIDPos2, &PIDPos2_f,0);
-    
-////INIT TRAJ PLANNER 1
-    TRAJMotor1_f.enable = 0;
-    TRAJMotor1.qVLIM = 17500;
-    TRAJMotor1.qACC = 10000;
-    TRAJMotor1.qVELshift = 5;
-    TRAJMotor1.qACCshift = 8;
-        
-////INIT TRAJ PLANNER 2
-    TRAJMotor2_f.enable = 0;
-    TRAJMotor2.qVLIM = 17500;
-    TRAJMotor2.qACC = 10000;
-    TRAJMotor2.qVELshift = 5;
-    TRAJMotor2.qACCshift = 8;
-    
 ////INIT NLFILTER TEST
     InitNLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus);
 ////INIT NLFILTER TEST
@@ -256,6 +187,101 @@ int main(void)
     
     return 0; //code should never get here
 }// END MAIN()
+
+/*******************************************************
+* Update parameters function, called at init and when
+* a parameter is modified through SACT protocol
+********************************************************/
+void update_params(void)
+{
+
+///////////////////////////////////////////////////////////////////
+// VARIABLES FOR RUN-TIME USE OF PARAMETERS 
+    max_current = parameters_RAM[0];
+    max_velocity = parameters_RAM[1];
+    max_velocity_scaled = max_velocity >> parameters_RAM[3];
+    encoder_counts_rev = (int32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
+    wheel_radius = parameters_RAM[17];
+    wheel_track = parameters_RAM[18];
+    direction_flags.word = parameters_RAM[21];
+
+///////////////////////////////////////////////////////////////////
+// CONTROL LOOPS and TRAJ PLANNERS INIT
+////INIT PID CURRENT 1
+    PIDCurrent1.qKp = parameters_RAM[5];
+    PIDCurrent1.qKi = parameters_RAM[6];
+    PIDCurrent1.qKd = parameters_RAM[7];
+    PIDCurrent1.qN  = parameters_RAM[8]; // SHIFT FINAL RESULT >> qN
+    PIDCurrent1.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
+    PIDCurrent1.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent1.qN-1));
+
+    InitPID(&PIDCurrent1, &PIDCurrent1_f,-1);
+     
+////INIT PID CURRENT 2
+    PIDCurrent2.qKp = parameters_RAM[5];
+    PIDCurrent2.qKi = parameters_RAM[6];
+    PIDCurrent2.qKd = parameters_RAM[7];
+    PIDCurrent2.qN  = parameters_RAM[8]; // SHIFT FINAL RESULT >> qN
+    PIDCurrent2.qdOutMax =  (int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
+    PIDCurrent2.qdOutMin = -(int32_t)(FULL_DUTY << (PIDCurrent2.qN-1));
+
+    InitPID(&PIDCurrent2, &PIDCurrent2_f,-1);        
+    
+////INIT PID SPEED 1
+    PIDSpeed1.qKp = parameters_RAM[9];
+    PIDSpeed1.qKi = parameters_RAM[10];              
+    PIDSpeed1.qKd = parameters_RAM[11];
+    PIDSpeed1.qN  = parameters_RAM[12];  // SHIFT FINAL RESULT >> qN
+    PIDSpeed1.qdOutMax = ((int32_t)max_current << PIDSpeed1.qN);
+    PIDSpeed1.qdOutMin = -PIDSpeed1.qdOutMax;
+
+    InitPID(&PIDSpeed1, &PIDSpeed1_f,0);
+    
+////INIT PID SPEED 2
+    PIDSpeed2.qKp = parameters_RAM[9];
+    PIDSpeed2.qKi = parameters_RAM[10];
+    PIDSpeed2.qKd = parameters_RAM[11];
+    PIDSpeed2.qN  = parameters_RAM[12]; // SHIFT FINAL RESULT >> qN
+    PIDSpeed2.qdOutMax = ((int32_t)max_current << PIDSpeed2.qN);
+    PIDSpeed2.qdOutMin = -PIDSpeed2.qdOutMax;
+
+    InitPID(&PIDSpeed2, &PIDSpeed2_f,0);
+
+////INIT PID POSITION 1
+    PIDPos1.qKp = parameters_RAM[13];
+    PIDPos1.qKi = parameters_RAM[14];
+    PIDPos1.qKd = parameters_RAM[15];
+    PIDPos1.qN  = parameters_RAM[16];  // SHIFT FINAL RESULT >> qN
+    PIDPos1.qdOutMax = ((int32_t)max_velocity_scaled << PIDPos1.qN);
+    PIDPos1.qdOutMin = -PIDPos1.qdOutMax;
+
+    InitPID(&PIDPos1, &PIDPos1_f,0);
+    
+////INIT PID POSITION 2
+    PIDPos2.qKp = parameters_RAM[13];
+    PIDPos2.qKi = parameters_RAM[14];
+    PIDPos2.qKd = parameters_RAM[15];
+    PIDPos2.qN  = parameters_RAM[16]; // SHIFT FINAL RESULT >> qN
+    PIDPos2.qdOutMax = ((int32_t)max_velocity_scaled << PIDPos2.qN);
+    PIDPos2.qdOutMin = -PIDPos2.qdOutMax;
+
+    InitPID(&PIDPos2, &PIDPos2_f,0);
+    
+////INIT TRAJ PLANNER 1
+    TRAJMotor1_f.enable = 0;
+    TRAJMotor1.qVLIM = max_velocity;
+    TRAJMotor1.qACC = parameters_RAM[2];
+    TRAJMotor1.qVELshift = parameters_RAM[3];
+    TRAJMotor1.qACCshift = parameters_RAM[4];
+        
+////INIT TRAJ PLANNER 2
+    TRAJMotor2_f.enable = 0;
+    TRAJMotor2.qVLIM = max_velocity;
+    TRAJMotor2.qACC = parameters_RAM[2];
+    TRAJMotor2.qVELshift = parameters_RAM[3];
+    TRAJMotor2.qACCshift = parameters_RAM[4];
+
+}
 
 /*******************************************************
 * "Soft" real-time event handler for medium rate
@@ -410,11 +436,27 @@ J10Pin4_OUT = 1;
         // UPDATE Switch states for next cycle
         push_buttons_state[0].b = push_buttons_state[1].b;
 
+        // (RAM) Parameters update management
+        if(control_flags.PAR_update_req)
+        {
+            update_params();
+            control_flags.PAR_update_req = 0;
+        }
+        
+        if(direction_flags.word != direction_flags_prev)
+        {
+            // RESET COUNTS
+            QEI_Init();
+            Timer1_Init();
+            Timer4_Init();
+            direction_flags_prev = direction_flags.word;
+        }
+
         // EEPROM update management
-        if(EEPROM_UpdReq)
+        if(control_flags.EE_update_req)
         {
             StoreEEPROMparams();
-            EEPROM_UpdReq = 0;
+            control_flags.EE_update_req = 0;
         }
 
         // SACT protocol timeout manager (see SACT_protocol.c)

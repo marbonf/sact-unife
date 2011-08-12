@@ -61,96 +61,90 @@ uint8_t ADindex = 0;
 
 // ADC_Init() is used to configure A/D to convert 
 // AN0-1 (Current sense) with PWM synchronization
-// other channels are scanned
-//channel per interrupt. The A/D is set up for a sampling rate of 1MSPS
-//Timer3 is used to provide sampling time delay.
-//The input pin being acquired and converted is AN7.
+// other channels are scanned manually on interrupt.
 void ADC_Init(void)
 {
-        //ADCON1 Register
-        //Set up A/D for Automatic Sampling
-        //Use internal counter (SAMC) to provide sampling time
-        //Set up A/D conversrion results to be read in integer
-        //number format.
-        //Set up simultaneous sampling for multiple S/H amplifiers
-        //All other bits....
-        ADCON1 = 0;
-        ADCON1bits.FORM = 0;
-        ADCON1bits.SSRC = 3; //sincronizzato con il PWM
-        ADCON1bits.ASAM = 1;
-        ADCON1bits.SIMSAM = 1;
-        ADCON1bits.SAMP = 0; //se ASAM=1 non dovrebbe influire
+    //ADCON1 Register
+    //Set up A/D for Automatic Sampling
+    //Use internal counter (SAMC) to provide sampling time
+    //Set up A/D conversrion results to be read in integer
+    //number format.
+    //Set up simultaneous sampling for multiple S/H amplifiers
+    //All other bits....
+    ADCON1 = 0;
+    ADCON1bits.FORM = 0;
+    ADCON1bits.SSRC = 3; //sincronizzato con il PWM
+    ADCON1bits.ASAM = 1;
+    ADCON1bits.SIMSAM = 1;
+    ADCON1bits.SAMP = 0; //se ASAM=1 non dovrebbe influire
 
-        //ADCON2 Register
-        //Set up A/D for interrupting every sample
-        //Set up to sample on 4 S/H amplifiers - CH0,1,2,3
-        //No input scans
-        //All other bits to default
-        ADCON2 = 0;
-        ADCON2bits.SMPI = 0;
-        ADCON2bits.CHPS = 2; //CH0,1,2,3
-        ADCON2bits.ALTS = 0; //Always use MUX A input multiplexer settings
-        //ADCON2bits.VCFG = 3; //0 - AVdd/AVss, 3 - (Ideally) use external references
+    //ADCON2 Register
+    //Set up A/D for interrupting every sample
+    //Set up to sample on 4 S/H amplifiers - CH0,1,2,3
+    //No input scans
+    //All other bits to default
+    ADCON2 = 0;
+    ADCON2bits.SMPI = 0;
+    ADCON2bits.CHPS = 2; //CH0,1,2,3
+    ADCON2bits.ALTS = 0; //Always use MUX A input multiplexer settings
+    //ADCON2bits.VCFG = 3; //0 - AVdd/AVss, 3 - (Ideally) use external references
 
-        //ADCON3 Register
-        //At 14.7 MIPS, Tcy = 67.8 ns = Instruction Cycle Time
-        //The A/D converter will take 12*Tad periods to convert each sample
-        //So to convert 4 channels within PWM rate (50us @ 20KHz)
-        //Using equation in the Family Reference Manual we have
-        //ADCS = 2*Tad/Tcy - 1 = 2 us per channel (4) -> 8 us
-        ADCON3 = 0;
-        ADCON3bits.SAMC = 4; //at least one Tad left for sampling
-        ADCON3bits.ADCS = 4; //Tad = (ADCS+1)*Tcy/2
+    //ADCON3 Register
+    //At 14.7 MIPS, Tcy = 67.8 ns = Instruction Cycle Time
+    //The A/D converter will take 12*Tad periods to convert each sample
+    //So to convert 4 channels within PWM rate (50us @ 20KHz)
+    //Using equation in the Family Reference Manual we have
+    //ADCS = 2*Tad/Tcy - 1 = 2 us per channel (4) -> 8 us
+    ADCON3 = 0;
+    ADCON3bits.SAMC = 4; //at least one Tad left for sampling
+    ADCON3bits.ADCS = 4; //Tad = (ADCS+1)*Tcy/2
 
-        //ADCHS Register
-        //Set up A/D Channel Select Register to convert
-        //AN8 on Mux A input of CH0
-        //AN0 on CH1 (Current motor 2!!!!), AN1 on CH2 (Current motor 1!!!)
-        //AN2 on CH3 (unused) S/H amplifiers
-        ADCHS = 0x0008; 
+    //ADCHS Register
+    //Set up A/D Channel Select Register to convert
+    //AN8 on Mux A input of CH0
+    //AN0 on CH1 (Current motor 2!!!!), AN1 on CH2 (Current motor 1!!!)
+    //AN2 on CH3 (unused) S/H amplifiers
+    ADCHS = 0x0008; 
         
-        //ADCSSL Register
-        //Channel Scanning is disabled. All bits left to their default state
-        ADCSSL = 0x0000;
+    //ADCSSL Register
+    //Channel Scanning is disabled. All bits left to their default state
+    ADCSSL = 0x0000;
 
-        //ADPCFG Register
-        //Set up channels as analog inputs and configure rest as digital
-        //Recall that we configured all A/D pins as digital when code execution
-        //entered main() out of reset
-        ADPCFG = 0xFFFF;
-            CURRSENSE1_PCFG = ANALOG;
-            CURRSENSE2_PCFG = ANALOG;
-            AN8_PCFG = ANALOG;
-            AN9_PCFG = ANALOG;
-            AN10_PCFG = ANALOG;
-            AN11_PCFG = ANALOG;
-            AN12_PCFG = ANALOG;
-            AN13_PCFG = ANALOG;
-            AN14_PCFG = ANALOG;
-            AN15_PCFG = ANALOG;
+    //ADPCFG Register
+    //Set up channels as analog inputs and configure rest as digital
+    //Recall that we configured all A/D pins as digital when code execution
+    //entered main() out of reset
+    ADPCFG = 0xFFFF;
+        CURRSENSE1_PCFG = ANALOG;
+        CURRSENSE2_PCFG = ANALOG;
+        AN8_PCFG = ANALOG;
+        AN9_PCFG = ANALOG;
+        AN10_PCFG = ANALOG;
+        AN11_PCFG = ANALOG;
+        AN12_PCFG = ANALOG;
+        AN13_PCFG = ANALOG;
+        AN14_PCFG = ANALOG;
+        AN15_PCFG = ANALOG;
+               
+    // FOR ARRAY STORAGE OF SAMPLING:
+    ADindex = 0;
+    mcurrsampIdx = 0;    
+
+    //Clear the A/D interrupt flag bit
+    IFS0bits.ADIF = 0;
+
+    //Set the A/D interrupt enable bit
+    IEC0bits.ADIE = 1;
         
-        
-        // FOR ARRAY STORAGE OF SAMPLING:
-        ADindex = 0;
-        mcurrsampIdx = 0;
+    //Set the interrupt priority
+    //7 = maximum
+    //4 = default
+    //0 = disable int.
+    IPC2bits.ADIP = 7;
 
-        
-
-        //Clear the A/D interrupt flag bit
-        IFS0bits.ADIF = 0;
-
-        //Set the A/D interrupt enable bit
-        IEC0bits.ADIE = 1;
-        
-        //Set the interrupt priority
-        //7 = maximum
-        //4 = default
-        //0 = disable int.
-        IPC2bits.ADIP = 7;
-
-        //Turn on the A/D converter
-        //This is typically done after configuring other registers
-        ADCON1bits.ADON = 1;
+    //Turn on the A/D converter
+    //This is typically done after configuring other registers
+    ADCON1bits.ADON = 1;
 
 }
 

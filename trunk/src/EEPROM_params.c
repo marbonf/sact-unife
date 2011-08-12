@@ -53,9 +53,6 @@
 
 #include <libpic30.h>
 
-//Global var definition
-uint8_t EEPROM_UpdReq;
-
 //LOCALS
 uint16_t _EEDATA(2) EE_is_blank = 0;
 uint16_t EE_is_blank_RAM;
@@ -119,9 +116,9 @@ void StoreEEPROMparams(void)
     _wait_eedata();
 
     /*Write a row to Data EEPROM from array "parameters_RAM" */
-    _write_eedata_row(EE_addr, parameters_RAM);
+    _write_eedata_row(EE_addr, (int *)parameters_RAM);
     _wait_eedata();
-    _write_eedata_row(EE_addr+32, parameters_RAM+16);
+    _write_eedata_row(EE_addr+32, (int *)parameters_RAM+16);
     _wait_eedata();
 }
 

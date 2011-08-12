@@ -124,22 +124,22 @@ void Timer5_Init(void)
     T5CON = 0x0010;    // Timer set w/1:8 prescaler
     
     // CHECK THAT FCY/N IS CONSISTENT WITH 1:N PRESCALER!!!
-      PR5 = (FCY/8) / SPEED_LOOP_FREQ;
+    PR5 = (FCY/8) / SPEED_LOOP_FREQ;
       
-      // RESET INTERRUPT FLAG 
-      IFS1bits.T5IF = 0;   
+    // RESET INTERRUPT FLAG 
+    IFS1bits.T5IF = 0;   
       
-      // INTERRUPT ENABLE 
-      IEC1bits.T5IE = 1;
+    // INTERRUPT ENABLE 
+    IEC1bits.T5IE = 1;
       
-      //Set the interrupt priority
+    //Set the interrupt priority
     //7 = maximum
     //4 = default
     //0 = disable int.
-      IPC5bits.T5IP = 6;  
+    IPC5bits.T5IP = 6;  
       
-      //ENABLE TIMER
-      T5CONbits.TON=1;     
+    //ENABLE TIMER
+    T5CONbits.TON=1;     
 }
 
 /************************************************************
