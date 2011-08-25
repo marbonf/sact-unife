@@ -44,15 +44,20 @@
  *  for ALL communication channels:
  *  UART1/2, I2C, CAN (not used..)
  *
- *  NOTE:     related ISRs are defined in specific source files
- *          for protocol management (e.g. SACT_Protocol.c)
- *
  **********************************************************************/
  
 #include "sys_hw.h"
 #include "generic_defs.h"
 #include "Comms.h"
 
+// BUFFERING VARIABLES
+unsigned char u1tmpbuf[256];
+uint8_t u1buftail = 0;
+uint8_t u1bufhead = 0;
+
+unsigned char u2tmpbuf[256];
+uint8_t u2buftail = 0;
+uint8_t u2bufhead = 0;
 
 void UART1_Init(void)
 {
@@ -66,6 +71,12 @@ void UART1_Init(void)
     //reset flags
     IFS0bits.U1RXIF = 0;
     IFS0bits.U1TXIF = 0;
+    
+    //Set the interrupt priority
+    //7 = maximum
+    //4 = default
+    //0 = disable int.
+    IPC2bits.U1RXIP = 6;
     
     IEC0bits.U1RXIE = 1; // RX interrupt ENABLED
     IEC0bits.U1TXIE = 0; // TX interrupt DISABLED
@@ -91,6 +102,12 @@ void UART2_Init(void)
     IFS1bits.U2RXIF = 0;
     IFS1bits.U2TXIF = 0;
     
+    //Set the interrupt priority
+    //7 = maximum
+    //4 = default
+    //0 = disable int.
+    IPC6bits.U2RXIP = 6;  
+    
     IEC1bits.U2RXIE = 1; // RX interrupt ENABLED
     IEC1bits.U2TXIE = 0; // TX interrupt DISABLED
     
@@ -101,6 +118,67 @@ void UART2_Init(void)
     U2STAbits.UTXEN = 1;    //Enable UART1 transmitter
 
 }
+
+/****************************************
+ * UART1/2 TX interrupt (Unused)
+ ***************************************/
+ void __attribute__((interrupt,auto_psv)) _U1TXInterrupt(void)
+{
+    IFS0bits.U1TXIF = 0;    //Clear the UART1 transmitter interrupt flag
+}
+
+void __attribute__((interrupt,auto_psv)) _U2TXInterrupt(void)
+{
+    IFS1bits.U2TXIF = 0;    //Clear the UART2 transmitter interrupt flag
+}
+
+/****************************************
+ * UART1 RX interrupt
+ ***************************************/
+void __attribute__((interrupt,auto_psv)) _U1RXInterrupt(void)
+{
+    
+while(U1STAbits.URXDA) // DATA AVAILABLE
+{
+    // Clear overflow error
+    // NOTE: this flushes the buffer!!!
+    if(U1STAbits.OERR)
+    {
+        U1STAbits.OERR = 0;
+        break;
+    } 
+
+    u1tmpbuf[u1bufhead++] = U1RXREG;
+
+}// END WHILE URXDA (Data Available)
+
+ IFS0bits.U1RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
+}// END U1 RX Interrupt
+
+
+/****************************************
+ * UART2 RX interrupt
+ ***************************************/
+void __attribute__((interrupt,auto_psv)) _U2RXInterrupt(void)
+{
+    
+while(U2STAbits.URXDA) // DATA AVAILABLE
+{
+    // Clear overflow error
+    // NOTE: this flushes the buffer!!!
+    if(U2STAbits.OERR)
+    {
+        U2STAbits.OERR = 0;
+        break;
+    } 
+
+    u2tmpbuf[u2bufhead++] = U2RXREG;
+
+}// END WHILE URXDA (Data Available)
+
+ IFS1bits.U2RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
+}// END U2 RX Interrupt
+
 
 /**************************************************************
  * Functions for UART TX, can be redirected to UART1/UART2

@@ -32,76 +32,75 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Trajectories.h                                  *
- *    Date:           02/01/2011                                      *
+ *    Filename:       WayPointQ.c                                     *
+ *    Date:           01/08/2011                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
  *    Code Description
  *  
- *  Header file for the trajectory generation functions.
+ *  This file contains the way point queue management.
  *
  **********************************************************************/
 
-#ifndef TRAJ_H
-#define TRAJ_H
+#include "generic_defs.h"
+#include "WayPointQ.h"
 
-#include "generic_defs.h" // FOR LNG datatype
+// PATH WAYPOINTS
+volatile int16_t x_way[MAX_WAY];
+volatile int16_t y_way[MAX_WAY];
+volatile int16_t r_way[MAX_WAY];
+volatile uint8_t way_head, way_tail;
 
-/**********************************************************
- * BASIC Trajectory planners, derived from Microchip AN696
- *********************************************************/
-typedef struct {
-    unsigned enable    : 1; //enable <- INPUT
-    unsigned active    : 1; //motion active -> OUTPUT
-    unsigned UNUSED    : 6;
-} tTRAJflags;
+void WayPointQ_Reset(void)
+{
+    way_head = 0;
+    way_tail = 0;
+}
 
-typedef struct {
-    int32_t         qdPosition;    // 1.31 format
-    LNG             qdVelocity;
-    int16_t         qVLIM;
-    int16_t         qACC;
-    uint8_t         qVELshift;
-    uint8_t         qACCshift;
-    int16_t         qVelCOM;
-    int32_t         qdPosCOM;
-    } tTRAJParm;
+uint8_t WayPointQ_InUse(void)
+{
+    return way_head - way_tail;
+}
 
-void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
-void JogTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
+int WayPointQ_IsFull(void)
+{
+    return ((way_head - way_tail) == MAX_WAY);
+}
 
-/**********************************************************
- * ADVANCED Trajectory planners, applying nonlinear
- * filtering theory (Zanasi-et-al.):
- * SECOND-ORDER NONLINEAR FILTER
- * Implementation notes:
- * - fixed-point version, requires Umax and Fc (= 1/Tc)
- *   to be a power of 2, to use only shifting (no div.)
-*******************************************************/
-typedef struct {
-    int32_t         qdXint;    // 1.31 format
-    int32_t         qdXdot_int;
-    int32_t         qdRprev; // if MODE = 1 -> previous command
-                             // if MODE = 2 -> command derivative
-    int32_t         qdRcommand; // if MODE = 1 -> current command
-                                // if MODE = 2 -> tracking error, calculated outside
-    uint8_t         MODE;
-    } tNLFStatus;
+int WayPointQ_IsEmpty(void)
+{
+    return ((way_head - way_tail) == 0);
+}
 
-typedef struct {
-    int32_t         qdX;    // 1.31 format
-    int32_t         qdXdot;
-    int32_t         qdXddot;
-    } tNLFOut;
+int WayPointQ_Put(int16_t x, int16_t y, int16_t r)
+{
+    if( (way_head - way_tail) != MAX_WAY)
+    {
+        x_way[way_head%MAX_WAY] = x;
+        y_way[way_head%MAX_WAY] = y;
+        r_way[way_head%MAX_WAY] = r;
+        way_head = (way_head+1);
+    }
+    else return 0;
+    
+    return 1;
+}
 
+int WayPointQ_Get(int16_t *x, int16_t *y, int16_t *r)
+{
+   if( (way_head - way_tail) != 0)
+   {
+      *x = x_way[way_tail%MAX_WAY];
+      *y = y_way[way_tail%MAX_WAY];
+      *r = r_way[way_tail%MAX_WAY];
+      way_tail = (way_tail+1);
+   }
+   else return 0;
+   
+   return 1;            
 
-void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus);
+}
 
-void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
-                 uint32_t Xdot_max, uint8_t Umax_SHIFT, // DYNAMIC LIMITS
-                 uint8_t Fc_SHIFT);                     // SAMPLING FREQUENCY
- 
-#endif
 

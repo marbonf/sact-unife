@@ -33,7 +33,7 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       Trajectories.c                                  *
- *    Date:           2/1/2011                                        *
+ *    Date:           02/01/2011                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
@@ -104,7 +104,7 @@ void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus)
     NLFStatus->qdXint = 0;
     NLFStatus->qdXdot_int = 0;
     NLFStatus->qdRprev = 0;
-      NLFStatus->qdRcommand = 0;
+    NLFStatus->qdRcommand = 0;
     
     // MODE MUST BE 1 or 2, set by user..
     NLFStatus->MODE = 0;

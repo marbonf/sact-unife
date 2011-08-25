@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       Timers.c                                        *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/08/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
@@ -136,8 +136,8 @@ void Timer5_Init(void)
     //7 = maximum
     //4 = default
     //0 = disable int.
-    IPC5bits.T5IP = 6;  
-      
+    IPC5bits.T5IP = 5;  
+
     //ENABLE TIMER
     T5CONbits.TON=1;     
 }
@@ -175,7 +175,7 @@ IFS1bits.T5IF = 0;    // Clear interrupt flag
         if(control_flags.pos_loop_active)
             PositionLoops();
         else if(control_flags.cart_loop_active)
-            CartesianLoops();
+            CartesianLoop();
     }
 
 #ifdef DEVELOP_MODE 

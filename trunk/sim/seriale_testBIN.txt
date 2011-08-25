@@ -13,11 +13,41 @@ wait 400 ms
 wait 0 sec
 0D 0A
 
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
 wait 400 ms
-AA 55 06 0B 01 00 70 52 FF 
+AA 55 06 01 05 00 52 90 FF 
 
 wait 500 ms
-AA 55 04 0C 00 05 FF 
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
+
+wait 500 ms
+AA 55 04 08 01 C6 FF 
 
 wait 500 ms
 AA 55 04 08 01 C6 FF 

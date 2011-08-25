@@ -32,9 +32,19 @@
 /* This is a boilerplate script that
    includes a standard set of libraries. */
 
+/* STANDARD MATH LIBRARY */
 /*INPUT(-lm)*/
-/*INPUT(-ldsp)*/
+
+/* STANDARD C LIBRARY */
 /*INPUT(-lc)*/
+
+/* MICROCHIP DSP LIBRARY (PID, FFT, etc.) */
+/*INPUT(-ldsp)*/
+
+/* MANDATORY DSPIC30 DEFINITIONS */
 INPUT(-lpic30)
+
+/* MICROCHIP FIXED-POINT LIBRARY */
 INPUT(-lq)
+
 INCLUDE p30f6015.gld

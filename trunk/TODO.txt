@@ -1,5 +1,5 @@
 COMMANDS:
-- implement remote update of all robot/motor parameters..
+- implement coherent update of NL Filter parameters..
 
 
 CALIBRATION:

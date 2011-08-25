@@ -14,26 +14,36 @@ wait 0 sec
 0D 0A
 
 wait 300 ms
-"SSF 35"
+"MXC 350"
 wait 0 sec
 0D 0A
 
-wait 300 ms
+wait 500 ms
+"CLP 100"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"DRF 10"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"UEE"
+wait 0 sec
+0D 0A
+
+wait 500 ms
 "CMO 3"
 wait 0 sec
 0D 0A
 
-wait 800 ms
-"SVR 0 17500"
+wait 500 ms
+"VLP 120"
 wait 0 sec
 0D 0A
 
-wait 5 sec
-"SVR 0 0 "
-wait 0 sec
-0D 0A
-
-wait 5 sec
-"SVR 0 0"
+wait 500 ms
+"UEE"
 wait 0 sec
 0D 0A

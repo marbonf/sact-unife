@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       Comms.h                                         *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/08/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -53,6 +53,15 @@
 #define BAUDRATE2       230400  //Desired Baud Rate UART2
 #define BRGVAL1         ((FCY/BAUDRATE1)/16)-1   //Formula for U1BRG register
 #define BRGVAL2         ((FCY/BAUDRATE2)/16)-1   //Formula for U2BRG register
+
+// BUFFERING VARIABLES
+extern unsigned char u1tmpbuf[];
+extern uint8_t u1buftail;
+extern uint8_t u1bufhead;
+
+extern unsigned char u2tmpbuf[];
+extern uint8_t u2buftail;
+extern uint8_t u2bufhead;
 
 // Function prototypes for global scope
 void UART1_Init(void);

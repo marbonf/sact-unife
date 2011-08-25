@@ -57,14 +57,14 @@
  ***************************************************************/
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING
 //#define SIMULATE
-//#define REV2_BOARD
-#define REV1_BOARD
+#define REV2_BOARD
+//#define REV1_BOARD
 
 /****************************************************************
  * IF COMPILED FOR DEVELOP MODE
  * ADDS DATALOGS AND TEST PROBE OUTPUTS FOR TASK MONITORING
  ***************************************************************/
-//#define DEVELOP_MODE
+#define DEVELOP_MODE
 //UNCOMMENT THE FOLLOWING IF LONG (data-type) DATALOG IS DESIRED
 #define LOG_LONG
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING

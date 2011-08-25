@@ -19,9 +19,150 @@ wait 0 sec
 0D 0A
 
 wait 300 ms
-"SSF 35"
+"SSF 34"
 wait 0 sec
 0D 0A
+
+wait 300 ms
+"SWP 3000 0 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 4000 1200 480"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 2400 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 2400 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 50 3600 457"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 4800 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3400 4800 0"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 0 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 4000 1200 480"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 2400 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 2400 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 50 3600 457"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 4800 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3400 4800 0"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 0 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 4000 1200 480"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 2400 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 2400 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 50 3600 457"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 4800 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3400 4800 0"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 0 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 4000 1200 480"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3000 2400 278"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 2400 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 50 3600 457"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 1000 4800 286"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"SWP 3400 4800 0"
+wait 0 sec
+0D 0A
+
 
 wait 90 sec
 "CMO 0"

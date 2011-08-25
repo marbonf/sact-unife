@@ -200,10 +200,11 @@ extern int32_t x_odom,y_odom,theta_odom;
 // NONLINEAR FILTER structures
 // definitions are in the Controls.c source file
 // NOT in globals.c
-#define TURNING  0
-#define SLOWING  1
-#define ALIGNED  2
-#define STOPPING 3
+#define IDLE     0
+#define TURNING  1
+#define SLOWING  2
+#define ALIGNED  3
+#define STOPPING 4
 extern uint8_t NLFState;
 extern tNLFStatus VelocityNLFStatus;
 extern tNLFStatus OrientationNLFStatus;
@@ -215,12 +216,14 @@ extern tNLFOut OrientationNLFOut;
 // definitions are in the Controls.c source file
 // NOT in globals.c
 extern int32_t x_target,y_target, x_set, y_set; 
-// PATH WAYPOINTS
-#define MAX_WAY 10
-extern int16_t x_way[];
-extern int16_t y_way[];
-extern int16_t r_way[];
-extern uint8_t way_index;
+
+// DYNAMIC FEEDBACK LINEARIZATION
+// linear control-loop parameters
+// definitions are in the Controls.c source file
+// NOT in globals.c
+extern int16_t dfl_K1; // x gain
+extern int16_t dfl_K2; // xdot gain
+extern int16_t dfl_K3; // xddot gain
 
 // SYSTEM-WIDE PARAMETERS
 // defined in SACT_Protocol.c,

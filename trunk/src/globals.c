@@ -91,9 +91,9 @@ int16_t wheel_radius;// = 500; // in 0.1mm
 //int16_t wheel_radius = 50; // in mm
 int16_t wheel_track;// = 4100;  // in 0.1mm
 //int16_t wheel_track = 410; // in mm
-int16_t robot_mass = 15; // in Kg
-int16_t robot_inertia = 41; // in 0.01 Kg m^2 ??
-int32_t ADC_torque_scale = 42000000; // = 25 600 000 000 / 438
+int16_t robot_mass; // e.g. 15 Kg, NOW scaled in grams 
+int16_t robot_inertia; // = 41; // in 0.01 Kg m^2 ?? NOW in Kg cm^2
+int32_t ADC_torque_scale; // = 42000000; // = 25 600 000 000 / 438
                     // since 438 is scaling ADC points / Nm
                     // and Torque ref is in Nm * 10^-8 23.8 fixed-point
 

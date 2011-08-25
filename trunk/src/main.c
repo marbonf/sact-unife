@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       main.c                                          *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/08/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -56,6 +56,18 @@
 #include "Controls.h" // for RCURR_MAV_ORDER
 #include "SACT_protocol.h"
 #include "EEPROM_params.h"
+
+#ifdef SIMULATE
+    #warning "SIMULATE target"
+#endif
+
+#ifdef REV1_BOARD
+    #warning "REV.1 BOARD target"
+#endif
+
+#ifdef REV2_BOARD
+    #warning "REV.2 BOARD target"
+#endif
 
 // CONFIGURATION BITS fuses (see dspic specific .h)
 _FOSC(CSW_FSCM_OFF & XT_PLL16);  // Clock-switching and monitor off
@@ -80,7 +92,12 @@ void update_params(void);
 // WELCOME MESSAGE!
 const unsigned char WelcomeMsg[] = 
 {"\r\n-----  Sabot ACTuator Board  -----\r\n"
-     "-----   HW REV.2 - FW v0.1   -----\r\n"
+#ifdef REV1_BOARD
+     "-----   HW REV.1 - FW v0.8   -----\r\n"
+#endif
+#ifdef REV2_BOARD
+     "-----   HW REV.2 - FW v0.8   -----\r\n"
+#endif
      "Type the following sequence\r\n"
      "SYNC0+cr/lf SYNC1+cr/lf SYNCA+cr/lf\r\n"
      "to enter ASCII mode:\r\n"};
@@ -163,13 +180,7 @@ int main(void)
     // Timer5 used to schedule speed loops
     Timer5_Init(); // AND POSITION LOOP!!!
     
-////INIT NLFILTER TEST
-    InitNLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus);
-////INIT NLFILTER TEST
-    InitNLFilter2Fx(&OrientationNLFOut, &OrientationNLFStatus);
-    //OrientationNLFStatus.qdXint = PI_Q16-(PI_Q16>>2);
-    NLFState = TURNING;
-///////////////////////////////////////////////////////////
+////END INITIALIZATION PART
  
 #ifdef DEVELOP_MODE   
     // SETUP A FEW PINS FOR TEST PROBES
@@ -203,6 +214,11 @@ void update_params(void)
     encoder_counts_rev = (int32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
     wheel_radius = parameters_RAM[17];
     wheel_track = parameters_RAM[18];
+    robot_mass = parameters_RAM[22];
+    robot_inertia = parameters_RAM[23];
+    // parameters_RAM[24] is giving scale as ADC points / Nm
+    // now convert it as a divider for Torque ref. in Nm * 10^-8 23.8 fixed-point
+    ADC_torque_scale = (int32_t)(25600000000LL / parameters_RAM[24]);
     direction_flags.word = parameters_RAM[21];
 
 ///////////////////////////////////////////////////////////////////
@@ -280,6 +296,11 @@ void update_params(void)
     TRAJMotor2.qACC = parameters_RAM[2];
     TRAJMotor2.qVELshift = parameters_RAM[3];
     TRAJMotor2.qACCshift = parameters_RAM[4];
+    
+////INIT DYNAMIC FEEDBACK LINEARIZATION LOOP
+    dfl_K1 = parameters_RAM[25];
+    dfl_K2 = parameters_RAM[26];
+    dfl_K3 = parameters_RAM[27];
 
 }
 
@@ -300,6 +321,11 @@ J10Pin3_OUT = 1;
         diagnostics();
         
         debounce_switches();
+
+////////UARTs Receive management for SACT protocol
+        U1_SACT_Parser();
+        U2_SACT_Parser();
+        
 
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
@@ -468,10 +494,12 @@ J10Pin4_OUT = 1;
         // SACT protocol SSP/SDP (see SACT_protocol.c)
         SACT_SendSSP();
         SACT_SendSDP();
-
+        
         // Toggle LEDs
         LED1 = !LED1;
-        LED2 = !LED2;
+        if(control_mode.state == OFF_MODE)
+            LED2 = !LED2;
+        //ELSE LED2 is toggled on SACT command received
 
 #ifdef DEVELOP_MODE     
 // FOR TEST PROBE
@@ -502,6 +530,9 @@ void control_mode_manager(void)
                             rcurrent2 = 0;
                             rcurrent1_req = 0;
                             rcurrent2_req = 0;
+                            mcurrent1_filt = mcurrent1_offset;
+                            mcurrent2_filt = mcurrent2_offset;
+                            
                             while(idxtemp < RCURR_MAV_ORDER)
                             {
                                 rcurrent1samp[idxtemp] = 0;
@@ -525,6 +556,8 @@ void control_mode_manager(void)
                             else if(control_mode.cart_mode_req)
                                 {
                                     control_mode.state = CART_MODE;
+                                    
+                                    InitCartesianLoop();
                                 }
                             // IF there is ANY transition, RESETS PIDs
                             if(control_mode.trxs)
@@ -579,6 +612,7 @@ void control_mode_manager(void)
 //  CART MODE
         case CART_MODE : control_flags.current_loop_active = 1;
                          control_flags.cart_loop_active = 1;
+                         
                          // STATE TRANSITIONS
                          if(control_mode.off_mode_req)
                          {

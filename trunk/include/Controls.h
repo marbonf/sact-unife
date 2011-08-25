@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       Controls.h                                      *
- *    Date:           29/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/08/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -52,10 +52,12 @@ void SpeedLoops(void);
 
 void PositionLoops(void);
 
-void CartesianLoops(void);
+void InitCartesianLoop(void);
 
-//CURRENT FILTERING ORDER AND RELATED CURRENT LOOP FREQUENCY
-#define RCURR_MAV_SHIFT 5
+void CartesianLoop(void);
+
+//CURRENT FILTERING ORDER AND RELATED BIT-SHIFT
+#define RCURR_MAV_SHIFT 3
 #define RCURR_MAV_ORDER (1<<RCURR_MAV_SHIFT) 
 
 void RefCurrentFilter(void);

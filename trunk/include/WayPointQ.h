@@ -32,76 +32,35 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       Trajectories.h                                  *
- *    Date:           02/01/2011                                      *
+ *    Filename:       WayPointQ.h                                     *
+ *    Date:           01/08/2011                                      *
  *    File Version:   0.1                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
  *    Code Description
  *  
- *  Header file for the trajectory generation functions.
+ *  Header file for the way point queue management.
  *
  **********************************************************************/
+#ifndef WAY_POINT_Q_H
+#define WAY_POINT_Q_H
 
-#ifndef TRAJ_H
-#define TRAJ_H
+#define MAX_WAY 32
 
-#include "generic_defs.h" // FOR LNG datatype
+void WayPointQ_Reset(void);
 
-/**********************************************************
- * BASIC Trajectory planners, derived from Microchip AN696
- *********************************************************/
-typedef struct {
-    unsigned enable    : 1; //enable <- INPUT
-    unsigned active    : 1; //motion active -> OUTPUT
-    unsigned UNUSED    : 6;
-} tTRAJflags;
+uint8_t WayPointQ_InUse(void);
 
-typedef struct {
-    int32_t         qdPosition;    // 1.31 format
-    LNG             qdVelocity;
-    int16_t         qVLIM;
-    int16_t         qACC;
-    uint8_t         qVELshift;
-    uint8_t         qACCshift;
-    int16_t         qVelCOM;
-    int32_t         qdPosCOM;
-    } tTRAJParm;
+int WayPointQ_IsFull(void);
 
-void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
-void JogTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
+int WayPointQ_IsEmpty(void);
 
-/**********************************************************
- * ADVANCED Trajectory planners, applying nonlinear
- * filtering theory (Zanasi-et-al.):
- * SECOND-ORDER NONLINEAR FILTER
- * Implementation notes:
- * - fixed-point version, requires Umax and Fc (= 1/Tc)
- *   to be a power of 2, to use only shifting (no div.)
-*******************************************************/
-typedef struct {
-    int32_t         qdXint;    // 1.31 format
-    int32_t         qdXdot_int;
-    int32_t         qdRprev; // if MODE = 1 -> previous command
-                             // if MODE = 2 -> command derivative
-    int32_t         qdRcommand; // if MODE = 1 -> current command
-                                // if MODE = 2 -> tracking error, calculated outside
-    uint8_t         MODE;
-    } tNLFStatus;
+int WayPointQ_Put(int16_t x, int16_t y, int16_t r);
 
-typedef struct {
-    int32_t         qdX;    // 1.31 format
-    int32_t         qdXdot;
-    int32_t         qdXddot;
-    } tNLFOut;
+int WayPointQ_Get(int16_t *x, int16_t *y, int16_t *r);
 
 
-void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus);
 
-void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
-                 uint32_t Xdot_max, uint8_t Umax_SHIFT, // DYNAMIC LIMITS
-                 uint8_t Fc_SHIFT);                     // SAMPLING FREQUENCY
- 
 #endif
 
