@@ -5,8 +5,9 @@ main
 +------> medium_event_handler (at MEDIUM_RATE, see extern_globals.h)
 |        +----> diagnostics    
 |        +----> debounce_switches
+|        +----> SACT commands parser
 +------> slow_event_handler (at SLOW_RATE, see extern_globals.h)
-         +----> SACT protocol timeout
+         +----> SACT protocol timeout / output packets management
          +----> control mode manager
 
 ADC.c
@@ -23,7 +24,4 @@ Timers.c
          +----> CartesianLoop (Controls.c, at POS_LOOP_FREQ,
                                a submultiple of SPEED_LOOP_FREQ)
 
-SACT_protocol.c
-+------> U1RX/U2RX Interrupt
-         +-----> all SACT commands parsing/management
          

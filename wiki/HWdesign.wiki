@@ -1,17 +1,30 @@
-#summary Introduction
+#summary Hardware Design
 
-= SaBot and its ACTuator control board =
+= SACT board hardware =
 
-SaBot (ScAlable RoBOT) is an experimental platform developed from the Laboratory of Intelligent Robotics and Automation (LIRA)
-of the University of Ferrara (Italy).
+http://sact-unife.googlecode.com/svn/wiki/images/sact.jpg 
 
-The design of the robot started from scratch, with the aim to experience all the issues and learn all the lessons related to a full
-"mechatronic design".
+The SACT board is based on a Microchip dsPIC30F6015 16-bit DSC (Digital Signal Controller), which is equipped with
+  * two UART modules (for asynchronous serial communication)
+  * a CAN controller
+  * a Motor Control PWM module
+  * a 10-bit A/D converter (ADC)
+  * a Quadrature Encoder Interface (QEI)
+
+In order to control two small DC servo motor, the board has two integrated H-Bridge modules (National LMD18200T) providing up to 6A
+each. The LMD18200T includes also a current feedback circuit that needs only a standard external resistor for interfacing with
+an A/D converter.
+
+Two quadrature encoders can be interfaced to the dsPIC, one by means of the embedded QEI and another by means of an external
+encoder interface circuit (an LS7183) that transforms quadrature pulses into up and down count pulses, which can be counted with
+two standard timer modules of the dsPIC.
+
+To conclude, one UART module of the dsPIC is connected to an RS-232 level shifter and the other one to a Lantronix 
+Serial-to-Ethernet device server (XPort on board rev.1 or WiF MatchPort on board rev.2).
+
+The overall block diagram of the SACT board is the following:
+
+http://sact-unife.googlecode.com/svn/wiki/images/sact-blocks.jpg 
 
 
-= Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
