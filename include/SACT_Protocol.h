@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       SACT_Protocol.h                                 *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/08/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -63,7 +63,7 @@
 #define SACT_SPP   0xC1
 
 // ASCII MODE LIMITS
-#define MAX_ASCIILEN 255
+#define MAX_ASCIILEN 100
 
 #define COMMANDPARA 0
 #define MOTORPARA   1
@@ -94,15 +94,16 @@ typedef struct {
 // For Sabot Sensor Packet configuration
 typedef union {
     struct {
-    unsigned encoders   : 1;
-    unsigned odometry   : 1;
-    unsigned analogs    : 1;
-    unsigned digitals   : 1;
-    unsigned sonars     : 1;
-    unsigned currents   : 1;
-    unsigned wheel_vel  : 1;
-    unsigned linrot_vel : 1;
-    unsigned UNUSED     : 8;
+    unsigned encoders   : 1; //b0
+    unsigned odometry   : 1; //b1
+    unsigned analogs    : 1; //b2
+    unsigned digitals   : 1; //b3
+    unsigned sonars     : 1; //b4
+    unsigned currents   : 1; //b5
+    unsigned wheel_vel  : 1; //b6
+    unsigned linrot_vel : 1; //b7
+    unsigned way_point_q: 1; //b8
+    unsigned UNUSED     : 7;
     };
     int16_t word;
 } tSSP_config;
@@ -116,12 +117,15 @@ typedef struct {
     char *quick_msg;    //abbriviation for message 
     } t_command_data; 
    
-#define N_COMMANDS 12
+#define N_COMMANDS 13
 #define N_PARAMS   32
 #define MAXARGS 3
 
-// PUBLIC FUNCTION FOR TIMEOUT INCREMENT AND MANAGEMENT
+// PUBLIC FUNCTIONS FOR PROTOCOL MANAGEMENT
+// AND TIMEOUT INCREMENT (to be called periodically)
 #define SACT_TIME_LIMIT 3000 //in ms
+void U1_SACT_Parser(void);
+void U2_SACT_Parser(void);
 void SACT_timeout(void);
 void SACT_SendSSP(void);
 void SACT_SendSDP(void);

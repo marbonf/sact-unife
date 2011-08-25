@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       SACT_Protocol.c                                 *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Date:           20/01/2011                                      *
+ *    File Version:   0.8                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -50,6 +50,7 @@
 #include "extern_globals.h"
 #include "Comms.h"
 #include "SACT_Protocol.h"
+#include "WayPointQ.h"
 #include "lib_crc.h"
 
 #include <string.h> //for memcmp()
@@ -75,70 +76,74 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =    {
 {0,0,0,             "PULSE (BIN.only)","PUL"},//8
 {0,0,0,             "UPDATE EEPROM   ","UEE"},//9
 {0,0,3,             "RESET ODOMETRY  ","ROD"},//10
-{0,0,1,             "SET SSP FLAGS   ","SSF"},//11
-{1,32767,1,         "MAX CURRENT     ","MXC"},//12
-{1,32767,1,         "MAX VELOCITY    ","MXV"},//13
-{1,32767,1,         "MAX ACCELERATION","MXA"},//14
-{0,15,1,            "VEL. SCALING N. ","VSN"},//15
-{0,15,1,            "ACC. SCALING N. ","ASN"},//16
-{1,32767,1,         "CURR.Loop P GAIN","CLP"},//17
-{1,32767,1,         "CURR.Loop I GAIN","CLI"},//18
-{1,32767,1,         "CURR.Loop D GAIN","CLD"},//19
-{0,15,1,            "CURR.Loop SCALE ","CLS"},//20
-{1,32767,1,         "VEL. Loop P GAIN","VLP"},//21
-{1,32767,1,         "VEL. Loop I GAIN","VLI"},//22
-{1,32767,1,         "VEL. Loop D GAIN","VLD"},//23
-{0,15,1,            "VEL. Loop SCALE ","VLS"},//24
-{1,32767,1,         "POS. Loop P GAIN","PLP"},//25
-{1,32767,1,         "POS. Loop I GAIN","PLI"},//26
-{1,32767,1,         "POS. Loop D GAIN","PLD"},//27
-{0,15,1,            "POS. Loop SCALE ","PLS"},//28
-{1,32767,1,         "WHEEL RADIUS    ","WLR"},//29
-{1,32767,1,         "WHEEL TRACK Len.","WLT"},//30
-{1,32767,1,         "WHEEL ENC. count","WEC"},//31
-{1,32767,1,         "ODOMETRY Correct","ODC"},//32
-{0,31,1,            "DIRECTION flags ","DRF"},//33
-{1,32767,1,         "ROBOT MASS      ","ROM"},//34
-{1,32767,1,         "ROBOT INERTIA   ","ROI"},//35
-{1,32767,1,         "ADC TORQUE SCALE","ATS"},//36
+{0,0,1,             "RESET WAY QUEUE ","RWQ"},//11
+{0,0,1,             "SET SSP FLAGS   ","SSF"},//12
+{1,32767,1,         "MAX CURRENT     ","MXC"},//13
+{1,32767,1,         "MAX VELOCITY    ","MXV"},//14
+{1,32767,1,         "MAX ACCELERATION","MXA"},//15
+{0,15,1,            "VEL. SCALING N. ","VSN"},//16
+{0,15,1,            "ACC. SCALING N. ","ASN"},//17
+{1,32767,1,         "CURR.Loop P GAIN","CLP"},//18
+{1,32767,1,         "CURR.Loop I GAIN","CLI"},//19
+{1,32767,1,         "CURR.Loop D GAIN","CLD"},//20
+{0,15,1,            "CURR.Loop SCALE ","CLS"},//21
+{1,32767,1,         "VEL. Loop P GAIN","VLP"},//22
+{1,32767,1,         "VEL. Loop I GAIN","VLI"},//23
+{1,32767,1,         "VEL. Loop D GAIN","VLD"},//24
+{0,15,1,            "VEL. Loop SCALE ","VLS"},//25
+{1,32767,1,         "POS. Loop P GAIN","PLP"},//26
+{1,32767,1,         "POS. Loop I GAIN","PLI"},//27
+{1,32767,1,         "POS. Loop D GAIN","PLD"},//28
+{0,15,1,            "POS. Loop SCALE ","PLS"},//29
+{1,32767,1,         "WHEEL RADIUS    ","WLR"},//30
+{1,32767,1,         "WHEEL TRACK Len.","WLT"},//31
+{1,32767,1,         "WHEEL ENC. count","WEC"},//32
+{1,32767,1,         "ODOMETRY Correct","ODC"},//33
+{0,31,1,            "DIRECTION flags ","DRF"},//34
+{1,32767,1,         "ROBOT MASS      ","ROM"},//35
+{1,32767,1,         "ROBOT INERTIA   ","ROI"},//36
+{1,32767,1,         "ADC TORQUE SCALE","ATS"},//37
+{1,32767,1,         "Dyn.F.L. X Gain ","DK1"},//38
+{1,32767,1,         "Dyn.F.L. XdGain ","DK2"},//39
+{1,32767,1,         "Dyn.F.L.XddGain ","DK3"},//40
 }; 
 
 
 // PARAMETERS stored in RAM.. default values..
 uint16_t parameters_RAM[N_PARAMS]=
 {    
-    800,            // 0: MAX CURRENT (Command 12)
-    17500,          // 1: MAX VELOCITY (Command 13)
-    10000,          // 2: MAX ACCELERATION (Command 14)
-    5,              // 3: VELOCITY SCALING SHIFT (Command 15)
-    8,              // 4: ACCELERATION SCALING SHIFT (Command 16)
-    600,            // 5: CURRENT LOOP P GAIN (Command 17)
-    80,             // 6: CURRENT LOOP I GAIN (Command 18)
-    0,              // 7: CURRENT LOOP D GAIN (Command 19)
-    9,              // 8: CURRENT LOOP SCALING SHIFT (Command 20)
-    1000,           // 9:  VELOCITY LOOP P GAIN (Command 21)
-    20,             // 10: VELOCITY LOOP I GAIN (Command 22)
-    0,              // 11: VELOCITY LOOP D GAIN (Command 23)
-    9,              // 12: VELOCITY LOOP SCALING SHIFT (Command 24)
-    400,            // 13: POSITION LOOP P GAIN (Command 25)
-    0,              // 14: POSITION LOOP I GAIN (Command 26)
-    0,              // 15: POSITION LOOP D GAIN (Command 27)
-    18,             // 16: POSITION LOOP SCALING SHIFT (Command 28)
-    500,            // 17: WHEEL RADIUS (Command 29)
-    4100,           // 18: WHEEL TRACK  (Command 30)
-    21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 31)
-    0,              // 20: ODOMETRY Correction factor (Command 32)
-    30,             // 21: DIRECTION flags (Command 33)
-    0,              // 22: ROBOT MASS (Command 34)
-    0,              // 23: ROBOT INERTIA (Command 35)
-    0,              // 24: ADC TORQUE SCALE (Command 36)
-    0,              // 25: UNUSED (Command 37)
-    0,              // 26: UNUSED (Command 38)
-    0,              // 27: UNUSED (Command 39)
-    0,              // 28: UNUSED (Command 40)
-    0,              // 29: UNUSED (Command 41)
-    0,              // 30: UNUSED (Command 42)
-    0,              // 31: UNUSED (Command 43)
+    800,            // 0: MAX CURRENT (Command 13)
+    17500,          // 1: MAX VELOCITY (Command 14)
+    10000,          // 2: MAX ACCELERATION (Command 15)
+    5,              // 3: VELOCITY SCALING SHIFT (Command 16)
+    8,              // 4: ACCELERATION SCALING SHIFT (Command 17)
+    600,            // 5: CURRENT LOOP P GAIN (Command 18)
+    80,             // 6: CURRENT LOOP I GAIN (Command 19)
+    0,              // 7: CURRENT LOOP D GAIN (Command 20)
+    9,              // 8: CURRENT LOOP SCALING SHIFT (Command 21)
+    1000,           // 9:  VELOCITY LOOP P GAIN (Command 22)
+    20,             // 10: VELOCITY LOOP I GAIN (Command 23)
+    0,              // 11: VELOCITY LOOP D GAIN (Command 24)
+    9,              // 12: VELOCITY LOOP SCALING SHIFT (Command 25)
+    400,            // 13: POSITION LOOP P GAIN (Command 26)
+    0,              // 14: POSITION LOOP I GAIN (Command 27)
+    0,              // 15: POSITION LOOP D GAIN (Command 28)
+    18,             // 16: POSITION LOOP SCALING SHIFT (Command 29)
+    500,            // 17: WHEEL RADIUS (Command 30)
+    4100,           // 18: WHEEL TRACK  (Command 31)
+    21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 32)
+    0,              // 20: ODOMETRY Correction factor (Command 33)
+    30,             // 21: DIRECTION flags (Command 34)
+    1500,           // 22: ROBOT MASS (Command 35)
+    4156,           // 23: ROBOT INERTIA (Command 36)
+    600,            // 24: ADC TORQUE SCALE (Command 37)
+    80,             // 25: DYN.FEEDBACK LIN. GAIN K1 (Command 38)
+    50,             // 26: DYN.FEEDBACK LIN. GAIN K2 (Command 39)
+    10,             // 27: DYN.FEEDBACK LIN. GAIN K3 (Command 40)
+    0,              // 28: UNUSED (Command 41)
+    0,              // 29: UNUSED (Command 42)
+    0,              // 30: UNUSED (Command 43)
+    0,              // 31: UNUSED (Command 44)
 };        
 
 // HELP MESSAGES
@@ -193,15 +198,14 @@ const unsigned char FaultMsg[4][30] =
 //   associated to that group
 const uint8_t help_info[MAX_HELPMSG][15] =
 {
-    {0,1,2,3,4,5,6,7,8,9,10,11,50,50,50}, // COMMANDS
-    {12,13,14,15,16,33,50,50,50,50,50,50,50,50,50}, // MOTOR
-    {29,30,31,32,34,35,36,50,50,50,50,50,50,50,50}, // ROBOT
-    {17,18,19,20,21,22,23,24,25,26,27,28,50,50,50}, // CONTROL
+    {0,1,2,3,4,5,6,7,8,9,10,11,12,50,50}, // COMMANDS
+    {13,14,15,16,17,34,50,50,50,50,50,50,50,50,50}, // MOTOR
+    {30,31,32,33,35,36,37,50,50,50,50,50,50,50,50}, // ROBOT
+    {18,19,20,21,22,23,24,25,26,27,28,29,38,39,40}, // CONTROL
     {50,50,50,50,50,50,50,50,50,50,50,50,50,50,50}, // HW I/Os
 };
 
 // LOCAL VARIABLES
-
 unsigned char rx1buf[MAX_ASCIILEN];
 uint8_t rx1cnt = 0;
 unsigned char rx2buf[MAX_ASCIILEN];
@@ -243,47 +247,27 @@ void ParseBINCommand(void);
 
 void ExecCommand(uint8_t idx,int16_t *args);
 
-/****************************************
- * UART1/2 TX interrupt (Unused)
- ***************************************/
- void __attribute__((interrupt,auto_psv)) _U1TXInterrupt(void)
-{
-    IFS0bits.U1TXIF = 0;    //Clear the UART1 transmitter interrupt flag
-}
-
-void __attribute__((interrupt,auto_psv)) _U2TXInterrupt(void)
-{
-    IFS1bits.U2TXIF = 0;    //Clear the UART2 transmitter interrupt flag
-}
 
 /****************************************
- * UART1 RX interrupt
+ * UART1 Buffer parser for SACT Protocol
  ***************************************/
-void __attribute__((interrupt,auto_psv)) _U1RXInterrupt(void)
+void U1_SACT_Parser(void)
 {
 #ifdef DEVELOP_MODE     
 // FOR TEST PROBE
 //J10Pin3_OUT = 1;
 #endif
-    
-while(U1STAbits.URXDA) // DATA AVAILABLE
-{
-    // Clear overflow error
-    // NOTE: this flushes the buffer!!!
-    if(U1STAbits.OERR)
-    {
-        U1STAbits.OERR = 0;
-        break;
-    } 
 
+while(u1bufhead != u1buftail) // Data Available in the buffer
+{
     u1prev = u1temp;
-    u1temp = U1RXREG;
+    u1temp = u1tmpbuf[u1buftail++];
     
     switch(SACT_state)
     {
 //////////////////////////////////////////////////////////////////////
 // NO SYNC STATE
-        case SACT_NOSYNC:    rx1buf[rx1cnt++]=u1temp;
+        case SACT_NOSYNC:   rx1buf[rx1cnt++]=u1temp;
                             switch(u1temp)
                             {
                                 case CR : SACT_flags.cr_rec1 = 1;
@@ -377,35 +361,24 @@ while(U1STAbits.URXDA) // DATA AVAILABLE
 // ERROR!!!!
         default: break;
     }// END SWITCH
-}// END WHILE URXDA (Data Available)
-
-    IFS0bits.U1RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
+}// END WHILE Data Available
 
 #ifdef DEVELOP_MODE     
 // FOR TEST PROBE
 //J10Pin3_OUT = 0;
 #endif
-}// END U1 RX Interrupt
-
+}// END U1 SACT Parser
 
 /****************************************
- * UART2 RX interrupt
+ * UART1 Buffer parser for SACT Protocol
  ***************************************/
-void __attribute__((interrupt,auto_psv)) _U2RXInterrupt(void)
-{
-    
-while(U2STAbits.URXDA) // DATA AVAILABLE
-{
-    // Clear overflow error
-    // NOTE: this flushes the buffer!!!
-    if(U2STAbits.OERR)
-    {
-        U2STAbits.OERR = 0;
-        break;
-    } 
+void U2_SACT_Parser(void)
+{    
 
+while(u2bufhead != u2buftail) // Data Available in the buffer
+{
     u2prev = u2temp;
-    u2temp = U2RXREG;
+    u2temp = u2tmpbuf[u2buftail++];
     
     switch(SACT_state)
     {
@@ -484,7 +457,7 @@ while(U2STAbits.URXDA) // DATA AVAILABLE
                             break;
 //////////////////////////////////////////////////////////////////////
 // BINARY MODE ON UART2
-        case SACT_BIN_U2:    rx2buf[rx2cnt++]=u2temp;
+        case SACT_BIN_U2:   rx2buf[rx2cnt++]=u2temp;
                             process_BIN(rx2buf,rx2cnt);
                             if(SACT_flags.valid_idx)
                             {
@@ -497,7 +470,7 @@ while(U2STAbits.URXDA) // DATA AVAILABLE
         case SACT_ASCII_U1: 
 //////////////////////////////////////////////////////////////////////
 // BINARY MODE ON UART1, NOT MANAGED HERE (see U1RXInterrupt)
-        case SACT_BIN_U1:     U2TXREG = u2temp;
+        case SACT_BIN_U1:   U2TXREG = u2temp;
                             rx2cnt=0;
                             break;
 //////////////////////////////////////////////////////////////////////
@@ -508,7 +481,7 @@ while(U2STAbits.URXDA) // DATA AVAILABLE
 
     IFS1bits.U2RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
     
-}// END U2 Rx INTERRUPT
+}// END U2 SACT Parser
 
 /****************************************
  * function to detect SYNC on UART1
@@ -638,6 +611,10 @@ void process_ASCII(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
     int16_t args[MAXARGS];
     int32_t temparg;
     unsigned char tempstr[8]; //ONLY INT VAL EXPECTED
+
+////TOGGLE LED IF CONTROL MODE ACTIVE
+    if(control_mode.state != OFF_MODE)
+        LED2 = !LED2;
 
     CheckHelp(rxbuf,rxcnt,ureg);
     if(!SACT_flags.help_req)
@@ -920,6 +897,11 @@ void ParseBINCommand(void)
     uint8_t accum = 0;
     int16_t args[MAXARGS];
     WRD temparg;
+
+////TOGGLE LED IF CONTROL MODE ACTIVE
+    if(control_mode.state != OFF_MODE)
+        LED2 = !LED2;
+
     
     // to be compatible with lib_crc, u.short corresponds
     // to an u.int (16 bit) in MPLAB C30
@@ -1159,12 +1141,11 @@ void ExecCommand(uint8_t idx,int16_t *args)
                         temp2 = args[1];
                         temp3 = args[2];
                         
-                        x_way[way_index] = temp1;
-                        y_way[way_index] = temp2;
-                        r_way[way_index] = temp3;
-                        way_index++;
-                        if(way_index > (MAX_WAY+1))
-                            way_index = 0;
+                        // PUT WAY POINT IN THE RING BUFFER
+                        if( WayPointQ_Put(temp1,temp2,temp3) )
+                        {
+                           // OK...
+                        }
                         
                     }
                     else
@@ -1185,8 +1166,37 @@ void ExecCommand(uint8_t idx,int16_t *args)
                     else
                         SACT_flags.wrong_mode = 1;
                     break;
-            case 10: break;
-            case 11:// SET SSP configuration
+            case 10: // RESET ODOMETRY
+                     // DISABLE TIMER5 INTERRUPT (ODOM. Update)
+                     IEC1bits.T5IE = 0;
+                     //scale to 0.1mm  23.8 fixed-point
+                     x_odom = ((int32_t)args[0] * 10) << 8 ; 
+                     y_odom = ((int32_t)args[1] * 10) << 8 ;
+                     //scale from Q13 (16bits) to Q16 (32bits)
+                     theta_odom = ((int32_t)args[2]) << 3 ;
+                     // RE-ENABLE TIMER5 INTERRUPT (ODOM. Update)
+                     IEC1bits.T5IE = 1;
+                     break;
+            case 11: // RESET WAY POINT QUEUE
+                     if(control_mode.state == CART_MODE)
+                     {  
+                        switch(args[0]) // RESET MODE SELECTOR
+                        { 
+                            case 0: // RESET AND STOP
+                                    WayPointQ_Reset();
+                                    // STOP ?????
+                                    break;
+                            case 1: // RESET AND GO TO LAST TARGET
+                                    WayPointQ_Reset();
+                                    // GO TO LAST TARGET ??
+                                    break;
+                            default: break;
+                        }  
+                     }
+                     else
+                        SACT_flags.wrong_mode = 1;
+                     break;
+            case 12:// SET SSP configuration
                     SSP_config.word = args[0]; 
                     break;
             default : break;
@@ -1282,21 +1292,45 @@ void SACT_SendSSP(void)
             putcUART(SC,ureg);
             
             #ifdef DEVELOP_MODE
-                templong.l = (x_set / 10); // scale back in mm
+                templong.l = x_set - x_odom; // scale 0.1 mm
                 temp.uc[0] = templong.uc[1];
                 temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
                 putiUART(temp.i,ureg);
                 putcUART(SC,ureg);
 
-                templong.l = (y_set / 10); // scale back in mm
+                templong.l = y_set - y_odom; // scale 0.1 mm
                 temp.uc[0] = templong.uc[1];
                 temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
                 putiUART(temp.i,ureg);
                 putcUART(SC,ureg);
                 
-                temp.ui = NLFState;
-                putuiUART(temp.ui,ureg);
-                putcUART(SC,ureg);
+//                templong.l = (x_set / 10); // scale back in mm
+//                temp.uc[0] = templong.uc[1];
+//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+//                putiUART(temp.i,ureg);
+//                putcUART(SC,ureg);
+//
+//                templong.l = (y_set / 10); // scale back in mm
+//                temp.uc[0] = templong.uc[1];
+//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+//                putiUART(temp.i,ureg);
+//                putcUART(SC,ureg);
+//                
+//                templong.l = (x_target / 10); // scale back in mm
+//                temp.uc[0] = templong.uc[1];
+//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+//                putiUART(temp.i,ureg);
+//                putcUART(SC,ureg);
+//
+//                templong.l = (y_target / 10); // scale back in mm
+//                temp.uc[0] = templong.uc[1];
+//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+//                putiUART(temp.i,ureg);
+//                putcUART(SC,ureg);
+//                
+//                temp.ui = NLFState;
+//                putuiUART(temp.ui,ureg);
+//                putcUART(SC,ureg);
             #endif
         }// END if odometry
         
@@ -1347,17 +1381,17 @@ void SACT_SendSSP(void)
 
         if(SSP_config.currents)
         {
-            if(DIR1)
-                temp.i = -mcurrent1_filt;
+            if(DIR1 == !direction_flags.motor1_dir)
+                temp.i = -(mcurrent1_filt - mcurrent1_offset);
             else
-                temp.i = mcurrent1_filt;
+                temp.i = mcurrent1_filt - mcurrent1_offset;
             putiUART(temp.i,ureg);
             putcUART(SC,ureg);
 
-            if(DIR2)
-                temp.i = mcurrent2_filt;
+            if(DIR2 == !direction_flags.motor2_dir)
+                temp.i = -(mcurrent2_filt - mcurrent2_offset);
             else
-                temp.i = -mcurrent2_filt;
+                temp.i = mcurrent2_filt - mcurrent2_offset;
             putiUART(temp.i,ureg);
             putcUART(SC,ureg);
         }// END if currents
@@ -1377,6 +1411,19 @@ void SACT_SendSSP(void)
         {
             
         }// END if linear/rot. vel
+        
+        if(SSP_config.way_point_q)
+        {
+            temp.uc[1] = 0;
+            temp.uc[0] = MAX_WAY;
+            putuiUART(temp.ui,ureg);
+            putcUART(SC,ureg);
+            
+            temp.uc[1] = 0;
+            temp.uc[0] = WayPointQ_InUse();
+            putuiUART(temp.ui,ureg);
+            putcUART(SC,ureg);
+        }// END if way_point_q
 ////////ALL DATA SENT IN ASCII MODE
         putcUART(CR,ureg);putcUART(LF,ureg);        
             
@@ -1511,7 +1558,7 @@ void SACT_SendSSP(void)
 
         if(SSP_config.currents)
         {
-            if(DIR1)
+            if(DIR1 == !direction_flags.motor1_dir)
                 temp.i = -mcurrent1_filt;
             else
                 temp.i = mcurrent1_filt;
@@ -1520,10 +1567,10 @@ void SACT_SendSSP(void)
             BINTXbuf[accum+6] = temp.uc[1];
             accum++;
 
-            if(DIR2)
-                temp.i = mcurrent2_filt;
-            else
+            if(DIR2 == !direction_flags.motor2_dir)
                 temp.i = -mcurrent2_filt;
+            else
+                temp.i = mcurrent2_filt;
             BINTXbuf[accum+6] = temp.uc[0];
             accum++;
             BINTXbuf[accum+6] = temp.uc[1];
@@ -1532,6 +1579,17 @@ void SACT_SendSSP(void)
 
         if(SSP_config.wheel_vel)
         {
+            temp.i = mvelocity1;
+            BINTXbuf[accum+6] = temp.uc[0];
+            accum++;
+            BINTXbuf[accum+6] = temp.uc[1];
+            accum++;
+            
+            temp.i = mvelocity2;
+            BINTXbuf[accum+6] = temp.uc[0];
+            accum++;
+            BINTXbuf[accum+6] = temp.uc[1];
+            accum++;
             
         }// END if wheel vel
 
@@ -1539,6 +1597,17 @@ void SACT_SendSSP(void)
         {
             
         }// END if linear/rot. vel
+        
+        if(SSP_config.way_point_q)
+        {
+            temp.uc[0] = MAX_WAY;
+            temp.uc[1] = WayPointQ_InUse();
+            BINTXbuf[accum+6] = temp.uc[0];
+            accum++;
+            BINTXbuf[accum+6] = temp.uc[1];
+            accum++;
+            
+        }// END if way_point_q
         
 ////////SENSOR DATA PREPARED, proceed with rest
         BINTXbuf[2] = accum+6; //BYTE COUNT
@@ -1606,8 +1675,8 @@ void SACT_SendSDP(void)
 
         BINTXbuf[6] = BINLastCommand;
 
-        BINTXbuf[7] = 0; // FIRMWARE REVISION v0.1
-        BINTXbuf[8] = 1;
+        BINTXbuf[7] = 0; // FIRMWARE REVISION v0.x
+        BINTXbuf[8] = 8; // FIRMWARE REVISION vx.8
 
 #ifdef SIMULATE
         BINTXbuf[9] = 0; // BOARD REVISION X
