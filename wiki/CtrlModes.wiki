@@ -23,7 +23,7 @@ based on a PID algorithm, whose output is the duty cycle for the PWM command app
 to avoid abrupt changes in the PID set-points, the commanded values are smoothed by a moving average digital filter.
 The control loop block diagram is therefore the following:
 
-http://sact-unife.googlecode.com/svn/wiki/images/curr-loop.jpg 
+http://sact-unife.googlecode.com/svn/wiki/images/current-loop.jpg 
 
 == TORQUE MODE (DRIVING)
 
