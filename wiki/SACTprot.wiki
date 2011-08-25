@@ -76,7 +76,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Header || 2 || 0xAA 0x55 ||  Header ||
 || Byte count || 1 || N || N of bytes in the packet (escluding header and byte count itself) ||
 || Packet type || 1 || 0xC1 || Identifies SPP ||
-|| Parameter number || 1 || 0-255 || see SACT_Protoco.c for the complete list ||
+|| Parameter number || 1 || 0-255 || see SACT_Protocol.c for the complete list ||
 || Parameter value  || 2 || 0-0xFFFF || Current parameter value ||
 || CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
