@@ -16,7 +16,7 @@ each. The LMD18200T includes also a current feedback circuit that needs only a s
 an A/D converter.
 
 Two quadrature encoders can be interfaced to the dsPIC, one by means of the embedded QEI and another by means of an external
-encoder interface circuit (an LS7183) that transforms quadrature pulses into up and down count pulses, which can be counted with
+encoder interface circuit (an LS7183) that transforms quadrature pulses into up and down count pulses, which can be counted by
 two standard timer modules of the dsPIC.
 
 To conclude, one UART module of the dsPIC is connected to an RS-232 level shifter and the other one to a Lantronix 
