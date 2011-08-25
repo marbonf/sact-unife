@@ -23,4 +23,4 @@ Moreover, since the main features of SaBot are expected to flexibility and "scal
 
 A pictorial view of the SaBot architecture can be given as follows:
 
-http://sact-unife.googlecode.com/svn/wiki/images/sabot.jpg
+http://sact-unife.googlecode.com/svn/wiki/images/sabot-arch.jpg
