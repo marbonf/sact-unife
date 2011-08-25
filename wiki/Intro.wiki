@@ -6,7 +6,7 @@
 SaBot (ScAlable RoBOT) is an experimental platform developed from the Laboratory of Intelligent Robotics and Automation (LIRA)
 of the University of Ferrara (Italy).
 
-http://code.google.com/p/sact-unife/wiki/images/sabot.jpg
+http://sact-unife.googlecode.com/svn/wiki/images/sabot.jpg
 
 The design of the robot started from scratch with the aim to gain practical experience on mobile robotics, by addressing 
 all the issues and learn all the lessons related to a full "mechatronic design".
