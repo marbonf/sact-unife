@@ -6,7 +6,7 @@ The firmware on SACT board has been designed with the aim to ease flexible confi
 In fact, most motion control boards specifically designed for commercial and academic mobile robots accept ONLY
 velocity commands, either defined as independent wheel velocities or as coupled translational and rotational velocities.
 Motor current or equivalently force/torque commands are commonly not supported, even though they may be useful for the 
-implementation of control laws based on the robot dynamics. Moreover, in some low-cost applications it would be desirable ù
+implementation of control laws based on the robot dynamics. Moreover, in some low-cost applications it would be desirable
 to drop the use oof an onboard PC and to make the motion control board capable of autonomous robot navigation.
 
 Therefore, the current SACT board can be configured at runtime, by means of specific user commands, as:
@@ -48,7 +48,7 @@ kinematic parameters of the robot.
 
 == CARTESIAN MODE ==
 
-In this control mode the SACT board is able to control the robot to track smooth trajectories interpolating a sequence of
+In this control mode the SACT board is able to control the robot to track smooth trajectories, interpolating a sequence of
 way-points in the cartesian space.
 This motion control strategy is based on a nonlinear filtering technique that allows online smoothing of two-dimensional
 straight-line paths, like those composed by the lines connecting way-points. The output of the nonlinear smoothing filter is 
