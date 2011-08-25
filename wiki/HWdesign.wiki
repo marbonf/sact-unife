@@ -1,8 +1,12 @@
-#summary One-sentence summary of this page.
+#summary Introduction
 
-= Introduction =
+= SaBot and its ACTuator control board =
 
-Add your content here.
+SaBot (ScAlable RoBOT) is an experimental platform developed from the Laboratory of Intelligent Robotics and Automation (LIRA)
+of the University of Ferrara (Italy).
+
+The design of the robot started from scratch, with the aim to experience all the issues and learn all the lessons related to a full
+"mechatronic design".
 
 
 = Details =
