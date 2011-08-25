@@ -1,5 +1,5 @@
   * [Intro Introduction]
-  * [CtrlModes Control Modes]
   * [HWdesign Hardware Design]
+  * [CtrlModes Control Modes]
   * [SWdesign Software Design]
   * [SACTprot Communication Protocol]
