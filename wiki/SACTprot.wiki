@@ -41,7 +41,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Byte count || 1 || N || N of bytes in the packet (escluding header and byte count itself) ||
 || Command || 1 || 0-255 || See `SACT_Protocol.c` for the complete list ||
 || Data || 2xArgsN || xx || Data, depending on the number of arguments required by the command ||
-|| CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
+|| CRC || 2 || xx || CRC 16, calculated on all previous bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
 
 
@@ -53,7 +53,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Packet type || 1 || 0xA1 || Identifies SSP ||
 || Config flags || 2 || 0-0xFFFF || Enable/disable inclusion of sensor data (e.g. encoder counts, currents, etc. ||
 || Data || n || xx || Sensor Data ||
-|| CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
+|| CRC || 2 || xx || CRC 16, calculated on all previous bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
 
 == SACT Diagnostic Packet ==
@@ -67,7 +67,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Last command || 1 || 0-255 || Last command received ||
 || Firmware version || 2 ||  || First byte: major revision, second byte: minor revision ||
 || Board revision || 1 || 0-255 || Board revision number ||
-|| CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
+|| CRC || 2 || xx || CRC 16, calculated on all previous bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
 
 == SACT Parameter Packet ==
@@ -78,5 +78,5 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Packet type || 1 || 0xC1 || Identifies SPP ||
 || Parameter number || 1 || 0-255 || see `SACT_Protocol.c` for the complete list ||
 || Parameter value  || 2 || 0-0xFFFF || Current parameter value ||
-|| CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
+|| CRC || 2 || xx || CRC 16, calculated on all previous bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
