@@ -7,7 +7,7 @@ In fact, most motion control boards specifically designed for commercial and aca
 velocity commands, either defined as independent wheel velocities or as coupled translational and rotational velocities.
 Motor current or equivalently force/torque commands are commonly not supported, even though they may be useful for the 
 implementation of control laws based on the robot dynamics. Moreover, in some low-cost applications it would be desirable
-to drop the use oof an onboard PC and to make the motion control board capable of autonomous robot navigation.
+to drop the use of an onboard PC and to make the motion control board capable of autonomous robot navigation.
 
 Therefore, the current SACT board can be configured at runtime, by means of specific user commands, as:
   * a dual motor current controller, with independent set-point commands (*TORQUE MODE INDEPENDENT*, _TMI_);

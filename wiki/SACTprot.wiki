@@ -26,7 +26,7 @@ that enables the binary mode. The command sequence is monitored on both communic
 two, the other is disabled until disconnection on the activated one.
 
 In ASCII mode, human-readable strings are exchanged between master and slave. The full list of commands and messages can be found
-in the source file SACT_Protocol.c.
+in the source file `SACT_Protocol.c`.
 
 In binary mode, instead, the interaction is based on byte packets of four types:
   * SACT Command Packet (SCP, from master to slave)
@@ -39,7 +39,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || FIELD || Bytes || VALUE || Comment ||
 || Header || 2 || 0xAA 0x55 ||  Header ||
 || Byte count || 1 || N || N of bytes in the packet (escluding header and byte count itself) ||
-|| Command || 1 || 0-255 || See SACT_Protocol.c for the complete list ||
+|| Command || 1 || 0-255 || See `SACT_Protocol.c` for the complete list ||
 || Data || 2xArgsN || xx || Data, depending on the number of arguments required by the command ||
 || CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
@@ -76,7 +76,7 @@ In binary mode, instead, the interaction is based on byte packets of four types:
 || Header || 2 || 0xAA 0x55 ||  Header ||
 || Byte count || 1 || N || N of bytes in the packet (escluding header and byte count itself) ||
 || Packet type || 1 || 0xC1 || Identifies SPP ||
-|| Parameter number || 1 || 0-255 || see SACT_Protocol.c for the complete list ||
+|| Parameter number || 1 || 0-255 || see `SACT_Protocol.c` for the complete list ||
 || Parameter value  || 2 || 0-0xFFFF || Current parameter value ||
 || CRC || 2 || xx || CRC 16, calculated on all bytes excluding header and byte count. ||
 || EOP || 1 || 0xFF || End of Packet ||
