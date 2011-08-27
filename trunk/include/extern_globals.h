@@ -238,7 +238,7 @@ extern int16_t wheel_track;
 extern int16_t robot_mass;
 extern int16_t robot_inertia;
 extern int32_t ADC_torque_scale;
-extern int16_t odom_left_corr;
+extern int32_t odom_left_corr;
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers

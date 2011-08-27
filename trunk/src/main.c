@@ -214,7 +214,8 @@ void update_params(void)
     encoder_counts_rev = (int32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
     wheel_diam = parameters_RAM[17];
     wheel_track = parameters_RAM[18];
-    odom_left_corr = parameters_RAM[33];
+    // ODOM correction has 5 decimal digits, converted in Q16
+    odom_left_corr = ((int32_t)parameters_RAM[20] << 16) / 10000;
     robot_mass = parameters_RAM[22];
     robot_inertia = parameters_RAM[23];
     // parameters_RAM[24] is giving scale as ADC points / Nm
@@ -314,7 +315,7 @@ void medium_event_handler(void)
     {
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
-J10Pin3_OUT = 1;
+J10Pin4_OUT = 1;
 #endif
 
         medium_event_count = 0;
@@ -330,7 +331,7 @@ J10Pin3_OUT = 1;
 
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
-J10Pin3_OUT = 0;
+J10Pin4_OUT = 0;
 #endif    
     }// END IF medium_event_count..
 }// END medium_event_handler
@@ -413,7 +414,7 @@ void slow_event_handler(void)
     {
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
-J10Pin4_OUT = 1;
+//J10Pin4_OUT = 1;
 #endif
 
         slow_event_count = 0;
@@ -504,7 +505,7 @@ J10Pin4_OUT = 1;
 
 #ifdef DEVELOP_MODE     
 // FOR TEST PROBE
-J10Pin4_OUT = 0;
+//J10Pin4_OUT = 0;
 #endif
     } // END IF slow_event_count..
 }// END slow_event_handler
