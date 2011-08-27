@@ -129,7 +129,7 @@ uint16_t parameters_RAM[N_PARAMS]=
     0,              // 14: POSITION LOOP I GAIN (Command 27)
     0,              // 15: POSITION LOOP D GAIN (Command 28)
     18,             // 16: POSITION LOOP SCALING SHIFT (Command 29)
-    9987,            // 17: WHEEL DIAMETER (Command 30)
+    987,            // 17: WHEEL DIAMETER (Command 30)
     3998,           // 18: WHEEL TRACK  (Command 31)
     21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 32)
     10023,          // 20: ODOMETRY LeftW correction (Command 33)
