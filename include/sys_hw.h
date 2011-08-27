@@ -56,8 +56,8 @@
  * DEFINITIONS TO ADAPT BOARD SPECIFIC OPTIONS OR SIMULATIONS
  ***************************************************************/
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING
-//#define SIMULATE
-#define REV2_BOARD
+#define SIMULATE
+//#define REV2_BOARD
 //#define REV1_BOARD
 
 /****************************************************************

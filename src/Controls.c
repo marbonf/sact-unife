@@ -423,7 +423,7 @@ void PositionLoops(void)
 void UpdateEncoder1(void)
 {
 #ifdef SIMULATE
-    if(DIR1)    
+    if(DIR1 == !direction_flags.motor1_dir)    
         mvelocity1 -= (mcurrent1_filt - mcurrent1_offset) >> 4;
     else
         mvelocity1 += (mcurrent1_filt - mcurrent1_offset) >> 4;
@@ -467,10 +467,10 @@ void UpdateEncoder1(void)
 void UpdateEncoder2(void)
 {
 #ifdef SIMULATE
-    if(DIR2)    
-        mvelocity2 += (mcurrent2_filt - mcurrent2_offset) >> 4;
-    else
+    if(DIR2 == !direction_flags.motor2_dir)    
         mvelocity2 -= (mcurrent2_filt - mcurrent2_offset) >> 4;
+    else
+        mvelocity2 += (mcurrent2_filt - mcurrent2_offset) >> 4;
     if(mvelocity2 > 550)
         mvelocity2 = 550;
     else if(mvelocity2 < -550)
@@ -532,7 +532,7 @@ void UpdateOdometryFx(void)
         temp = (int32_t)wheel_diam*(int32_t)mvelocity1;
     }
     templong = (int64_t)temp * odom_left_corr;
-    distL = (int32_t) ( templong / 10000 );
+    distL = (int32_t) ( templong >> 16 ); // odom_left_corr is Q16
     
     temp = distR + distL; 
     
