@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       Controls.c                                      *
- *    Date:           20/08/2011                                      *
- *    File Version:   0.8                                             *
+ *    Date:           21/08/2011                                      *
+ *    File Version:   0.9                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  ***********************************************************************
@@ -514,28 +514,40 @@ void UpdateEncoder2(void)
 void UpdateOdometryFx(void)
 {
     int16_t dS, dTH;
-    int32_t temp, tempcs;
+    int32_t distR,distL,temp, tempcs;
+    int64_t templong;
 
     UpdateEncoder1();
     UpdateEncoder2();
     
 ////ESTIMATE TRAVELED DISTANCE
-    temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 + mvelocity2); 
+    if(direction_flags.motor1_right_side)
+    {
+        distR = (int32_t)wheel_diam*(int32_t)mvelocity1;
+        temp = (int32_t)wheel_diam*(int32_t)mvelocity2;
+    }
+    else
+    {
+        distR = (int32_t)wheel_diam*(int32_t)mvelocity2;
+        temp = (int32_t)wheel_diam*(int32_t)mvelocity1;
+    }
+    templong = (int64_t)temp * odom_left_corr;
+    distL = (int32_t) ( templong / 10000 );
+    
+    temp = distR + distL; 
     
     // MULTIPLY BY PI_Q16 to convert into linear units
-    temp = temp * (PI_Q16 >> 7);
-    dS = (int16_t)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10) 
+    temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
+    dS = (int16_t)(temp / encoder_counts_rev); // DISTANCE SCALING: 0.1mm, Q10 (5.10)
+                                               // NO NEED TO SHIFT BACK SINCE DIAM. (NOT RADIUS) is used.. 
     
 ////ESTIMATE ROTATION
-    if(direction_flags.motor1_right_side)
-        temp = (int32_t)wheel_radius*(int32_t)(mvelocity1 - mvelocity2);
-    else
-        temp = (int32_t)wheel_radius*(int32_t)(mvelocity2 - mvelocity1);
+    temp = distR - distL;
     
     // MULTIPLY BY PI_Q16
-    temp = temp * (PI_Q16>>7); 
+    temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
     temp = temp / wheel_track;
-    dTH = (int16_t)((temp<<5) / encoder_counts_rev); // ANGLE INCREMENT IN Q13 (no need to scale)
+    dTH = (int16_t)((temp << 4) / encoder_counts_rev); // ANGLE INCREMENT IN Q13 (no need to scale)
 
 ////UPDATE ODOMETRY ESTIMATE
     temp = theta_odom + ((int32_t)dTH << 2);    // in Q16 radians, is theta_dom (Q16) + dTH (Q13) / 2 
@@ -1050,8 +1062,8 @@ void DynamicFLControl(void)
     // Torque right wheel = (driving force * (wheel_radius / 2) + (steering torque * wheelradius) / (2 * wheeltrack)
     // Torque left wheel  = (driving force * (wheel_radius / 2) - (steering torque * wheelradius) / (2 * wheeltrack)
     
-    stemplong = (int64_t)drive_force * (int64_t)(wheel_radius >> 1); // Nm * 10^-8 23.8
-    ctemplong = (int64_t)steer_torque * (int64_t)(wheel_radius >> 1); 
+    stemplong = (int64_t)drive_force * (int64_t)(wheel_diam >> 2); // Nm * 10^-8 23.8
+    ctemplong = (int64_t)steer_torque * (int64_t)(wheel_diam >> 2); 
     ctemplong = ctemplong / wheel_track; // Nm * 10^-2 15.16
     ctemplong >>= 8;
     ctemplong *= 1000000; // Nm * 10^-6 23.8

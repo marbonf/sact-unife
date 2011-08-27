@@ -95,10 +95,10 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =    {
 {1,32767,1,         "POS. Loop I GAIN","PLI"},//27
 {1,32767,1,         "POS. Loop D GAIN","PLD"},//28
 {0,15,1,            "POS. Loop SCALE ","PLS"},//29
-{1,32767,1,         "WHEEL RADIUS    ","WLR"},//30
+{1,32767,1,         "WHEEL DIAMETER  ","WLR"},//30
 {1,32767,1,         "WHEEL TRACK Len.","WLT"},//31
 {1,32767,1,         "WHEEL ENC. count","WEC"},//32
-{1,32767,1,         "ODOMETRY Correct","ODC"},//33
+{1,32767,1,         "ODOM LeftW CORR.","ODC"},//33
 {0,31,1,            "DIRECTION flags ","DRF"},//34
 {1,32767,1,         "ROBOT MASS      ","ROM"},//35
 {1,32767,1,         "ROBOT INERTIA   ","ROI"},//36
@@ -129,10 +129,10 @@ uint16_t parameters_RAM[N_PARAMS]=
     0,              // 14: POSITION LOOP I GAIN (Command 27)
     0,              // 15: POSITION LOOP D GAIN (Command 28)
     18,             // 16: POSITION LOOP SCALING SHIFT (Command 29)
-    500,            // 17: WHEEL RADIUS (Command 30)
+    500,            // 17: WHEEL DIAMETER (Command 30)
     4100,           // 18: WHEEL TRACK  (Command 31)
     21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 32)
-    0,              // 20: ODOMETRY Correction factor (Command 33)
+    10023,          // 20: ODOMETRY LeftW correction (Command 33)
     30,             // 21: DIRECTION flags (Command 34)
     1500,           // 22: ROBOT MASS (Command 35)
     4156,           // 23: ROBOT INERTIA (Command 36)
@@ -1676,7 +1676,7 @@ void SACT_SendSDP(void)
         BINTXbuf[6] = BINLastCommand;
 
         BINTXbuf[7] = 0; // FIRMWARE REVISION v0.x
-        BINTXbuf[8] = 8; // FIRMWARE REVISION vx.8
+        BINTXbuf[8] = 9; // FIRMWARE REVISION vx.9
 
 #ifdef SIMULATE
         BINTXbuf[9] = 0; // BOARD REVISION X

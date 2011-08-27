@@ -33,8 +33,8 @@
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
  *    Filename:       main.c                                          *
- *    Date:           20/08/2011                                      *
- *    File Version:   0.8                                             *
+ *    Date:           21/08/2011                                      *
+ *    File Version:   0.9                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
@@ -93,10 +93,10 @@ void update_params(void);
 const unsigned char WelcomeMsg[] = 
 {"\r\n-----  Sabot ACTuator Board  -----\r\n"
 #ifdef REV1_BOARD
-     "-----   HW REV.1 - FW v0.8   -----\r\n"
+     "-----   HW REV.1 - FW v0.9   -----\r\n"
 #endif
 #ifdef REV2_BOARD
-     "-----   HW REV.2 - FW v0.8   -----\r\n"
+     "-----   HW REV.2 - FW v0.9   -----\r\n"
 #endif
      "Type the following sequence\r\n"
      "SYNC0+cr/lf SYNC1+cr/lf SYNCA+cr/lf\r\n"
@@ -212,8 +212,9 @@ void update_params(void)
     max_velocity = parameters_RAM[1];
     max_velocity_scaled = max_velocity >> parameters_RAM[3];
     encoder_counts_rev = (int32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
-    wheel_radius = parameters_RAM[17];
+    wheel_diam = parameters_RAM[17];
     wheel_track = parameters_RAM[18];
+    odom_left_corr = parameters_RAM[33];
     robot_mass = parameters_RAM[22];
     robot_inertia = parameters_RAM[23];
     // parameters_RAM[24] is giving scale as ADC points / Nm

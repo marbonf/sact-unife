@@ -233,11 +233,12 @@ extern uint16_t parameters_RAM[];
 
 // VARIABLES FOR RUN-TIME USE OF PARAMETERS
 extern int32_t encoder_counts_rev;
-extern int16_t wheel_radius;
+extern int16_t wheel_diam;
 extern int16_t wheel_track;
 extern int16_t robot_mass;
 extern int16_t robot_inertia;
 extern int32_t ADC_torque_scale;
+extern int16_t odom_left_corr;
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers
