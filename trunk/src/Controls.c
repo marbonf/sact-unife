@@ -138,8 +138,8 @@ int32_t x_set, y_set, xdot_set, ydot_set,
      xddot_set, yddot_set, xdddot_set, ydddot_set,
      theta_set, omega_set, alpha_set, vel_set, acc_set, jerk_set;
 
-#define R_STOP 1000000L
-#define R_SLOW  962250L
+#define R_STOP 1314500L
+#define R_SLOW 983870L
 #define EPS_ANGLE 600
 #define EPS_DIST 2560
 #define EPS_VEL 2560
@@ -154,12 +154,12 @@ int32_t theta_e, omega_e, theta_e_delta;
 int32_t theta_ref, omega_ref, vel_ref;
 
 // "dynamic" constraints for Vel/Orient. NL Filters
-int32_t vel_BOUND = 640000; // SCALING: 0.1mm/s 23.8 fixed-point
-int32_t acc_lin_BOUND = 640000; //corresponds to maximum linear acceleration
-int32_t acc_rad_BOUND = 128000; // SCALING: 0.1mm/s^2 23.8 fixed-point
+int32_t vel_BOUND = 768000; // SCALING: 0.1mm/s 23.8 fixed-point
+int32_t acc_lin_BOUND = 1280000; //corresponds to maximum linear acceleration
+int32_t acc_rad_BOUND = 512000; // SCALING: 0.1mm/s^2 23.8 fixed-point
 
 int32_t omega_M;
-int32_t omega_BOUND = 19660; // SCALING: Q16 rad (15.16 fixed-point)
+int32_t omega_BOUND = 52428; // SCALING: Q16 rad (15.16 fixed-point)
 
 // "static" constraints for Vel/Orient. NL Filters
 uint8_t Umax_vel_SHIFT = 18; // corresponds to maximum linear jerk
@@ -538,8 +538,9 @@ void UpdateOdometryFx(void)
     
     // MULTIPLY BY PI_Q16 to convert into linear units
     temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
-    dS = (int16_t)(temp / encoder_counts_rev); // DISTANCE SCALING: 0.1mm, Q10 (5.10)
-                                               // NO NEED TO SHIFT BACK SINCE DIAM. (NOT RADIUS) is used.. 
+    dS = (int16_t)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10)
+                                               // SCALE FROM Q8 TO Q10 AND DIVIDE BY 2
+                                               // SINCE DIAM. INSTEAD OF RADIUS IS USED
     
 ////ESTIMATE ROTATION
     temp = distR - distL;
@@ -547,7 +548,8 @@ void UpdateOdometryFx(void)
     // MULTIPLY BY PI_Q16
     temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
     temp = temp / wheel_track;
-    dTH = (int16_t)((temp << 4) / encoder_counts_rev); // ANGLE INCREMENT IN Q13 (no need to scale)
+    dTH = (int16_t)((temp << 5) / encoder_counts_rev); // ANGLE INCREMENT IN Q13
+                                                       // AND DIVIDE BY 2 SINCE USING DIAM. (NOT RADIUS)
 
 ////UPDATE ODOMETRY ESTIMATE
     temp = theta_odom + ((int32_t)dTH << 2);    // in Q16 radians, is theta_dom (Q16) + dTH (Q13) / 2 
