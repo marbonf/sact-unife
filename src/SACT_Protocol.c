@@ -129,14 +129,14 @@ uint16_t parameters_RAM[N_PARAMS]=
     0,              // 14: POSITION LOOP I GAIN (Command 27)
     0,              // 15: POSITION LOOP D GAIN (Command 28)
     18,             // 16: POSITION LOOP SCALING SHIFT (Command 29)
-    987,            // 17: WHEEL DIAMETER (Command 30)
-    3998,           // 18: WHEEL TRACK  (Command 31)
+    984,            // 17: WHEEL DIAMETER (Command 30)
+    3892,           // 18: WHEEL TRACK  (Command 31)
     21500,          // 19: WHEEL ENCODER COUNTS/REV (Command 32)
-    10023,          // 20: ODOMETRY LeftW correction (Command 33)
+    10012,          // 20: ODOMETRY LeftW correction (Command 33)
     30,             // 21: DIRECTION flags (Command 34)
-    1500,           // 22: ROBOT MASS (Command 35)
-    4156,           // 23: ROBOT INERTIA (Command 36)
-    600,            // 24: ADC TORQUE SCALE (Command 37)
+    1800,           // 22: ROBOT MASS (Command 35)
+    6456,           // 23: ROBOT INERTIA (Command 36)
+    450,            // 24: ADC TORQUE SCALE (Command 37)
     80,             // 25: DYN.FEEDBACK LIN. GAIN K1 (Command 38)
     50,             // 26: DYN.FEEDBACK LIN. GAIN K2 (Command 39)
     10,             // 27: DYN.FEEDBACK LIN. GAIN K3 (Command 40)
@@ -1292,29 +1292,29 @@ void SACT_SendSSP(void)
             putcUART(SC,ureg);
             
             #ifdef DEVELOP_MODE
-                templong.l = x_set - x_odom; // scale 0.1 mm
-                temp.uc[0] = templong.uc[1];
-                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-                putiUART(temp.i,ureg);
-                putcUART(SC,ureg);
-
-                templong.l = y_set - y_odom; // scale 0.1 mm
-                temp.uc[0] = templong.uc[1];
-                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-                putiUART(temp.i,ureg);
-                putcUART(SC,ureg);
-                
-//                templong.l = (x_set / 10); // scale back in mm
+//                templong.l = x_set - x_odom; // scale 0.1 mm
 //                temp.uc[0] = templong.uc[1];
 //                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
 //                putiUART(temp.i,ureg);
 //                putcUART(SC,ureg);
 //
-//                templong.l = (y_set / 10); // scale back in mm
+//                templong.l = y_set - y_odom; // scale 0.1 mm
 //                temp.uc[0] = templong.uc[1];
 //                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
 //                putiUART(temp.i,ureg);
 //                putcUART(SC,ureg);
+                
+                templong.l = (x_set / 10); // scale back in mm
+                temp.uc[0] = templong.uc[1];
+                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+                putiUART(temp.i,ureg);
+                putcUART(SC,ureg);
+
+                templong.l = (y_set / 10); // scale back in mm
+                temp.uc[0] = templong.uc[1];
+                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
+                putiUART(temp.i,ureg);
+                putcUART(SC,ureg);
 //                
 //                templong.l = (x_target / 10); // scale back in mm
 //                temp.uc[0] = templong.uc[1];
