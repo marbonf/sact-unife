@@ -513,7 +513,8 @@ void UpdateEncoder2(void)
  *******************************************/
 void UpdateOdometryFx(void)
 {
-    int16_t dS, dTH;
+    int16_t dS;
+    int32_t dTH;
     int32_t distR,distL,temp, tempcs;
     int64_t templong;
 
@@ -548,11 +549,11 @@ void UpdateOdometryFx(void)
     // MULTIPLY BY PI_Q16
     temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
     temp = temp / wheel_track;
-    dTH = (int16_t)((temp << 5) / encoder_counts_rev); // ANGLE INCREMENT IN Q13
-                                                       // AND DIVIDE BY 2 SINCE USING DIAM. (NOT RADIUS)
+    dTH = (temp << 8) / encoder_counts_rev; // ANGLE INCREMENT IN Q16
+                                            // AND DIVIDE BY 2 SINCE USING DIAM. (NOT RADIUS)
 
 ////UPDATE ODOMETRY ESTIMATE
-    temp = theta_odom + ((int32_t)dTH << 2);    // in Q16 radians, is theta_dom (Q16) + dTH (Q13) / 2 
+    temp = theta_odom + (dTH >> 1);             // in Q16 radians, is theta_dom (Q16) + dTH (Q16) / 2 
     tempcs = _Q16cos(temp)*dS;                  // COS in Q16 (15.16), so we have 26 fractional bits
     xdot_odom = (int16_t)(tempcs >> 18);        // Xdot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
     x_odom += ((int32_t)xdot_odom);             // X FINAL SCALING: 0.1mm, 23.8 fixed-point
@@ -560,7 +561,7 @@ void UpdateOdometryFx(void)
     ydot_odom = (int16_t)(tempcs >> 18);        // Ydot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
     y_odom += ((int32_t)ydot_odom);             // Y FINAL SCALING: 0.1mm, 23.8 fixed-point    
     
-    theta_odom += ((int32_t)dTH << 3);          // FINAL UNITS: Q16 radians
+    theta_odom += dTH;          // FINAL UNITS: Q16 radians
     // KEEP ANGLE  between [-PI;PI]
     while(theta_odom < -PI_Q16)
         {theta_odom +=  (PI_Q16<<1);}
