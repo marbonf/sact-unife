@@ -1,0 +1,5 @@
+COMMANDS:
+
+
+CALIBRATION:
+- A/D offsets (currents? others?)
