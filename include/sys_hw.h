@@ -57,8 +57,8 @@
  ***************************************************************/
 //LEAVE UNCOMMENTED ONLY ONE OF THE FOLLOWING
 //#define SIMULATE
-#define REV2_BOARD
-//#define REV1_BOARD
+//#define REV2_BOARD
+#define REV1_BOARD
 
 /****************************************************************
  * IF COMPILED FOR DEVELOP MODE

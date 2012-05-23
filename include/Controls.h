@@ -50,11 +50,8 @@ void CurrentLoops(void);
 
 void SpeedLoops(void);
 
-void PositionLoops(void);
-
-void InitCartesianLoop(void);
-
-void CartesianLoop(void);
+void PositionLoops(void); // for Position MODE
+void JoggingLoops(void);  // for Velocity MODE
 
 //CURRENT FILTERING ORDER AND RELATED BIT-SHIFT
 #define RCURR_MAV_SHIFT 3
@@ -62,8 +59,7 @@ void CartesianLoop(void);
 
 void RefCurrentFilter(void);
 
-//MEASUREMENTS UPDATE FUNCTION
-//for encoders and odometry estimate
-void UpdateOdometryFx(void);
+void UpdateEncoder1();
+void UpdateEncoder2();
 
 #endif

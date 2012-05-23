@@ -61,6 +61,8 @@ int16_t mcurrent2_offset = 11;
 int16_t max_current;
 int16_t max_velocity;
 int16_t max_velocity_scaled;
+int16_t max_angle; // in 1/10 degrees
+int16_t min_angle; // in 1/10 degrees
 
 // For BASIC real-time scheduling
 // As these are incremented in PWM ISR they are declared as volatile (???)
@@ -78,26 +80,15 @@ t_status_flags status_flags;
 t_control_mode control_mode;
 t_direction_flags direction_flags;
 uint16_t direction_flags_prev;
+t_grip_status_flags grip_status_flags;
 
 // FOR POSITION feedback
 volatile int16_t mvelocity1,mvelocity2,rvelocity1,rvelocity2;
 volatile int32_t mposition1,mposition2;
 
-// FOR ODOMETRY estimate
-int32_t x_odom,y_odom,theta_odom;
-
-int32_t encoder_counts_rev;// = 86000; //TODO init with EEPROM
-int16_t wheel_diam;// = 500; // in 0.1mm
-//int16_t wheel_diam = 50; // in mm
-int16_t wheel_track;// = 4100;  // in 0.1mm
-//int16_t wheel_track = 410; // in mm
-int16_t robot_mass; // e.g. 15 Kg, NOW scaled in grams 
-int16_t robot_inertia; // = 41; // in 0.01 Kg m^2 ?? NOW in Kg cm^2
-int32_t ADC_torque_scale; // = 42000000; // = 25 600 000 000 / 438
-                    // since 438 is scaling ADC points / Nm
-                    // and Torque ref is in Nm * 10^-8 23.8 fixed-point
-int32_t odom_left_corr; // Used as a XX / 10000 scaling factor for left wheel
-                        // traveling distance.
+uint32_t encoder_counts_rev;// in EEPROM
+uint16_t decdeg_to_ticks; // 8.8 fixed point
+int32_t ADC_torque_scale; 
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers

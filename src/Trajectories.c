@@ -93,136 +93,103 @@ void JogTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
     pFlags->active = pFlags->enable;
 }
 
-
 /************************************************
-* SECOND-ORDER NONLINEAR FILTER:
-* implementation of theory Zanasi-et-al.
+* Calculate POSITION mode trajectory:
+* Simple Trapezoidal velocity "move-to-position"
 ************************************************/
-void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus)
+void PosTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
 {
-    //RESETS THE STATUS
-    NLFStatus->qdXint = 0;
-    NLFStatus->qdXdot_int = 0;
-    NLFStatus->qdRprev = 0;
-    NLFStatus->qdRcommand = 0;
-    
-    // MODE MUST BE 1 or 2, set by user..
-    NLFStatus->MODE = 0;
-
-    //RESETS THE OUTPUTS
-    NLFOut->qdX = 0;
-    NLFOut->qdXdot = 0;
-    NLFOut->qdXddot = 0;
-
-} // END InitNLFilter2Fx
-
-// NLFilter calculation
-void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
-                 uint32_t Xdot_max, uint8_t Umax_SHIFT, // DYNAMIC LIMITS
-                 uint8_t Fc_SHIFT)                      // SAMPLING FREQUENCY
-{
-    // LOCALS
-    int32_t tempX1, tempDTF, tempU, sigma, S, abs_sigma, Y, m;
-    int64_t beta, longY;
-    
-    if((NLFStatus->MODE != 1)&&(NLFStatus->MODE != 2)) return;
-
-    // PREPARE temp to calculate velocity and final integration
-    tempX1 = NLFStatus->qdXdot_int;
-    NLFOut->qdX = tempX1;
-    
-    if(NLFStatus->MODE == 1)
+  if(pFlags->enable)							//if enable
+  {
+    if(pFlags->exec && !pFlags->done)			//it's executing and the motion is not complete
     {
-        // UPDATE COMMAND and its derivative
-        tempDTF =  (NLFStatus->qdRcommand << Fc_SHIFT);
-        tempDTF -= (NLFStatus->qdRprev << Fc_SHIFT); 
-    }
-    else // MODE = 2
-    {
-        // REFERENCE DERIVATIVE calculated outside
-        tempDTF = NLFStatus->qdRprev;
-    }
+      // get rising edge of exec flag
+      if(!pFlags->busy)							//if free
+      { 
+        // compute half distance
+        pParm->qdHalfDIST = (pParm->qdPosCOM - pParm->qdPosition)>>1;
+        
+        if(pParm->qdHalfDIST < 0)				
+        {
+           pParm->qdHalfDIST = - pParm->qdHalfDIST;
+           pFlags->neg_move = 1;
+        }
+        else
+           pFlags->neg_move = 0;				
 
-    // integrates Xint with tempX1*(Tc/2)
-    NLFStatus->qdXint += (tempX1 >> (Fc_SHIFT + 1));
-    
-////SLIDING CONTROL LAW
-    // tracking error derivative
-    //longY = (int64_t)(tempX1 - tempDTF);
-    Y = tempX1 - tempDTF;
-    
-    // calculate sliding surface
-    if(NLFStatus->MODE == 1)
-    {
-        // tracking error
-        beta =  (int64_t)(NLFStatus->qdXint - NLFStatus->qdRcommand) << Fc_SHIFT;
-    }
-    else // MODE = 2
-    {
-        beta = (int64_t)NLFStatus->qdRcommand << Fc_SHIFT;
-    }
+        pParm->qdVelocity.l = 0;				//reset velocity
+        pParm->qFlatCOUNT = 0;					//reset flatcount
+        pFlags->half_move = 0;					//first half of motion
+        pFlags->busy = 1;
+      }//END IF(!..busy)
+      else //motion in execution (busy flag active)	//trapezoidal motion implementation
+      {
+        if(!pFlags->half_move)						//first half of motion
+        {
+          if(pParm->qdVelocity.i[1] < pParm->qVLIM)	//if speed is smaller than max speed
+          {
+            // increase commanded velocity
+            pParm->qdVelocity.l += ((int32_t)pParm->qACC << pParm->qACCshift); // accelerate
+            if(pParm->qdVelocity.i[1] > pParm->qVLIM) // Don't exceed velocity limit parameter
+               pParm->qdVelocity.i[1] = pParm->qVLIM;
+          }
+          else 										//velocity limit has been reached, increment flatcount
+            pParm->qFlatCOUNT++;
 
-    beta += (int64_t)(Y >> 1);
-    
-    beta = (beta >> Umax_SHIFT);
-    sigma = (int32_t)(beta << Fc_SHIFT);
-    
-    abs_sigma = FxAbs(sigma);
-    
-    m = (1 + iSqrt(1 + (abs_sigma << 3))) >> 1; // (1 + sqrt(1 + 8*abs_sigma)) / 2
-    
-    // THIS ONE IS ACTUALLY sign(z_n)
-    S = 0;
-    if(sigma > 0)
-        S = 1;
-    else if(sigma < 0)
-            S = -1;
+          // decrement half distance
+          //pParm->qdHalfDIST -= (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+          pParm->qdHalfDIST -= (int32_t)RSH(pParm->qdVelocity.i[1],pParm->qVELshift);
+
+          if(pFlags->neg_move)
+             //pParm->qdPosition -= (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+            pParm->qdPosition -= (int32_t)RSH(pParm->qdVelocity.i[1], pParm->qVELshift);
+          else
+             //pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+            pParm->qdPosition += (int32_t)RSH(pParm->qdVelocity.i[1], pParm->qVELshift);
+
+          //if half distance is negative, first half of the move is completed
+          if(pParm->qdHalfDIST <= 0)
+             pFlags->half_move = 1;
             
-    sigma = sigma / m; // CAN WE AVOID THIS DIVISION????
+        }//end IF(!pFlags->half_move)
+        else //half_move flag is active(seconda metà del movimento)
+        {
+          if(pParm->qFlatCOUNT)
+             pParm->qFlatCOUNT--; //decrement flatcount until deceleration phase should start
+          else
+          {
+             if(pParm->qdVelocity.l) //if velocity is not zero
+             {
+                pParm->qdVelocity.l -= ((int32_t)pParm->qACC << pParm->qACCshift); // decelerate
+                if(pParm->qdVelocity.i[1] < 0) // Don't exceed velocity limit parameter
+                    pParm->qdVelocity.i[1] = 0;
+             }
+             else // velocity IS zero, motion completed
+             {
+               pFlags->done = 1;				//movimento completo
+               pParm->qdPosition = pParm->qdPosCOM;
+             }
+          }//end ELSE (for deceleration phase)
+          
+          if(pFlags->neg_move)
+             //pParm->qdPosition -= (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+            pParm->qdPosition -= (int32_t)RSH(pParm->qdVelocity.i[1], pParm->qVELshift);
+          else
+             //pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+            pParm->qdPosition += (int32_t)RSH(pParm->qdVelocity.i[1], pParm->qVELshift);
+
+        }//END else (half_move flag is active)
+      }//END motion is execution (busy flag active)
+    }//END IF(...exec)
+    else
+    {
+        pFlags->busy = 0;
+        pFlags->done = 0;
+    }
     
-    //(Y/Tc)/amax + sigma  + ((m - 1)/2) *S;
-    longY = ((int64_t)Y << Fc_SHIFT) >> Umax_SHIFT;
-    Y = (int32_t)longY;
-    sigma += Y + ((m - 1) >> 1) * S; 
-    
-    // THIS ONE IS sign(sigma_n)
-    Y = 0;
-    if(sigma > 0)
-        Y = 1;
-    else if(sigma < 0)
-            Y = -1;
-    
-    // LAST PART OF CONTROL LAW EQUATION
-    //(tempX1 * Y + Xdot_max) - (Umax/Fc) ;
-    Y = (tempX1 * Y + Xdot_max) - ((1L << Umax_SHIFT) >> Fc_SHIFT);    
-    
-    S = 0;
-    if(Y > 0)
-        S = 1;
-    else if(Y < 0)
-        S = -1;
-    
-    //sat(sigma), invert sign since final control output is negated..
-    //FOR FIXED-POINT MUST REVIEW THIS PART!!!
-    if(sigma >= 1)
-        Y = -1;
-    else if(sigma <= -1)
-            Y = 1;
-         else
-             Y = -sigma;
-    
-    // FINAL CONTROL OUTPUT, sign already inverted for sat(sigma)
-    tempU = (Y << (Umax_SHIFT - 1)) * (1 + S);
-    
-    // UPDATE OUTPUTS
-    NLFOut->qdXddot = tempU;
-    NLFOut->qdXdot  = NLFStatus->qdXdot_int;
-    NLFOut->qdX     = NLFStatus->qdXint;
-    
-    // UPDATE STATES FOR NEXT CYCLE
-    NLFStatus->qdXdot_int += (tempU >> Fc_SHIFT);
-    NLFStatus->qdRprev = NLFStatus->qdRcommand; // IF MODE = 2 will be overwritten outside..
-    tempX1 = (tempX1 >> (Fc_SHIFT + 1));
-    NLFStatus->qdXint += tempX1 ;
-    
-}// END NLFilter2Fx
+  }//END IF(.. enable)
+
+  pFlags->active = pFlags->enable;  
+}
+
+

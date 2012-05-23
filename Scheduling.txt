@@ -19,9 +19,5 @@ Timers.c
          +----> RefCurrentFilter (Controls.c, useful
          |                        ONLY if in TORQUE_MODE)
          +----> SpeedLoops (Controls.c)
-         +----> PositionLoops (Controls.c, at POS_LOOP_FREQ,
-         |                     a submultiple of SPEED_LOOP_FREQ)
-         +----> CartesianLoop (Controls.c, at POS_LOOP_FREQ,
-                               a submultiple of SPEED_LOOP_FREQ)
 
          

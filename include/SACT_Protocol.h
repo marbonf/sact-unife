@@ -94,16 +94,15 @@ typedef struct {
 // For Sabot Sensor Packet configuration
 typedef union {
     struct {
-    unsigned encoders   : 1; //b0
-    unsigned odometry   : 1; //b1
-    unsigned analogs    : 1; //b2
-    unsigned digitals   : 1; //b3
-    unsigned sonars     : 1; //b4
-    unsigned currents   : 1; //b5
-    unsigned wheel_vel  : 1; //b6
-    unsigned linrot_vel : 1; //b7
-    unsigned way_point_q: 1; //b8
-    unsigned UNUSED     : 7;
+    unsigned encoders    : 1; //b0
+    unsigned grip_status : 1; //b1
+    unsigned trajectory  : 1; //b2
+    unsigned analogs     : 1; //b3
+    unsigned digitals    : 1; //b4
+    unsigned sonars      : 1; //b5
+    unsigned currents    : 1; //b6
+    unsigned motor_vel   : 1; //b7
+    unsigned UNUSED      : 8;
     };
     int16_t word;
 } tSSP_config;

@@ -55,7 +55,15 @@
 typedef struct {
     unsigned enable    : 1; //enable <- INPUT
     unsigned active    : 1; //motion active -> OUTPUT
-    unsigned UNUSED    : 6;
+    unsigned exec      : 1; //exec motion -> INPUT
+    unsigned busy      : 1; //motion being executed
+                            //(internal flag)
+    unsigned done      : 1; //motion completed -> OUTPUT
+    unsigned half_move : 1; //half travel distance completed
+                            //FOR PosTRAJ trapezoidal move
+                            //(internal flag)
+    unsigned neg_move  : 1; //move is negative
+    unsigned UNUSED    : 1;
 } tTRAJflags;
 
 typedef struct {
@@ -67,41 +75,13 @@ typedef struct {
     uint8_t         qACCshift;
     int16_t         qVelCOM;
     int32_t         qdPosCOM;
+    int16_t         qFlatCOUNT;
+    int32_t         qdHalfDIST;
     } tTRAJParm;
 
 void InitTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
 void JogTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
+void PosTRAJ( tTRAJParm *pParm, tTRAJflags *pFlags);
 
-/**********************************************************
- * ADVANCED Trajectory planners, applying nonlinear
- * filtering theory (Zanasi-et-al.):
- * SECOND-ORDER NONLINEAR FILTER
- * Implementation notes:
- * - fixed-point version, requires Umax and Fc (= 1/Tc)
- *   to be a power of 2, to use only shifting (no div.)
-*******************************************************/
-typedef struct {
-    int32_t         qdXint;    // 1.31 format
-    int32_t         qdXdot_int;
-    int32_t         qdRprev; // if MODE = 1 -> previous command
-                             // if MODE = 2 -> command derivative
-    int32_t         qdRcommand; // if MODE = 1 -> current command
-                                // if MODE = 2 -> tracking error, calculated outside
-    uint8_t         MODE;
-    } tNLFStatus;
-
-typedef struct {
-    int32_t         qdX;    // 1.31 format
-    int32_t         qdXdot;
-    int32_t         qdXddot;
-    } tNLFOut;
-
-
-void InitNLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus);
-
-void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
-                 uint32_t Xdot_max, uint8_t Umax_SHIFT, // DYNAMIC LIMITS
-                 uint8_t Fc_SHIFT);                     // SAMPLING FREQUENCY
- 
 #endif
 

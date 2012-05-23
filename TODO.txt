@@ -1,10 +1,5 @@
 COMMANDS:
-- implement coherent update of NL Filter parameters..
 
 
 CALIBRATION:
 - A/D offsets (currents? others?)
-- H-Bridge direction (CW/CCW, Left/R, Robot FW..)
-  and Encoder leading channel (A or B?)
-  POSSIBILITY: automatic test?
-

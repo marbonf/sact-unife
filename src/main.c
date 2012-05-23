@@ -75,9 +75,9 @@ _FOSC(CSW_FSCM_OFF & XT_PLL16);  // Clock-switching and monitor off
 _FWDT(WDT_OFF);                 // Turn off the Watch-Dog Timer.
 _FBORPOR(MCLR_EN & PWRT_OFF);   // Enable MCLR reset pin and turn off the
                                 // power-up timers.
-_FGS(CODE_PROT_OFF);            // Disable Code Protection
-_FBS(CODE_PROT_OFF);
-_FSS(CODE_PROT_OFF);
+_FGS(GWRP_OFF);            // Disable Code Protection
+_FBS(WR_PROTECT_BOOT_OFF  );
+_FSS(WR_PROT_SEC_OFF);
  
 // Function prototypes for "soft" real-time event handlers
 void medium_event_handler(void);
@@ -91,12 +91,12 @@ void update_params(void);
 
 // WELCOME MESSAGE!
 const unsigned char WelcomeMsg[] = 
-{"\r\n-----  Sabot ACTuator Board  -----\r\n"
+{"\r\n----  Gripper ACTuator Board -----\r\n"
 #ifdef REV1_BOARD
-     "-----   HW REV.1 - FW v0.9   -----\r\n"
+     "-----   HW REV.1 - FW v0.1   -----\r\n"
 #endif
 #ifdef REV2_BOARD
-     "-----   HW REV.2 - FW v0.9   -----\r\n"
+     "-----   HW REV.2 - FW v0.1   -----\r\n"
 #endif
      "Type the following sequence\r\n"
      "SYNC0+cr/lf SYNC1+cr/lf SYNCA+cr/lf\r\n"
@@ -211,17 +211,14 @@ void update_params(void)
     max_current = parameters_RAM[0];
     max_velocity = parameters_RAM[1];
     max_velocity_scaled = max_velocity >> parameters_RAM[3];
-    encoder_counts_rev = (int32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
-    wheel_diam = parameters_RAM[17];
-    wheel_track = parameters_RAM[18];
-    // ODOM correction has 5 decimal digits, converted in Q16
-    odom_left_corr = ((int32_t)parameters_RAM[20] << 16) / 10000;
-    robot_mass = parameters_RAM[22];
-    robot_inertia = parameters_RAM[23];
-    // parameters_RAM[24] is giving scale as ADC points / Nm
+    encoder_counts_rev = (uint32_t)parameters_RAM[19] << 2; // TAKE INTO ACCOUNT x4 QEI MODE
+    decdeg_to_ticks = (uint16_t)((encoder_counts_rev << 8)/3600); // in 8.8 fixed point
+    max_angle = parameters_RAM[17];
+    min_angle = -((int16_t)parameters_RAM[18]);
+    // parameters_RAM[21] is giving scale as ADC points / Nm
     // now convert it as a divider for Torque ref. in Nm * 10^-8 23.8 fixed-point
-    ADC_torque_scale = (int32_t)(25600000000LL / parameters_RAM[24]);
-    direction_flags.word = parameters_RAM[21];
+    ADC_torque_scale = (int32_t)(25600000000LL / parameters_RAM[21]);
+    direction_flags.word = parameters_RAM[20];
 
 ///////////////////////////////////////////////////////////////////
 // CONTROL LOOPS and TRAJ PLANNERS INIT
@@ -299,11 +296,6 @@ void update_params(void)
     TRAJMotor2.qVELshift = parameters_RAM[3];
     TRAJMotor2.qACCshift = parameters_RAM[4];
     
-////INIT DYNAMIC FEEDBACK LINEARIZATION LOOP
-    dfl_K1 = parameters_RAM[25];
-    dfl_K2 = parameters_RAM[26];
-    dfl_K3 = parameters_RAM[27];
-
 }
 
 /*******************************************************
@@ -381,19 +373,44 @@ void diagnostics(void)
         temp2 = 0;
     }
     
-    if ((temp1 > 80000) || (temp1 < -80000))
+    if ((temp1 > 8000) || (temp1 < -8000))
     {
         // TRACKING ERROR:
         status_flags.track_error1 = 1;
     }
-    
-    if((temp2 > 80000) || (temp2 < -80000))
+
+    if((temp2 > 8000) || (temp2 < -8000))
     {
         // TRACKING ERROR:
         status_flags.track_error2 = 1;
     }
+
+ // DETECT GRIP TOUCHING BY CHECKING THE TRACKING ERROR
+    if(temp1 > 2000)
+    {
+        // Touching!?
+        grip_status_flags.grip_touch_1 = 1;
+    }
+    else
+    {
+        grip_status_flags.grip_touch_1 = 0;
+    }
+
+    if (temp2 > 2000)
+    {
+        // Touching!?
+        grip_status_flags.grip_touch_2 = 1;
+    }
+    else
+    {
+        grip_status_flags.grip_touch_2 = 0;
+    }
+
+    grip_status_flags.grip_traj_exec_1 = TRAJMotor1_f.exec;
+    grip_status_flags.grip_traj_exec_2 = TRAJMotor2_f.exec;    
     
-    if(status_flags.b != 0)
+    // MASK OFF Communication errors, all the others set board to OFF_MODE
+    if(((status_flags.b&0x3F) != 0)&&(control_mode.state != OFF_MODE))
     {
 // switch off immediately and raise OFF_MODE req.
 //        control_flags.current_loop_active = 0;
@@ -432,7 +449,7 @@ void slow_event_handler(void)
         {
             if(control_mode.state == OFF_MODE)
             {
-                control_mode.vel_mode1_req = 1;
+                control_mode.vel_mode_req = 1;
                }
                if(TRAJMotor1.qVelCOM  == 0)
                {
@@ -449,7 +466,7 @@ void slow_event_handler(void)
         {
             if(control_mode.state == OFF_MODE)
             {
-                control_mode.vel_mode1_req = 1;
+                control_mode.vel_mode_req = 1;
                }
                if(TRAJMotor2.qVelCOM  == 0)
                {
@@ -526,6 +543,10 @@ void control_mode_manager(void)
                             TRAJMotor2_f.enable = 0;
                             TRAJMotor1_f.active = 0;
                             TRAJMotor2_f.active = 0;
+                            TRAJMotor1_f.exec = 0;
+                            TRAJMotor2_f.exec = 0;
+                            TRAJMotor1_f.busy = 0;
+                            TRAJMotor2_f.busy = 0;
                             TRAJMotor1.qVelCOM  = 0;
                             TRAJMotor2.qVelCOM  = 0;
                             rcurrent1 = 0;
@@ -542,24 +563,22 @@ void control_mode_manager(void)
                             }
                             control_flags.current_loop_active = 0;
                             control_flags.pos_loop_active = 0;
-                            control_flags.cart_loop_active = 0;
+                            control_flags.jog_loop_active = 0;
                             PDC1 = FULL_DUTY;
                             PDC2 = FULL_DUTY;
                          // STATE TRANSITIONS
-                            if(control_mode.vel_mode1_req)
+                            if(control_mode.vel_mode_req)
                             {   
-                                control_mode.state = VEL_MODE1;
+                                control_mode.state = VEL_MODE;
                             }
                             // STATE TRANSITIONS
-                            else if(control_mode.torque_mode1_req)
+                            else if(control_mode.torque_mode_req)
                                 {
-                                    control_mode.state = TORQUE_MODE1;    
+                                    control_mode.state = TORQUE_MODE;    
                                 }
-                            else if(control_mode.cart_mode_req)
+                            else if(control_mode.pos_mode_req)
                                 {
-                                    control_mode.state = CART_MODE;
-                                    
-                                    InitCartesianLoop();
+                                    control_mode.state = POS_MODE;
                                 }
                             // IF there is ANY transition, RESETS PIDs
                             if(control_mode.trxs)
@@ -580,8 +599,8 @@ void control_mode_manager(void)
                             
                             break;
 /////////////////////////////////////////////////////////////////////
-//  TORQUE MODE 1
-        case TORQUE_MODE1 : control_flags.current_loop_active = 1;
+//  TORQUE MODE 
+        case TORQUE_MODE : control_flags.current_loop_active = 1;
 
                         // STATE TRANSITIONS
                             if(control_mode.off_mode_req)
@@ -591,12 +610,9 @@ void control_mode_manager(void)
                             }
                             break;
 /////////////////////////////////////////////////////////////////////
-//  TORQUE MODE 2
-        case TORQUE_MODE2 : break;
-/////////////////////////////////////////////////////////////////////
-//  VELOCITY MODE 1
-        case VEL_MODE1 :   control_flags.current_loop_active = 1;
-                           control_flags.pos_loop_active = 1;
+//  VELOCITY MODE 
+        case VEL_MODE :    control_flags.current_loop_active = 1;
+                           control_flags.jog_loop_active = 1;
                            TRAJMotor1_f.enable = 1;
                            TRAJMotor2_f.enable = 1;
                         // STATE TRANSITIONS
@@ -608,12 +624,11 @@ void control_mode_manager(void)
                                 
                             break;
 /////////////////////////////////////////////////////////////////////
-//  VELOCITY MODE 2
-        case VEL_MODE2 : break;
-/////////////////////////////////////////////////////////////////////
 //  CART MODE
-        case CART_MODE : control_flags.current_loop_active = 1;
-                         control_flags.cart_loop_active = 1;
+        case POS_MODE :  control_flags.current_loop_active = 1;
+                         control_flags.pos_loop_active = 1;
+                         TRAJMotor1_f.enable = 1;
+                         TRAJMotor2_f.enable = 1;
                          
                          // STATE TRANSITIONS
                          if(control_mode.off_mode_req)

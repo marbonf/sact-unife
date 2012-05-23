@@ -49,7 +49,6 @@
 #include "Controls.h"
 #include "Timers.h"
 #include "Trajectories.h"
-#include "WayPointQ.h"
 #include "PID.h"
 #include "PWM.h"
 
@@ -80,17 +79,6 @@ tTRAJParm TRAJMotor2;
 tTRAJflags TRAJMotor1_f;
 tTRAJflags TRAJMotor2_f;
 
-// NONLINEAR FILTER structures
-tNLFStatus VelocityNLFStatus;
-tNLFStatus OrientationNLFStatus;
-
-tNLFOut VelocityNLFOut;
-tNLFOut OrientationNLFOut;
-
-// linear control-loop parameters
-int16_t dfl_K1;// 14 // x gain
-int16_t dfl_K2;// 14 // xdot gain
-int16_t dfl_K3;// 10 // xddot gain
 
 /************************************************
  * LOCAL FUNCTIONS
@@ -98,25 +86,6 @@ int16_t dfl_K3;// 10 // xddot gain
 void UpdateEncoder1(void);
 void UpdateEncoder2(void);
 
-// NONLINEAR FILTER for 2D trajectory smoothing
-// Logic states
-//#define TURNING  0
-//#define SLOWING  1
-//#define ALIGNED  2
-//#define STOPPING 3
-uint8_t NLFState;
-// Switching logic function
-void NLFSwitchingLogic(void);
-
-// RESET DFL if SwitchingLogic is IDLE
-void ResetCartesianLoop(void);
-
-// DYNAMIC FEEDBACK LINEARIZATION CONTROL LOOP
-// 3rd order, control inputs = driving force/steering torque
-void DynamicFLControl(void);
-
-// just a test
-void TestNLFilters(void);
 
 /***********************************************
  * LOCAL VARIABLES
@@ -124,60 +93,8 @@ void TestNLFilters(void);
 // Temps for odometry calc.
 int16_t PosCount,UpCount,DownCount;
 
-// Odometry derivatives
-int16_t xdot_odom, ydot_odom; // auxiliary only for FAST RATE odometry estimate
-int32_t x_odom_prev, y_odom_prev, xdot_odom_time, ydot_odom_time,
-    xdot_odom_prev, ydot_odom_prev, xddot_odom, yddot_odom,
-    vel_odom, theta_odom_prev, omega_odom;
-// Target and NLF outputs
-int32_t x_target; 
-int32_t y_target;
-int32_t r_target;
-
-int32_t x_set, y_set, xdot_set, ydot_set,
-     xddot_set, yddot_set, xdddot_set, ydddot_set,
-     theta_set, omega_set, alpha_set, vel_set, acc_set, jerk_set;
-
-#define R_STOP 1314500L
-#define R_SLOW 983870L
-#define EPS_ANGLE 600
-#define EPS_DIST 2560
-#define EPS_VEL 2560
-
-// aux for derivatives
-int32_t xdot_set_prev,ydot_set_prev,xddot_set_prev,yddot_set_prev,
-     xdddot_set_prev,ydddot_set_prev;
-// Error variables 
-int32_t x_delta, y_delta, target_dist;
-int32_t theta_e, omega_e, theta_e_delta;
-// set-points for Vel/Orient. NL Filters
-int32_t theta_ref, omega_ref, vel_ref;
-
-// "dynamic" constraints for Vel/Orient. NL Filters
-int32_t vel_BOUND = 768000; // SCALING: 0.1mm/s 23.8 fixed-point
-int32_t acc_lin_BOUND = 1280000; //corresponds to maximum linear acceleration
-int32_t acc_rad_BOUND = 512000; // SCALING: 0.1mm/s^2 23.8 fixed-point
-
-int32_t omega_M;
-int32_t omega_BOUND = 52428; // SCALING: Q16 rad (15.16 fixed-point)
-
-// "static" constraints for Vel/Orient. NL Filters
-uint8_t Umax_vel_SHIFT = 18; // corresponds to maximum linear jerk
-                          // SCALING: 0.1mm/s^3, 23.8 fixed-point
-                          // theoretical value: 1000 (2560000 in 23.8 fxp)
-                          // 21 = round(log2(2560000)
-uint8_t Umax_theta_SHIFT = 17; // corresponds to maximum angular acceleration
-                            // theoretical value (motor limit): 393216
-                            // 18 = round(log2(393216))
-
-// variables for dynamic feedback linearization
-int32_t V1, V2; //virtual inputs
-int32_t U1, U2; //actual inputs
-int32_t XI; //state of the control integrator
-int32_t drive_force, steer_torque;
-
 // TO MANAGE LMD18200 SIGN INVERSION
-#define BLANKS 5
+#define BLANKS 2
 uint8_t DIR1_PREV, DIR2_PREV, DIR1_TMP, DIR2_TMP;
 uint8_t DIR1_blank_count,DIR2_blank_count;
 
@@ -356,14 +273,12 @@ void SpeedLoops(void)
 }// END SPEED LOOPS
 
 /*************************************
- * Position control loops
+ * Jogging control loops
  * for both motors
  *************************************/
-void PositionLoops(void)
+void JoggingLoops(void)
 {
-// FIRST MOTOR
-    //UpdateEncoder1();
-    
+// FIRST MOTOR    
     if(TRAJMotor1_f.enable && !TRAJMotor1_f.active)
         TRAJMotor1.qdPosition = mposition1;
     
@@ -377,8 +292,6 @@ void PositionLoops(void)
     rvelocity1 = PIDPos1.qOut + (TRAJMotor1.qdVelocity.i[1] >> TRAJMotor1.qVELshift);
     
 // SECOND MOTOR
-    //UpdateEncoder2();
-
     if(TRAJMotor2_f.enable && !TRAJMotor2_f.active)
         TRAJMotor2.qdPosition = mposition2;
 
@@ -390,6 +303,76 @@ void PositionLoops(void)
     
     //rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> (TRAJMotor2.qVELshift + SPEED_POS_SHIFT));
     rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> TRAJMotor2.qVELshift);
+
+
+#ifdef DEVELOP_MODE
+#ifdef LOG_POSLOOP
+// LOGS DATA FOR Data Monitor Control Interface (DMCI) of MPLAB IDE
+    dataLOGdecim++;
+    if(dataLOGdecim == LOGDECIM)
+    { 
+        //dataLOG1[dataLOGIdx] = (int16_t)mposition1;
+        //dataLOG2[dataLOGIdx] = (int16_t)TRAJMotor1.qdPosition;
+        dataLOG1[dataLOGIdx] =  x_odom;
+        dataLOG2[dataLOGIdx] =  y_odom;
+        dataLOG3[dataLOGIdx] =  theta_odom;
+        dataLOG4[dataLOGIdx] =  xdot_odom;
+             
+        dataLOGIdx++;
+        if(dataLOGIdx == MAXLOG) dataLOGIdx = 0;
+        
+        dataLOGdecim = 0;
+    }// IF DECIMATION    
+    
+#endif //LOG_POSLOOP
+#endif //DEVELOP_MODE
+
+}// END POSITION LOOPS
+
+/*************************************
+ * Position control loops
+ * for both motors
+ *************************************/
+void PositionLoops(void)
+{
+// FIRST MOTOR    
+    if(TRAJMotor1_f.enable && !TRAJMotor1_f.active)
+        TRAJMotor1.qdPosition = mposition1;
+    
+    PosTRAJ(&TRAJMotor1, &TRAJMotor1_f); //trapezoidal motion
+
+    if(TRAJMotor1_f.done)       //motion completed, back exec=0
+       TRAJMotor1_f.exec = 0;
+
+
+    PIDPos1.qdInMeas = mposition1;
+    PIDPos1.qdInRef  = TRAJMotor1.qdPosition;
+    CalcP(&PIDPos1, &PIDPos1_f);
+    
+    //rvelocity1 = PIDPos1.qOut + (TRAJMotor1.qdVelocity.i[1] >> (TRAJMotor1.qVELshift + SPEED_POS_SHIFT));
+    if(TRAJMotor1_f.neg_move)
+        rvelocity1 = PIDPos1.qOut - RSH(TRAJMotor1.qdVelocity.i[1], TRAJMotor1.qVELshift);
+    else
+        rvelocity1 = PIDPos1.qOut + RSH(TRAJMotor1.qdVelocity.i[1], TRAJMotor1.qVELshift);
+
+// SECOND MOTOR
+    if(TRAJMotor2_f.enable && !TRAJMotor2_f.active)
+        TRAJMotor2.qdPosition = mposition2;
+
+    PosTRAJ(&TRAJMotor2, &TRAJMotor2_f);
+
+    if(TRAJMotor2_f.done)
+        TRAJMotor2_f.exec = 0;
+
+    PIDPos2.qdInMeas = mposition2;
+    PIDPos2.qdInRef  = TRAJMotor2.qdPosition;
+    CalcP(&PIDPos2, &PIDPos2_f);
+    
+    //rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> (TRAJMotor2.qVELshift + SPEED_POS_SHIFT));
+    if(TRAJMotor2_f.neg_move)
+        rvelocity2 = PIDPos2.qOut - RSH(TRAJMotor2.qdVelocity.i[1], TRAJMotor2.qVELshift);
+    else
+        rvelocity2 = PIDPos2.qOut + RSH(TRAJMotor2.qdVelocity.i[1], TRAJMotor2.qVELshift);
 
 
 #ifdef DEVELOP_MODE
@@ -506,587 +489,4 @@ void UpdateEncoder2(void)
     mposition2+=(int32_t)mvelocity2;
 #endif
 }
-
-/********************************************
- * Functions to update odometry
- * estimate from encoder counts
- *******************************************/
-void UpdateOdometryFx(void)
-{
-    int16_t dS;
-    int32_t dTH;
-    int32_t distR,distL,temp, tempcs;
-    int64_t templong;
-
-    UpdateEncoder1();
-    UpdateEncoder2();
-    
-////ESTIMATE TRAVELED DISTANCE
-    if(direction_flags.motor1_right_side)
-    {
-        distR = (int32_t)wheel_diam*(int32_t)mvelocity1;
-        temp = (int32_t)wheel_diam*(int32_t)mvelocity2;
-    }
-    else
-    {
-        distR = (int32_t)wheel_diam*(int32_t)mvelocity2;
-        temp = (int32_t)wheel_diam*(int32_t)mvelocity1;
-    }
-    templong = (int64_t)temp * odom_left_corr;
-    distL = (int32_t) ( templong >> 16 ); // odom_left_corr is Q16
-    
-    temp = distR + distL; 
-    
-    // MULTIPLY BY PI_Q16 to convert into linear units
-    temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
-    dS = (int16_t)((temp / encoder_counts_rev) << 1); // DISTANCE SCALING: 0.1mm, Q10 (5.10)
-                                               // SCALE FROM Q8 TO Q10 AND DIVIDE BY 2
-                                               // SINCE DIAM. INSTEAD OF RADIUS IS USED
-    
-////ESTIMATE ROTATION
-    temp = distR - distL;
-    
-    // MULTIPLY BY PI_Q16
-    temp = temp * (PI_Q16 >> 8); // * PI_Q8 to avoid overflow
-    temp = temp / wheel_track;
-    dTH = (temp << 8) / encoder_counts_rev; // ANGLE INCREMENT IN Q16
-                                            // AND DIVIDE BY 2 SINCE USING DIAM. (NOT RADIUS)
-
-////UPDATE ODOMETRY ESTIMATE
-    temp = theta_odom + (dTH >> 1);             // in Q16 radians, is theta_dom (Q16) + dTH (Q16) / 2 
-    tempcs = _Q16cos(temp)*dS;                  // COS in Q16 (15.16), so we have 26 fractional bits
-    xdot_odom = (int16_t)(tempcs >> 18);        // Xdot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
-    x_odom += ((int32_t)xdot_odom);             // X FINAL SCALING: 0.1mm, 23.8 fixed-point
-    tempcs = _Q16sin(temp)*dS;                  // SIN in Q16 (15.16), so we have 26 fractional bits
-    ydot_odom = (int16_t)(tempcs >> 18);        // Ydot FINAL SCALING: 0.1mm/cycle 7.8 fixed-point
-    y_odom += ((int32_t)ydot_odom);             // Y FINAL SCALING: 0.1mm, 23.8 fixed-point    
-    
-    theta_odom += dTH;          // FINAL UNITS: Q16 radians
-    // KEEP ANGLE  between [-PI;PI]
-    while(theta_odom < -PI_Q16)
-        {theta_odom +=  (PI_Q16<<1);}
-        
-    while(theta_odom > PI_Q16)
-        {theta_odom -=  (PI_Q16<<1);}
-}// END UpdateOdometryFx
-
-
-/*************************************
- * Intialization of 
- * Cartesian control loop based on
- * Nonlinear filter smoothing AND
- * Dynamic Feedback Linearization
- *************************************/
-void InitCartesianLoop(void)
-{
-    int16_t tempx, tempy;
-    
-////INIT NLFILTERS
-    InitNLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus);
-    InitNLFilter2Fx(&OrientationNLFOut, &OrientationNLFStatus);
-    OrientationNLFStatus.qdXint = theta_odom;
-    NLFState = IDLE;
-    
-    // RESET TARGET POINT
-    WayPointQ_Reset();
-    tempx = (int16_t)((x_odom >> 8) / 10);
-    tempy = (int16_t)((y_odom >> 8) / 10);
-    WayPointQ_Put(tempx,tempy,(EPS_DIST>>8)/10);
-    x_target = x_odom;
-    y_target = y_odom;
-    r_target = EPS_DIST;
-    
-    // RESET FILTER SET POINT
-    x_set = x_odom;
-    y_set = y_odom;
-    theta_set = theta_odom;
-
-////INIT D.F.L.
-    XI = 0;
-    
-    x_odom_prev = x_odom;
-    y_odom_prev = y_odom;
-    theta_odom_prev = theta_odom;
-    xdot_odom_prev = 0;
-    ydot_odom_prev = 0;
-                                       
-}
-
-/*************************************
- * Reset Dynamic Feedback Linearization
- *************************************/
-void ResetCartesianLoop(void)
-{
-    
-////INIT NLFILTERS
-    InitNLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus);
-    InitNLFilter2Fx(&OrientationNLFOut, &OrientationNLFStatus);
-    OrientationNLFStatus.qdXint = theta_odom;
-    
-    // RESET TARGET POINT
-    x_target = x_odom;
-    y_target = y_odom;
-    r_target = EPS_DIST;
-    
-    // RESET FILTER SET POINT
-    x_set = x_odom;
-    y_set = y_odom;
-    theta_set = theta_odom;
-
-////INIT D.F.L.
-    //XI = 0;
-    
-    x_odom_prev = x_odom;
-    y_odom_prev = y_odom;
-    xdot_odom_prev = 0;
-    ydot_odom_prev = 0;
-                                       
-}
-
-/*************************************
- * Cartesian control loop based on
- * Nonlinear filter smoothing AND
- * Dynamic Feedback Linearization
- *************************************/
-void CartesianLoop(void)
-{
-
-#ifdef DEVELOP_MODE     
-// FOR TEST PROBE
-J10Pin3_OUT = 1;
-#endif
-
-    NLFSwitchingLogic();
-
-#ifdef DEVELOP_MODE     
-// FOR TEST PROBE
-J10Pin3_OUT = 0;
-#endif
-
-    
-    DynamicFLControl();
-
-#ifdef DEVELOP_MODE
-#ifdef LOG_CARTLOOP
-// LOGS DATA FOR Data Monitor Control Interface (DMCI) of MPLAB IDE
-    dataLOGdecim++;
-    if(dataLOGdecim == LOGDECIM)
-    { 
-        dataLOG1[dataLOGIdx] = vel_set;
-        dataLOG2[dataLOGIdx] = acc_set;
-      
-        dataLOGIdx++;
-        if(dataLOGIdx == MAXLOG) dataLOGIdx = 0;
-        
-        dataLOGdecim = 0;
-    }// IF DECIMATION    
-    
-#endif //LOG_POSLOOP
-#endif //DEVELOP_MODE
-
-}
-
-
-/***********************************************************
- * TRAJECTORY GENERATOR WITH 2D SMOOTHING FILTER
- ***********************************************************/
- void NLFSwitchingLogic(void)
- {
-    int64_t templong, stemplong, ctemplong, ftemplong;
-    int32_t sintemp,costemp;
-    int16_t tempx, tempy, tempr;
-    
-    // Distance from target
-    x_delta = x_target - x_set;
-    y_delta = y_target - y_set;
-    templong = (int64_t)x_delta *(int64_t) x_delta;
-    templong += (int64_t)y_delta * (int64_t)y_delta;
-    
-    templong >>= 16;
-   
-    target_dist = iSqrt((uint32_t)templong) << 8;
-    
-    if(target_dist <= (R_SLOW + r_target))
-    {
-        if(WayPointQ_Get(&tempx, &tempy, &tempr))
-        {
-            x_target = ((int32_t)tempx * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-            y_target = ((int32_t)tempy * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-            r_target = ((int32_t)tempr * 10 ) << 8; // 0.1 mm 23.8 fixed-point
-            
-            // RECALCULATE error and distance
-            x_delta = x_target - x_set;
-            y_delta = y_target - y_set;
-            templong = (int64_t)x_delta *(int64_t) x_delta;
-            templong += (int64_t)y_delta * (int64_t)y_delta;
-    
-            templong >>= 16;
-   
-            target_dist = iSqrt((uint32_t)templong) << 8;
-        }
-    }
-    
-////Pursuit-evasion equations:
-    theta_e = _Q16atan2(x_delta,y_delta);
-     
-    theta_e_delta = theta_e - theta_set;
-
-    // KEEP ANGLE error between [-PI;PI]
-    while(theta_e_delta < -PI_Q16)
-        {theta_e_delta +=  (PI_Q16<<1);}
-        
-    while(theta_e_delta > PI_Q16)
-        {theta_e_delta -=  (PI_Q16<<1);}
-    
-    sintemp = _Q16sin(theta_e_delta);
-    templong = (int64_t)vel_set * (int64_t) sintemp;
-    if(target_dist != 0)
-        omega_e = templong / target_dist; // assuming theta target = 0
-                                          // NOTE: is scaled as Q16 already..
-    else
-        omega_e = 0;
-     
-    // MAIN STATE MACHINE LOGIC
-    switch(NLFState)
-    {
-        case IDLE    :  
-                        theta_ref = theta_odom;
-                        omega_ref = 0;
-                        
-                        vel_ref = 0;
-                        omega_M = 0;
-                        
-                        //InitNLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus);
-                        
-                        if(target_dist > R_SLOW ) 
-                        {
-                            NLFState = TURNING;
-                        }
-                        
-                        break;
-        case TURNING : 
-                        theta_ref = theta_e;
-                        omega_ref = omega_e;
-                        // Fixed-point Division: 23.8 << 8 becomes 15.16
-                        // 15.16 / 15.16 = integer (16-16 = 0 fractional bits)
-                        // result << 8 = 23.8 again
-                        vel_ref = ((acc_rad_BOUND << 8) / omega_BOUND) << 8;
-                        omega_M = omega_BOUND;
-                        
-                        // 2000 is about 1,5 ° in Q16 rad
-                        if((FxAbs(theta_e_delta) < EPS_ANGLE) && (FxAbs(omega_set) < EPS_ANGLE) )
-                        {
-                            NLFState = ALIGNED;
-                        }
-                        
-                        break;
-         
-        case SLOWING : 
-                        theta_ref = theta_set;
-                        omega_ref = 0;
-                        
-                        vel_ref = ((acc_rad_BOUND << 8) / omega_BOUND) << 8;
-                        omega_M = 0;
-                        
-                        sintemp = vel_set - (((acc_rad_BOUND << 8) / omega_BOUND) << 8);
-                        // 2000 is about 1,5 deg. in Q16 rad
-                        if(FxAbs(sintemp) < EPS_VEL)
-                        {
-                            NLFState = TURNING;
-                        }
-                        
-                        break;
-         
-        case ALIGNED : 
-                        theta_ref = theta_e;
-                        omega_ref = omega_e;
-                        
-                        vel_ref = vel_BOUND;
-                        // Fixed-point Division: 23.8 << 8 becomes 15.16
-                        // 15.16 / 23.8 = 23.8 (16-8 = 8 fractional bits)
-                        // result << 8 = Q16 rad
-                        omega_M = ((acc_rad_BOUND << 8) / vel_BOUND) << 8;
-                        
-                        
-                        if( target_dist <= R_STOP)
-                        {
-                            NLFState = STOPPING;
-                        }
-                        // 10000 is about 5 deg. in Q16 rad
-                        else if(FxAbs(theta_e_delta) > (EPS_ANGLE<<1))
-                            {
-                                NLFState = SLOWING;
-                            }
-
-                        break;
-         
-        case STOPPING :
-                        theta_ref = theta_e;
-                        omega_ref = omega_e;
-                        
-                        vel_ref = 0;
-                        //omega_M = 0;
-                        omega_M = ((acc_rad_BOUND << 8) / vel_BOUND) << 8;
-
-                        // 10000 is about 5 deg. in Q16 rad
-                        if(target_dist > R_STOP + EPS_DIST)
-                        {
-                            if(FxAbs(theta_e_delta) > (EPS_ANGLE<<1))
-                            {
-                                if( vel_set <= (((acc_rad_BOUND << 8) / omega_BOUND) << 8) )
-                                    NLFState = TURNING;
-                                else
-                                    NLFState = SLOWING;
-                            }
-                            else
-                                NLFState = ALIGNED;
-                        }
-                        else if(target_dist < (EPS_DIST << 2))
-                            {
-                               NLFState = IDLE;
-                               ResetCartesianLoop();
-                            }
-                        
-                        break;
-         
-        default : break;
-    } // END switch NLFState
-
-    VelocityNLFStatus.MODE = 1;
-    VelocityNLFStatus.qdRcommand = vel_ref;
-    NLFilter2Fx(&VelocityNLFOut, &VelocityNLFStatus, acc_lin_BOUND, Umax_vel_SHIFT, POS_LOOP_FcSHIFT);
-
-    if((VelocityNLFOut.qdX < EPS_VEL) && (VelocityNLFOut.qdXdot == 0) && (VelocityNLFOut.qdXddot == 0))
-    {
-        VelocityNLFStatus.qdXint = 0;
-        VelocityNLFOut.qdX = 0;
-    }
-    
-    OrientationNLFStatus.MODE = 2;
-    OrientationNLFStatus.qdRcommand =
-        OrientationNLFStatus.qdXint -
-        theta_ref;
-    // KEEP ANGLE error between [-PI;PI]
-    while(OrientationNLFStatus.qdRcommand < -PI_Q16)
-        {OrientationNLFStatus.qdRcommand +=  (PI_Q16<<1);}
-        
-    while(OrientationNLFStatus.qdRcommand > PI_Q16)
-        {OrientationNLFStatus.qdRcommand -=  (PI_Q16<<1);}
-
-    OrientationNLFStatus.qdRprev = omega_ref; // ANGULAR velocity reference
-
-    NLFilter2Fx(&OrientationNLFOut, &OrientationNLFStatus, omega_M, Umax_theta_SHIFT , POS_LOOP_FcSHIFT );
-
-    // KEEP ANGLE output between [-PI;PI]
-    while(OrientationNLFStatus.qdXint < -PI_Q16)
-        {OrientationNLFStatus.qdXint +=  (PI_Q16<<1);}
-        
-    while(OrientationNLFStatus.qdXint > PI_Q16)
-        {OrientationNLFStatus.qdXint -=  (PI_Q16<<1);}
-
-    OrientationNLFOut.qdX = OrientationNLFStatus.qdXint;
-    
-    vel_set = VelocityNLFOut.qdX;
-    acc_set = VelocityNLFOut.qdXdot;
-    jerk_set = VelocityNLFOut.qdXddot;
-
-    theta_set = OrientationNLFOut.qdX;
-    omega_set = OrientationNLFOut.qdXdot;
-    alpha_set = OrientationNLFOut.qdXddot;
-    
-    sintemp = _Q16sin(theta_set);
-    costemp = _Q16cos(theta_set);
-    
-    templong = (int64_t) vel_set * (int64_t) costemp;
-    xdot_set = templong >> 16;
-    templong = (int64_t) vel_set * (int64_t) sintemp;
-    ydot_set = templong >> 16;
-    
-    templong = (int64_t) vel_set * (int64_t) omega_set;
-    templong >>= 16;
-    stemplong = - templong * (int64_t) sintemp;
-    stemplong >>= 16;
-    stemplong += ((int64_t) acc_set * (int64_t) costemp) >> 16;
-    xddot_set = (int32_t) stemplong;
-    //xddot_set = acc_set * costemp - vel_set * omega_set * sintemp;
-    stemplong = templong * (int64_t) costemp;
-    stemplong >>= 16;
-    stemplong += ((int64_t) acc_set * (int64_t) sintemp) >> 16;
-    yddot_set = (int32_t) stemplong;
-    //yddot_set = acc_set * sintemp + vel_set * omega_set * costemp;
-    
-//    xddot_set_prev = (xdot_set - xdot_set_prev) << POS_LOOP_FcSHIFT;
-//    yddot_set_prev = (ydot_set - ydot_set_prev) << POS_LOOP_FcSHIFT;
-//    xdot_set_prev = xdot_set;
-//    ydot_set_prev = ydot_set;
-    
-    
-    templong = templong * (int64_t) omega_set; // is already vel_set * omega_set
-    templong >>= 16;
-    stemplong = (int64_t)acc_set * (int64_t)omega_set;
-    stemplong >>= 15; // is also *2
-    ctemplong = (int64_t)vel_set * (int64_t)alpha_set;
-    ctemplong >>= 16;
-    ftemplong = (- templong * costemp) >> 16;
-    ftemplong -= (ctemplong * sintemp) >> 16;
-    ftemplong -= (stemplong * sintemp) >> 16;
-    ftemplong += ((int64_t)jerk_set * (int64_t) costemp) >> 16;
-    xdddot_set = (int32_t) ftemplong;
-
-    //xdddot_set = jerk_set * costemp - 2*acc_set * omega_set * sintemp - vel_set * alpha_set * sintemp
-    //             - vel_set * omega_set * omega_set * costemp;
-
-    ftemplong = (- templong * sintemp) >> 16;
-    ftemplong += (ctemplong * costemp) >> 16;
-    ftemplong += (stemplong * costemp) >> 16;
-    ftemplong += ((int64_t)jerk_set * (int64_t) sintemp) >> 16;
-    ydddot_set = (int32_t) ftemplong;
-    //ydddot_set = jerk_set * sintemp + 2*acc_set * omega_set * costemp + vel_set * alpha_set * costemp
-    //             - vel_set * omega_set * omega_set * sintemp;
-
-//    xdddot_set_prev = (xddot_set - xddot_set_prev) << POS_LOOP_FcSHIFT;
-//    ydddot_set_prev = (yddot_set - yddot_set_prev) << POS_LOOP_FcSHIFT;
-//    xddot_set_prev = xddot_set;
-//    yddot_set_prev = yddot_set;
-    
-    x_set += (xdot_set >> POS_LOOP_FcSHIFT);
-    y_set += (ydot_set >> POS_LOOP_FcSHIFT);
-    
- }// END NLFSwitchingLogic()
-
-/*************************************************************
- * DYNAMIC FEEDBACK LINEARIZATION CONTROL LOOP
- * 3rd order, control outputs = driving force/steering torque
- *************************************************************/
-void DynamicFLControl(void)
-{
-    int32_t sintemp, costemp, x_err, y_err,theta_delta;
-    int64_t templong, stemplong, ctemplong;
-    int16_t tempcurr;
-
-    // complete full state measurement (x/y dot TIME scaled, x/y ddot)
-    xdot_odom_time = (x_odom - x_odom_prev) << POS_LOOP_FcSHIFT;
-    ydot_odom_time = (y_odom - y_odom_prev) << POS_LOOP_FcSHIFT;
-    x_odom_prev = x_odom;
-    y_odom_prev = y_odom;
-
-    xddot_odom = (xdot_odom_time - xdot_odom_prev) << POS_LOOP_FcSHIFT;
-    yddot_odom = (ydot_odom_time - ydot_odom_prev) << POS_LOOP_FcSHIFT;
-    xdot_odom_prev = xdot_odom_time;
-    ydot_odom_prev = ydot_odom_time;
-
-    templong = (int64_t) xdot_odom_time * (int64_t)xdot_odom_time;
-    templong += (int64_t) ydot_odom_time * (int64_t)ydot_odom_time;
-    templong >>= 16;
-    vel_odom = iSqrt((uint32_t)templong) << 8;
-    
-    theta_delta = theta_odom - theta_odom_prev;
-    // KEEP ANGLE difference between [-PI;PI]
-    while(theta_delta < -PI_Q16)
-        {theta_delta +=  (PI_Q16<<1);}
-        
-    while(theta_delta > PI_Q16)
-        {theta_delta -=  (PI_Q16<<1);}
-    
-    omega_odom = theta_delta << POS_LOOP_FcSHIFT;
-    theta_odom_prev = theta_odom;
-
-    sintemp = _Q16sin(theta_odom);
-    costemp = _Q16cos(theta_odom); 
-
-    x_err = x_set - x_odom;
-    y_err = y_set - y_odom;
-
-    // LINEAR FEEDBACK LOOP
-    templong = xdddot_set;
-    templong += dfl_K3 * (int64_t)(xddot_set - xddot_odom);
-    templong += dfl_K2 * (int64_t)(xdot_set - xdot_odom_time);
-    templong += dfl_K1 * (int64_t)x_err;
-    V1 = (int32_t) templong;
-    
-    templong = ydddot_set;
-    templong += dfl_K3 * (int64_t)(yddot_set - yddot_odom);
-    templong += dfl_K2 * (int64_t)(ydot_set - ydot_odom_time);
-    templong += dfl_K1 * (int64_t)y_err;
-    V2 = (int32_t) templong;
-
-    // FEEDBACK LINEARIZATION LOOP
-    // U1 = Linear Jerk = vel * omega * omega + V1 * costemp + V2 * sintemp
-    // U2 = Ang. Accel. = ( - 2 * XI * omega + V2 * costemp - V1 * sintemp ) / vel
-    // XI = is the state of the integrator included in the dynamic feedback loop
-    //      and it integrates U1
-    // ==> SO THAT the final control inputs are XI (linear accel.)
-    //     and U2 (angular acceleration) which can be transformed into torque/current
-    //     references for the wheels according to the differential drive kinematics
-    
-    templong = (int64_t) omega_odom * (int64_t)omega_odom;
-    templong = templong * (int64_t) vel_odom; 
-    templong >>= 16; // 16+8 frac. bits
-
-    ctemplong = (int64_t)V1 * (int64_t) costemp;
-    stemplong = (int64_t)V2 * (int64_t) sintemp;
-    
-    templong += ctemplong; // 16+8 frac. bits
-    templong += stemplong; // 16+8 frac. bits
-    
-    U1 = (int32_t) (templong >> 16); // 23.8 fixed-point
-
-    templong = - ((int64_t) XI * (int64_t)omega_odom); // 16+8 frac. bits
-    templong <<= 1; // is also *2
-
-    stemplong = (int64_t)V1 * (int64_t) sintemp;
-    ctemplong = (int64_t)V2 * (int64_t) costemp;
-    
-    templong += ctemplong; // 16+8 frac. bits
-    templong -= stemplong; // 16+8 frac. bits
-    
-    //if(vel_set != 0)
-    if(vel_odom > (EPS_VEL << 3))
-    {
-        U2 = (int32_t) (templong / vel_odom); // SCALING: Q16 rad/s^2
-    }
-    else
-    {
-        U2 = 0;
-    }
-    
-    // update the state of the integrator embedded in the dynamic feedback loop
-    XI += (U1 >> POS_LOOP_FcSHIFT);
-    
-    // FORCE / TORQUE SCALING
-    // driving force = XI * M_robot
-    // steering torque = U2 * J_robot
-    templong = (int64_t) XI * robot_mass;     // robot_mass is in grams
-    drive_force = (int32_t)(templong / 100);  //in 0.0001 N 23.8 fixed-point
-    templong = (int64_t) U2 * robot_inertia;  // robot_inertia is in Kg cm^2
-    steer_torque = (int32_t)(templong / 100); //in 0.01 Nm 15.16 fixed-point
-    
-    // Differential-drive kinematics
-    // Torque right wheel = (driving force * (wheel_radius / 2) + (steering torque * wheelradius) / (2 * wheeltrack)
-    // Torque left wheel  = (driving force * (wheel_radius / 2) - (steering torque * wheelradius) / (2 * wheeltrack)
-    
-    stemplong = (int64_t)drive_force * (int64_t)(wheel_diam >> 2); // Nm * 10^-8 23.8
-    ctemplong = (int64_t)steer_torque * (int64_t)(wheel_diam >> 2); 
-    ctemplong = ctemplong / wheel_track; // Nm * 10^-2 15.16
-    ctemplong >>= 8;
-    ctemplong *= 1000000; // Nm * 10^-6 23.8
-    
-    templong = stemplong + ctemplong; // Wheel torque in Nm * 10^-8 23.8
-    tempcurr = (int16_t)( templong / ADC_torque_scale);
-    
-    if(tempcurr > max_current)
-        tempcurr = max_current;
-    else if(tempcurr < -max_current)
-        tempcurr = -max_current;
-    rcurrent1_req = tempcurr;
-    
-    templong = stemplong - ctemplong;
-    tempcurr = (int16_t) ( templong / ADC_torque_scale);
-    if(tempcurr > max_current)
-        tempcurr = max_current;
-    else if(tempcurr < -max_current)
-        tempcurr = -max_current;
-    rcurrent2_req = tempcurr;
-
-}// END DynamicFLControl()
 

@@ -24,16 +24,11 @@ wait 0 sec
 0D 0A
 
 wait 800 ms
-"SVR 0 17500"
+"SPR 0 900"
 wait 0 sec
 0D 0A
 
 wait 5 sec
-"SVR 0 0 "
-wait 0 sec
-0D 0A
-
-wait 5 sec
-"SVR 0 0"
+"SPR 0 0"
 wait 0 sec
 0D 0A

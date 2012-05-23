@@ -149,14 +149,11 @@ void Timer5_Init(void)
 ************************************************************/
 void __attribute__((interrupt,auto_psv)) _T5Interrupt(void)
 {
-#ifdef DEVELOP_MODE 
-// FOR TEST PROBE
-J10Pin2_OUT = 1;
-#endif
+
 
 IFS1bits.T5IF = 0;    // Clear interrupt flag
 
-    if(control_flags.pos_loop_active)
+    if(control_flags.pos_loop_active||control_flags.jog_loop_active)
     {
         SpeedLoops();
     }
@@ -171,16 +168,21 @@ IFS1bits.T5IF = 0;    // Clear interrupt flag
     if(speed_loop_count > (SPEED_LOOP_FREQ/POS_LOOP_FREQ - 1))
     {
         speed_loop_count = 0;
-        UpdateOdometryFx();
-        if(control_flags.pos_loop_active)
-            PositionLoops();
-        else if(control_flags.cart_loop_active)
-            CartesianLoop();
-    }
-
+#ifdef DEVELOP_MODE 
+// FOR TEST PROBE
+J10Pin2_OUT = 1;
+#endif        
+        UpdateEncoder1();
+        UpdateEncoder2();
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
 J10Pin2_OUT = 0;
 #endif
+
+        if(control_flags.jog_loop_active)
+            JoggingLoops();
+        else if(control_flags.pos_loop_active)
+            PositionLoops();
+    }
 
 }

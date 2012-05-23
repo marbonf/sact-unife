@@ -79,5 +79,8 @@ uint32_t MyAbs(int32_t var);
 _Q16 _Q16atan2(_Q16 x, _Q16 y); // output Q16
 _Q16 _Q16atan2ByPI(_Q16 x, _Q16 y); // output BRADS
 
+/* RIGHT shift for signed integers that rounds toward ZERO */
+#define RSH(val,bits) ((val < 0) ? -((-val)>>bits) : val >> bits)
+
 
 #endif

@@ -60,6 +60,8 @@ extern int16_t mcurrent1_offset,mcurrent2_offset;
 extern int16_t max_current;
 extern int16_t max_velocity;
 extern int16_t max_velocity_scaled;
+extern int16_t max_angle; // in 1/10 degrees
+extern int16_t min_angle; // in 1/10 degrees
 // FOR CURRENT REFERENCES LOW-PASS FILTERING
 extern int16_t rcurrent1samp[],rcurrent2samp[];
 
@@ -94,7 +96,7 @@ typedef union{
     unsigned first_scan          : 1;
     unsigned current_loop_active : 1;
     unsigned pos_loop_active     : 1;
-    unsigned cart_loop_active    : 1;
+    unsigned jog_loop_active    : 1;
     unsigned EE_update_req       : 1;
     unsigned PAR_update_req      : 1;
     unsigned UNUSED              : 2;
@@ -112,9 +114,8 @@ typedef union{
     unsigned overcurrent2        : 1;
     unsigned track_error1        : 1;
     unsigned track_error2        : 1;
-    unsigned sonar_fault         : 1;
     unsigned bump_detect         : 1;
-    unsigned comm_error          : 1;
+    unsigned comm_error_code     : 2;
     };
     uint8_t b;
 } t_status_flags;
@@ -125,13 +126,11 @@ extern t_status_flags status_flags;
 typedef struct{
     union {
     struct {
-    unsigned torque_mode1_req : 1; // torque mode "independent"
-    unsigned torque_mode2_req : 1; // torque mode "driving"
-    unsigned vel_mode1_req    : 1; // velocity mode "independent"
-    unsigned vel_mode2_req    : 1; // velocity mode "driving"
-    unsigned cart_mode_req    : 1; 
+    unsigned torque_mode_req : 1; // torque mode
+    unsigned vel_mode_req    : 1; // velocity mode
+    unsigned pos_mode_req    : 1; 
     unsigned off_mode_req     : 1;
-    unsigned UNUSED           : 2;
+    unsigned UNUSED           : 4;
     };
     uint8_t trxs;
     };
@@ -140,11 +139,9 @@ typedef struct{
 
 // CONTROL MODE state values
 #define OFF_MODE        0
-#define TORQUE_MODE1    1
-#define TORQUE_MODE2    2
-#define VEL_MODE1       3
-#define VEL_MODE2       4
-#define CART_MODE       5
+#define TORQUE_MODE     1
+#define VEL_MODE        2
+#define POS_MODE        3
 
 extern t_control_mode control_mode;
 
@@ -153,13 +150,30 @@ typedef union{
     struct {
     unsigned motor1_dir          : 1;
     unsigned motor2_dir          : 1;
-    unsigned motor1_right_side   : 1;
     unsigned encoder1_chB_lead   : 1;
     unsigned encoder2_chB_lead   : 1;
-    unsigned UNUSED              : 11;
+    unsigned UNUSED              : 12;
     };
     uint16_t word;
 } t_direction_flags;
+
+// GRIP STATUS flags
+typedef union{
+    struct {
+    unsigned endstroke_pos_1     : 1; //b0
+    unsigned endstroke_neg_1     : 1; //b1
+    unsigned endstroke_pos_2     : 1; //b2
+    unsigned endstroke_neg_2     : 1; //b3
+    unsigned grip_touch_1        : 1; //b4
+    unsigned grip_touch_2        : 1; //b5
+    unsigned grip_traj_exec_1    : 1; //b6
+    unsigned grip_traj_exec_2    : 1; //b7
+    unsigned UNUSED              : 8;
+    };
+    uint16_t word;
+} t_grip_status_flags;
+
+extern t_grip_status_flags grip_status_flags;
 
 extern t_direction_flags direction_flags;
 extern uint16_t direction_flags_prev;
@@ -194,51 +208,17 @@ extern tTRAJflags TRAJMotor2_f;
 extern volatile int16_t mvelocity1,mvelocity2,rvelocity1,rvelocity2;
 extern volatile int32_t mposition1,mposition2;
 
-// FOR ODOMETRY estimate
-extern int32_t x_odom,y_odom,theta_odom;
-
-// NONLINEAR FILTER structures
-// definitions are in the Controls.c source file
-// NOT in globals.c
-#define IDLE     0
-#define TURNING  1
-#define SLOWING  2
-#define ALIGNED  3
-#define STOPPING 4
-extern uint8_t NLFState;
-extern tNLFStatus VelocityNLFStatus;
-extern tNLFStatus OrientationNLFStatus;
-
-extern tNLFOut VelocityNLFOut;
-extern tNLFOut OrientationNLFOut;
-
-// FINAL OUTPUTS OF THE NONLINEAR FILTER
-// definitions are in the Controls.c source file
-// NOT in globals.c
-extern int32_t x_target,y_target, x_set, y_set; 
-
-// DYNAMIC FEEDBACK LINEARIZATION
-// linear control-loop parameters
-// definitions are in the Controls.c source file
-// NOT in globals.c
-extern int16_t dfl_K1; // x gain
-extern int16_t dfl_K2; // xdot gain
-extern int16_t dfl_K3; // xddot gain
-
 // SYSTEM-WIDE PARAMETERS
 // defined in SACT_Protocol.c,
 // stored in EEPROM, can be updated by
 // the user with SACT commands
 extern uint16_t parameters_RAM[];
 
-// VARIABLES FOR RUN-TIME USE OF PARAMETERS
-extern int32_t encoder_counts_rev;
-extern int16_t wheel_diam;
-extern int16_t wheel_track;
-extern int16_t robot_mass;
-extern int16_t robot_inertia;
+// Auxiliary variables
+extern uint32_t encoder_counts_rev;
+extern uint16_t decdeg_to_ticks;
 extern int32_t ADC_torque_scale;
-extern int32_t odom_left_corr;
+
 
 #ifdef DEVELOP_MODE 
 // DATALOG buffers
