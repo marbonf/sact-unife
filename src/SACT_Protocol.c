@@ -1201,7 +1201,7 @@ void SACT_timeout(void)
         SACT_flags.timeout++;
         if(SACT_flags.timeout > SACT_TIME_LIMIT/SLOW_RATE)
         {
-	    SACT_flags.timeout = 0;
+	        SACT_flags.timeout = 0;
             SACT_state = SACT_NOSYNC;
             control_mode.off_mode_req = 1;
         }    
