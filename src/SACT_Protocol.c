@@ -469,9 +469,8 @@ while(u2bufhead != u2buftail) // Data Available in the buffer
 // ERROR!!!!
         default: break;
     }// END SWITCH
-} // END WHILE URXDA (Data Available)
+} // END WHILE Data Available
 
-    IFS1bits.U2RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
     
 }// END U2 SACT Parser
 
@@ -1202,7 +1201,8 @@ void SACT_timeout(void)
         SACT_flags.timeout++;
         if(SACT_flags.timeout > SACT_TIME_LIMIT/SLOW_RATE)
         {
-            SACT_state = 0;
+	    SACT_flags.timeout = 0;
+            SACT_state = SACT_NOSYNC;
             control_mode.off_mode_req = 1;
         }    
     }
@@ -1568,7 +1568,7 @@ void SACT_SendSDP(void)
 ////IF SACT state ASCII send human readable info about error
     if((SACT_state == SACT_ASCII_U1)||(SACT_state == SACT_ASCII_U2))
         {
-            if(status_flags.b != status_flags_prev.b)
+            if((status_flags.b != status_flags_prev.b)&&(status_flags.b != 0))
             {
                 // TODO: better fault messages..
                 if(SACT_state == SACT_ASCII_U1)
@@ -1576,6 +1576,7 @@ void SACT_SendSDP(void)
                 else
                     putsUART((unsigned char*)"FAULT DETECTED!\r\n",&UART2);
             }
+            status_flags_prev.b = status_flags.b;
             
         }
     else if((SACT_state == SACT_BIN_U1)||(SACT_state == SACT_BIN_U2))
