@@ -177,6 +177,9 @@ int main(void)
     Timer1_Init();
     Timer4_Init();
     
+    mposition1 = 0;
+	mposition2 = 0;
+
     // Timer5 used to schedule speed loops
     Timer5_Init(); // AND POSITION LOOP!!!
     
