@@ -393,7 +393,8 @@ void diagnostics(void)
         status_flags.track_error2 = 1;
     }
     
-    if(status_flags.b != 0)
+    // MASK OFF Communication errors, all the others set board to OFF_MODE 	
+    if(((status_flags.b&0x3F) != 0)&&(control_mode.state != OFF_MODE)) 
     {
 // switch off immediately and raise OFF_MODE req.
 //        control_flags.current_loop_active = 0;
