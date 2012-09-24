@@ -1,0 +1,18 @@
+wait 1 sec
+"SYNC0"
+wait 0 sec
+0D 0A
+
+wait 1 sec
+"SYNC1"
+wait 0 sec
+0D 0A
+
+wait 1 sec
+"SYNCB"
+wait 0 sec
+0D 0A
+
+wait 1 sec
+FA FB 03 01 00 01
+

@@ -1,0 +1,23 @@
+TASK SCHEDULING AND FILE STRUCTURE:
+
+main.c:
+main
++------> medium_event_handler (at MEDIUM_RATE, see extern_globals.h)
+|        +----> diagnostics    
+|        +----> debounce_switches
+|        +----> SACT commands parser
++------> slow_event_handler (at SLOW_RATE, see extern_globals.h)
+         +----> SACT protocol timeout / output packets management
+         +----> control mode manager
+
+ADC.c
++------> ADCInterrupt (sync w/PWM freq, see PWM.h)
+         +----> CurrentLoops (at PWM freq / 4, Controls.c)
+
+Timers.c
++------> T5Interrupt (at SPEED_LOOP_FREQ, see Timers.h)
+         +----> RefCurrentFilter (Controls.c, useful
+         |                        ONLY if in TORQUE_MODE)
+         +----> SpeedLoops (Controls.c)
+
+         

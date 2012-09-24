@@ -1,0 +1,71 @@
+wait 200 ms
+"SYNC0"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNC1"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNCA"
+wait 0 sec
+0D 0A
+
+wait 400 ms
+"CMO 5"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+//"SSF 34"
+//"SSF 66"
+"SSF 98"
+wait 0 sec
+0D 0A
+
+//wait 300 ms
+//"SWP 3000 0 186"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 4000 1200 278"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 3000 2400 186"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 1000 2400 190"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 50 3600 267"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 1000 4800 190"
+//wait 0 sec
+//0D 0A
+
+//wait 300 ms
+//"SWP 3400 4800 0"
+//wait 0 sec
+//0D 0A
+
+wait 300 ms
+"SWP 800 1000 0"
+wait 0 sec
+0D 0A
+
+wait 90 sec
+"CMO 0"
+wait 0 sec
+0D 0A

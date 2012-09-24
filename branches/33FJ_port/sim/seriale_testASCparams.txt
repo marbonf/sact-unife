@@ -1,0 +1,49 @@
+wait 500 ms
+"SYNC0"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNC1"
+wait 0 sec
+0D 0A
+
+wait 100 ms
+"SYNCA"
+wait 0 sec
+0D 0A
+
+wait 300 ms
+"MXC 350"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"CLP 100"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"DRF 10"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"UEE"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"CMO 3"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"VLP 120"
+wait 0 sec
+0D 0A
+
+wait 500 ms
+"UEE"
+wait 0 sec
+0D 0A
