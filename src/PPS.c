@@ -28,58 +28,58 @@
 *  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF 
 *  SUCH DAMAGE.
 * 
-******************************************************************************
+*****************************************************************************
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       my_fractmath.h                                  *
- *    Date:           18/1/2011                                       *
- *    File Version:   0.1                                             *
- *    Compiler:       MPLAB C30 v3.23                                 *
+ *    Filename:       PPS.c                                       *
+ *    Date:           20/09/2012                                      *
+ *    File Version:   0.2                                             *
+ *    Compiler:       MPLAB C30 v3.30                                 *
  *                                                                    *
  ***********************************************************************
  *    Code Description
  *  
- *  This file contains prototypes for C implementation of
- *  several useful math operations, some wrapped from
- *  Microchip Fixed-Point Math library
+ *  This file contains the initialization for Peripheral Pin Selections.
  *
  **********************************************************************/
-#ifndef MY_FRACTMATH_H
-#define MY_FRACTMATH_H
 
-#include "generic_defs.h" // for data types
-#include <libq.h>
+#include "sys_hw.h"
+#include "extern_globals.h"
+#include "generic_defs.h"
+#include "PPS.h"
 
-/* 2.30: 2 integral bits and 30 fractional bits
- * The definitions below yield 2 integer bits
- * 30 fractional bits */
-#define FRACBITS 30 /* Must be even for FxSqrt (Turkowski) */
-#define ITERS (15 + (FRACBITS >> 1))
-//typedef int32_t Fract;
+/************************************************************************
+Function:
+PPS_Init(void)
+serve per rimappare i pin del modulo QEI come input
+serve per rimappare i pin del modulo UART sia come input che come output
+**********************************************************************/
 
-/* USEFUL TRIG CONSTANTS IN BRADS UNITS */
-#define PI_BRADS       0x7FFFFFFF
-#define mPI_BRADS      0x80000000
-#define HALF_PI_BRADS  0x40000000
-#define mHALF_PI_BRADS 0xC0000000
+void PPS_Init(void)
+{
+	// sblocco il registro
+	__builtin_write_OSCCONL(OSCCON & 0xbf);
 
-/* MAIN TRIG CONSTANTS IN Q16 */
-#define PI_Q16           0x0003243F // PI*2^16 ~ 205887
+	// Configure Input Functions *********************
+    //FUNCTION REGISTER =   REMAPPABLE PIN (see PPS.h)
+	RPINR14bits.QEA1R   =   RP1_IN;	    //rimappo nel pin 5 (RP1)
+	RPINR14bits.QEB1R   =   RP2_IN;	    //rimappo nel pin 6 (RP2)
+	RPINR16bits.QEA2R   =   RP4_IN;	    //rimappo nel pin 11 (RP4)
+	RPINR16bits.QEB2R   =   RP7_IN;	    //rimappo nel pin 16 (RP7)
+	RPINR18bits.U1RXR   =   RP11_IN;    //rimappo nel pin 22 (RP11)
+    RPINR4bits.T4CKR    =   RP3_IN;     //rimappo nel pin 7 (RP3)
+	
+	//RPINR15bits.INDXIR 	= 	xxxx; //se mi servisse rimappare l'index
+	
+	// Configure Output Functions *********************
+    // REMAPPABLE PIN   =   FUNCTION VALUE (see PPS.h)
+	// RPOR7bits.RP15R	=	RP_OUT_UPDN1;	//se mi servisse rimappare l'UPDN
 
-/* MAIN TRIG CONSTANTS IN Q13, 16bit */
-#define PI_Q13           0x6488 // PI*2^13 ~ 25736
+	RPOR2bits.RP5R		= 	RP_OUT_NULL;
+	RPOR5bits.RP10R		=	RP_OUT_U1TX; //rimappo nel pin 21 (RP10)
 
-/* Prototypes for iSqrt() and FxAbs(), in FxSqrtAbs.c */
-uint32_t iSqrt(uint32_t a);
-uint32_t FxAbs(int32_t var);
-uint32_t MyAbs(int32_t var);
+	// blocco il registro
+	__builtin_write_OSCCONL(OSCCON | 0x40);
 
-/* Prototype for _Q16atan2(),_Q16atan2ByPI() (Q16wrappers.c) */
-_Q16 _Q16atan2(_Q16 x, _Q16 y); // output Q16
-_Q16 _Q16atan2ByPI(_Q16 x, _Q16 y); // output BRADS
-
-/* RIGHT shift for signed integers that rounds toward ZERO */
-#define RSH(val,bits) ((val < 0) ? -((-val)>>bits) : val >> bits)
-
-#endif
+}

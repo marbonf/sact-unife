@@ -50,34 +50,44 @@
 #include "generic_defs.h"
 #include "Comms.h"
 #include "PWM.h"
-#include "ADC.h"
+#include "ADC_DMA.h"
 #include "QEI.h"
+#include "PPS.h"
 #include "Timers.h"
 #include "Controls.h" // for RCURR_MAV_ORDER
 #include "SACT_protocol.h"
-#include "EEPROM_params.h"
+//#include "EEPROM_params.h"
 
-#ifdef SIMULATE
-    #warning "SIMULATE target"
+#ifdef SIMULATE_FULL
+    #warning "SIMULATE_FULL target"
 #endif
 
-#ifdef REV1_BOARD
-    #warning "REV.1 BOARD target"
+#ifdef SIMULATE_BASIC
+    #warning "SIMULATE_BASIC target"
 #endif
 
-#ifdef REV2_BOARD
-    #warning "REV.2 BOARD target"
-#endif
 
 // CONFIGURATION BITS fuses (see dspic specific .h)
-_FOSC(CSW_FSCM_OFF & XT_PLL16);  // Clock-switching and monitor off
-                                // eXTernal w/PLL8
-_FWDT(WDT_OFF);                 // Turn off the Watch-Dog Timer.
-_FBORPOR(MCLR_EN & PWRT_OFF);   // Enable MCLR reset pin and turn off the
-                                // power-up timers.
-_FGS(CODE_PROT_OFF);            // Disable Code Protection
-_FBS(CODE_PROT_OFF);
-_FSS(CODE_PROT_OFF);
+_FOSCSEL(FNOSC_FRCPLL); // Oscillator: internal (FRC) with PLL
+// Oscillator pins -> GPIO
+_FOSC(OSCIOFNC_ON & POSCMD_NONE); 
+// disable Watchdog timer
+_FWDT(FWDTEN_OFF & WINDIS_OFF);  
+/**********************************************************
+ * IMPORTANT: Low-side polarity should be inverted in order
+ * to be compatible with the ADC synch strategy described
+ * in PWM.c!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * On dsPIC33F the WriteConfig() function defined there 
+ * DOES NOT WORK, so it is necessary to set polarity HERE
+ * NOTE: don't care about high-side polarity, PWMxH pins
+ * used as normal I/O
+ **********************************************************/
+_FPOR(PWMPIN_OFF & HPOL_OFF & LPOL_OFF & FPWRT_PWR1);
+// JTAG disabled, InCircuit Programming pins: PGC2 PGD2
+_FICD(JTAGEN_OFF & ICS_PGD2);
+
+//Write-protection off on Code Memory
+_FGS(GCP_OFF & GWRP_OFF);
  
 // Function prototypes for "soft" real-time event handlers
 void medium_event_handler(void);
@@ -92,11 +102,11 @@ void update_params(void);
 // WELCOME MESSAGE!
 const unsigned char WelcomeMsg[] = 
 {"\r\n-----  Sabot ACTuator Board  -----\r\n"
-#ifdef REV1_BOARD
-     "-----   HW REV.1 - FW v0.9   -----\r\n"
+#ifdef SIMULATE_FULL
+     "-----   HW ???	 - FW v0.9   -----\r\n"
 #endif
-#ifdef REV2_BOARD
-     "-----   HW REV.2 - FW v0.9   -----\r\n"
+#ifdef SIMULATE_BASIC
+     "-----   HW ???	 - FW v0.9   -----\r\n"
 #endif
      "Type the following sequence\r\n"
      "SYNC0+cr/lf SYNC1+cr/lf SYNCA+cr/lf\r\n"
@@ -108,13 +118,23 @@ const unsigned char WelcomeMsg[] =
 * "soft" real-time event handlers, defined hereafter
 ********************************************************/
 int main(void)
-{    
+{   
+// Internal oscillator setup 
+// Fosc = Fin (M/(N1*N2))
+// FCY = Fosc/2
+    PLLFBD = 38; 			// M = 40
+    CLKDIVbits.PLLPOST=0; 	// N2 = 2
+    CLKDIVbits.PLLPRE=0; 	// N1 = 2
+
+    RCONbits.SWDTEN = 0;	//Watchdog disable
+
+//Init Peripheral Pin Selection (QEI and UART)
+    PPS_Init();
+ 
     control_flags.first_scan = 1;
     slow_ticks_limit = SLOW_RATE * (FCY_PWM / 1000) - 1 ;
     medium_ticks_limit = MEDIUM_RATE * (FCY_PWM / 1000) - 1;
-    
-    InitEEPROM();
-    LoadEEPROMparams();
+
     
     update_params();
     
@@ -123,7 +143,7 @@ int main(void)
      // UARTs init
      // no need to set TRISx, they are "Module controlled"
     UART1_Init();
-    UART2_Init();
+    //UART2_Init();
     
     // Setup control pins and PWM module,
     // which is needed also to schedule "soft"
@@ -131,51 +151,52 @@ int main(void)
     DIR1 = direction_flags.motor1_dir;//0;
     DIR2 = direction_flags.motor2_dir;//1; // inverted sign, 'cause of Faulhaber motors 
              
-    BRAKE1 = 0;
-    BRAKE2 = 0;
+    //BRAKE1 = 0;
+    //BRAKE2 = 0;
  
     DIR1_TRIS = OUTPUT;
     DIR2_TRIS = OUTPUT;
-    BRAKE1_TRIS = OUTPUT;
-    BRAKE2_TRIS = OUTPUT;
+    //BRAKE1_TRIS = OUTPUT;
+    //BRAKE2_TRIS = OUTPUT;
     
-    THERMFLG1_TRIS = INPUT;
-    THERMFLG2_TRIS = INPUT;
+    //THERMFLG1_TRIS = INPUT;
+    //THERMFLG2_TRIS = INPUT;
     CURRSENSE1_TRIS = INPUT;
     CURRSENSE2_TRIS = INPUT;
     
     PWM_Init();
     
     // Setup LEDs and switches
-    LED1 = 1;
-    LED2 = 0;
+    //LED1 = 1;
+    //LED2 = 0;
      
-    LED1_TRIS = OUTPUT;
-    LED2_TRIS = OUTPUT;
-    SW_TEST1_TRIS = INPUT;
-    SW_TEST2_TRIS = INPUT;
+    //LED1_TRIS = OUTPUT;
+    //LED2_TRIS = OUTPUT;
+    //SW_TEST1_TRIS = INPUT;
+    //SW_TEST2_TRIS = INPUT;
     
     // MUST SETUP ALSO ANALOG PINS AS INPUTS
-    AN8_TRIS = INPUT;
-    AN9_TRIS = INPUT;
-    AN10_TRIS = INPUT;
-    AN11_TRIS = INPUT;
-    AN12_TRIS = INPUT;
-    AN13_TRIS = INPUT;
-    AN14_TRIS = INPUT;
-    AN15_TRIS = INPUT;
+    //AN8_TRIS = INPUT;
+    //AN9_TRIS = INPUT;
+    //AN10_TRIS = INPUT;
+    //AN11_TRIS = INPUT;
+    //AN12_TRIS = INPUT;
+    //AN13_TRIS = INPUT;
+    //AN14_TRIS = INPUT;
+    //AN15_TRIS = INPUT;
     
     ADC_Init();
+    DMA0_Init();
     
     // SETUP ENCODER INPUTS, TIMERS AND QEI
-    T1CK_TRIS = INPUT;
-    T4CK_TRIS = INPUT;
+    //T1CK_TRIS = INPUT;
+    //T4CK_TRIS = INPUT;
     // QEI inputs are "module controlled"
     // -> no need to set TRISx
     QEI_Init();
     // UP/DN counters
-    Timer1_Init();
-    Timer4_Init();
+    //Timer1_Init();
+    //Timer4_Init();
     
     // Timer5 used to schedule speed loops
     Timer5_Init(); // AND POSITION LOOP!!!
@@ -184,10 +205,7 @@ int main(void)
  
 #ifdef DEVELOP_MODE   
     // SETUP A FEW PINS FOR TEST PROBES
-    J10Pin1_TRIS = OUTPUT;
-    J10Pin2_TRIS = OUTPUT;
-    J10Pin3_TRIS = OUTPUT;
-    J10Pin4_TRIS = OUTPUT;
+    
 #endif
     
     while(1)
@@ -315,7 +333,7 @@ void medium_event_handler(void)
     {
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
-J10Pin4_OUT = 1;
+
 #endif
 
         medium_event_count = 0;
@@ -331,7 +349,7 @@ J10Pin4_OUT = 1;
 
 #ifdef DEVELOP_MODE 
 // FOR TEST PROBE
-J10Pin4_OUT = 0;
+
 #endif    
     }// END IF medium_event_count..
 }// END medium_event_handler
@@ -393,8 +411,7 @@ void diagnostics(void)
         status_flags.track_error2 = 1;
     }
     
-    // MASK OFF Communication errors, all the others set board to OFF_MODE 	
-    if(((status_flags.b&0x3F) != 0)&&(control_mode.state != OFF_MODE)) 
+    if(status_flags.b != 0)
     {
 // switch off immediately and raise OFF_MODE req.
 //        control_flags.current_loop_active = 0;
@@ -484,7 +501,7 @@ void slow_event_handler(void)
         // EEPROM update management
         if(control_flags.EE_update_req)
         {
-            StoreEEPROMparams();
+            //StoreEEPROMparams();
             control_flags.EE_update_req = 0;
         }
 
@@ -499,9 +516,9 @@ void slow_event_handler(void)
         SACT_SendSDP();
         
         // Toggle LEDs
-        LED1 = !LED1;
-        if(control_mode.state == OFF_MODE)
-            LED2 = !LED2;
+        //LED1 = !LED1;
+        //if(control_mode.state == OFF_MODE)
+        //   LED2 = !LED2;
         //ELSE LED2 is toggled on SACT command received
 
 #ifdef DEVELOP_MODE     
@@ -644,8 +661,8 @@ void debounce_switches(void)
     // Take into account if push buttons have pull
     // up resistors (making a logic 0 equal to a button press)
     // or not ..
-    push_buttons_state[2].sw1 = !SW_TEST1;
-    push_buttons_state[2].sw2 = !SW_TEST2;    
+    //push_buttons_state[2].sw1 = !SW_TEST1;
+    //push_buttons_state[2].sw2 = !SW_TEST2;    
     
 // DEBOUNCE LOGIC:
     if (push_buttons_state[2].b != push_buttons_state[3].b)

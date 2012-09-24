@@ -77,9 +77,9 @@ void WriteConfig(int16_t,int16_t);
 
 void PWM_Init(void)
 {
-    uint16_t config_value,temp;
+    //uint16_t config_value,temp;
     
-    // PTCON - Timebase Control
+    // P1TCON - Timebase Control
         // Bit 15 1=Timebase is ON, 0=OFF
         // Bit 14 - Not Implemented
         // Bit 13 1=Timebase Halts in CPU idle,0 = runs
@@ -99,25 +99,31 @@ void PWM_Init(void)
         // 10 = Continuous Up/Down
         // 01 = Single Event
         // 00 = Free-running        
-    PTCON = 0x0000;     //Timebase OFF (turned on later), runs in idle, no post or prescaler, free-running
-    PTMRbits.PTDIR = 0;                         
-    PTMRbits.PTMR = 0; 
-    
+    P1TCON = 0x0000;     //Timebase OFF (turned on later), runs in idle, no post or prescaler, free-running for PWM1
+    P2TCON = 0x0000;	 //Timebase OFF (turned on later), runs in idle, no post or prescaler, free-running for PWM2
+   
+    //PTMR
+    P1TMR = 0x0000;  
+    P2TMR = 0x0000;    
+
     // PTPER - Period Register
         // Bit 15 - Not Implemented
         // Bits14-0 - Value used for period comparison and therefore
         //              reset or change in direct of PWM ramp
         // PWM period is given by (PTER+1) * Tcy * Prescaler if in Free-run or single event
         //                    and by (PTER+1) * Tcy * Prescaler / 2 otherwise        
-    PTPER = FULL_DUTY/2;
+    P1TPER = FULL_DUTY/2;
+    P2TPER = FULL_DUTY/2;
     
-    // SEVTCMP - Special Event Trigger Control
+    // PSECMP - Special Event Trigger Control
         // Bit15 1=Trigger Occurs When Counting Down, 0 = Up
         // Bits14-0 = Special Event Compare Value
-    SEVTCMPbits.SEVTDIR = 0;                        
-    SEVTCMP = FULL_DUTY/2 - SAMPLE_ADVANCE;    // Trigger occurs just before switch turns off
-    
-    // PWMCON1 - PWM Control Register #1
+    P1SECMPbits.SEVTDIR = 0;                        
+    P1SECMPbits.SEVTCMP = FULL_DUTY/2;  // Trigger occurs just before switch turns off
+    P2SECMPbits.SEVTDIR = 0;                        
+    P2SECMPbits.SEVTCMP = FULL_DUTY/2;
+  
+    // PWM1CON1 - PWM Control Register #1
         // Bits15-12 Not Implemented
         // Bits11-8 1=PWM Pin Pair Independent, 0=Complementary
         // Bit11 = PWM4 --- Bit8 = PWM1
@@ -125,9 +131,10 @@ void PWM_Init(void)
         // Bit7 = PWM4 --- Bit4 = PWM1
         // Bits3-0 1=PWM Low Side Pin is Enabled for PWM, 0 = I/O
         // Bit3 = PWM4 --- Bit4 = PWM1
-    PWMCON1 = 0x0F03; // PWM1/2 low-side firing signals USED (independent), all other general I/Os
-    
-    // PWMCON2 - PWM Control Register #2
+    PWM1CON1 = 0x0703; // PWM1/2 low-side firing signals USED (independent), all other general I/Os 
+    PWM2CON1 = 0x0701; 
+ 
+     //PWM1CON2 - PWM Control Register #2
         // Bits15-12 Not Implemented
         // Bits11-8 Special Event Trigger Postscale
         // 1111 = 1:16 Postscale
@@ -139,14 +146,15 @@ void PWM_Init(void)
         //          0=Output Overrides Occur on next Tcy boundary
         // Bit0 - 1=Updates from Duty Cycle and Period Registers Disabled
         //          0=Updates from Duty Cycle and Period Registers Enabled
-    PWMCON2 = 0x0000;
-    
-    // DTCON1 & 2 - Deadtime control registers
+    PWM1CON2 = 0x0000;
+    PWM2CON2 = 0x0000; 
+   
+    // PDTCON1 - Deadtime control registers
         // See manual for details of bits
-    DTCON1 = 0x0000; // Deadtime disabled
-    DTCON2 = 0x0000; 
-    
-    // FLTACON - FaultA Input control register
+    P1DTCON1 = 0x0000; // Deadtime disabled
+    P2DTCON1 = 0x0000;
+  
+    // P1FLTACON - FaultA Input control register
         // Bits15-8 1=PWMs Driven ACTIVE on Fault, 0 = INACTIVE
         // Bit15 = #4 High Side
         // Bit14 = #4 Low Side
@@ -159,9 +167,10 @@ void PWM_Init(void)
         // Bit3 = #4 Pair
         // ::::
         // Bit0 = #1 Pair
-    FLTACON = 0xFF00; //All pins driven ACTIVE on Fault, BUT FLTA control DISABLED
-    
-    // OVDCON - Override control register
+    P1FLTACON = 0xFF00; //All pins driven ACTIVE on Fault, BUT FLTA control DISABLED
+    P2FLTACON = 0xFF00;
+   
+    // P1OVDCON - Override control register
         // Bits15-8 1= PWMs pin controlled by PWM generator, 0 = controlled by corresponding POUTxx bit
         // Bit15 = #4 High Side
         // Bit14 = #4 Low Side
@@ -169,38 +178,45 @@ void PWM_Init(void)
         // :::::
         // Bit8 = #1 Low Side
         // Bits7-0: POUTxx bits (1= pin driven ACTIVE, 0= pin driven INACTIVE
-    OVDCON = 0x3FFF; // All but PWM4H/L (J10 terminal I/Os) override DISABLED
-    
+    P1OVDCON = 0x3FFF; // All but PWM4H/L override DISABLED  
+    P2OVDCON = 0x3FFF;
 
     // PDC1-4 - PWM#1-4 Duty Cycle Register
         // Bits15-0 PWM Duty Cycle Value    
-    PDC1=FULL_DUTY;    // In this instance 0 duty cycle is full value
-    PDC2=FULL_DUTY;    // in duty cycle registers due to inversion
-    
-    // CHANGE PWM PIN POLARITY    
-    config_value=ReadConfig(4);
-    temp=config_value;
-    // Mask off the bits we are interested in and shift them down
-    temp=(temp & 0x0700)>>8;
-    // If the PWM polarity and reset definition bits are set 
-    // correctly already then temp should be set to 4
-    if (temp != 4)
-    {
-        // Form correct config_value
-        config_value &= 0xF0FF;
-        config_value |= 0x0400;
-        // Write the new config value into F80004
-        WriteConfig(4,config_value);
-    }
+    P1DC1 = FULL_DUTY; //zero duty if polarity is inverted
+    P1DC2 = FULL_DUTY; //zero duty if polarity is inverted
+    P2DC1 = FULL_DUTY; //zero duty if polarity is inverted
 
-    PTCONbits.PTEN = 1; //NOW that PWM polarity is inverted
-                        //we can enable the PWM generator
-                        
-    IFS2bits.PWMIF = 0;
-    IFS2bits.FLTAIF =0;    
-    
-    // ENABLE INTERRUPT!
-    IEC2bits.PWMIE = 1;
+// CHANGE PWM PIN POLARITY 
+// NOTE: commented here because set in main.c via configuration fuses!!!!   
+//    config_value=ReadConfig(0xC);
+//    temp=config_value;
+//    // Mask off the bits we are interested in
+//    temp=(temp & 0x00E0);
+//    // If the PWM polarity and reset definition bits are set 
+//    // correctly already then temp should be set to 4
+//    if (temp != 4)
+//    {
+//        // Form correct config_value
+//        config_value &= 0xFF1F;
+//        config_value |= 0x0080;
+//        // Write the new config value into F8000C
+//        WriteConfig(0xC,config_value);
+//    }
+//
+
+    P1TCONbits.PTEN = 1; //NOW that polarity is inverted 
+                         //we can enable the PWM generator
+    P2TCONbits.PTEN = 1; 
+                           
+    IFS3 = 0x0000;  //IFS3bits.PWM1IF = 0;
+                    //IFS3bits.FLTA1IF =0;
+    IFS4 = 0x0000;  //IFS4bits.PWM2IF = 0;
+                    //IFS4bits.FLTA2IF =0;
+                    
+    //ENABLE INTERRUPT!
+    IEC3bits.PWM1IE = 1;
+    IEC4bits.PWM2IE = 1;
 }
 
 
@@ -253,9 +269,15 @@ void WriteConfig(int16_t address, int16_t value)
  * ISRs for PWM interrupt: manage ticks count for a
  * quite simple real-time process scheduling
  ****************************************************/
-void __attribute__((interrupt,no_auto_psv)) _PWMInterrupt(void)
+void __attribute__((interrupt,no_auto_psv)) _MPWM1Interrupt(void)
 {
     slow_event_count++;
     medium_event_count++;
-    IFS2bits.PWMIF = 0;
+    IFS3bits.PWM1IF = 0;
 }
+/****************************************************/
+void __attribute__((interrupt,no_auto_psv)) _MPWM2Interrupt(void)
+{
+    IFS4bits.PWM2IF = 0;
+}
+

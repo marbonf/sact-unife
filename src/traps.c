@@ -58,10 +58,10 @@ void __attribute__((interrupt,auto_psv)) _OscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;        //Clear the trap flag
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -69,20 +69,20 @@ void __attribute__((interrupt,auto_psv)) _AddressError(void)
 {
         INTCON1bits.ADDRERR = 0;        //Clear the trap flag
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 void __attribute__((interrupt,auto_psv)) _StackError(void)
 {
         INTCON1bits.STKERR = 0;         //Clear the trap flag
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -90,10 +90,10 @@ void __attribute__((interrupt,auto_psv)) _MathError(void)
 {
         INTCON1bits.MATHERR = 0;        //Clear the trap flag
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -110,10 +110,10 @@ void __attribute__((interrupt,auto_psv)) _AltOscillatorFail(void)
 {
         INTCON1bits.OSCFAIL = 0;
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -121,10 +121,10 @@ void __attribute__((interrupt,auto_psv)) _AltAddressError(void)
 {
         INTCON1bits.ADDRERR = 0;
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -132,10 +132,10 @@ void __attribute__((interrupt,auto_psv)) _AltStackError(void)
 {
         INTCON1bits.STKERR = 0;
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 
@@ -143,10 +143,10 @@ void __attribute__((interrupt,auto_psv)) _AltMathError(void)
 {
         INTCON1bits.MATHERR = 0;
 // SWITCH ON BOTH LEDS
-        LED1_TRIS = 0;
-        LED2_TRIS = 0;
-        LED1 = 1;
-        LED2 = 1;
+        //LED1_TRIS = 0;
+        //LED2_TRIS = 0;
+        //LED1 = 1;
+        //LED2 = 1;
         while (1);
 }
 

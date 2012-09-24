@@ -136,7 +136,7 @@ void Timer5_Init(void)
     //7 = maximum
     //4 = default
     //0 = disable int.
-    IPC5bits.T5IP = 5;  
+    IPC7bits.T5IP = 5;  
 
     //ENABLE TIMER
     T5CONbits.TON=1;     
@@ -149,10 +149,7 @@ void Timer5_Init(void)
 ************************************************************/
 void __attribute__((interrupt,auto_psv)) _T5Interrupt(void)
 {
-#ifdef DEVELOP_MODE 
-// FOR TEST PROBE
-J10Pin2_OUT = 1;
-#endif
+
 
 IFS1bits.T5IF = 0;    // Clear interrupt flag
 
@@ -171,16 +168,21 @@ IFS1bits.T5IF = 0;    // Clear interrupt flag
     if(speed_loop_count > (SPEED_LOOP_FREQ/POS_LOOP_FREQ - 1))
     {
         speed_loop_count = 0;
+#ifdef DEVELOP_MODE 
+// FOR TEST PROBE
+
+#endif        
         UpdateOdometryFx();
+#ifdef DEVELOP_MODE 
+// FOR TEST PROBE
+
+#endif
+
         if(control_flags.pos_loop_active)
             PositionLoops();
         else if(control_flags.cart_loop_active)
             CartesianLoop();
     }
 
-#ifdef DEVELOP_MODE 
-// FOR TEST PROBE
-J10Pin2_OUT = 0;
-#endif
 
 }

@@ -81,8 +81,8 @@ void UART1_Init(void)
     IEC0bits.U1RXIE = 1; // RX interrupt ENABLED
     IEC0bits.U1TXIE = 0; // TX interrupt DISABLED
     
-    U1STAbits.UTXISEL = 1;     //Optional: setup UART1 transmitter to interrupt
-                              //when a character is transferred to the
+    U1STAbits.UTXISEL1 = 0;   //Optional: setup UART1 transmitter to interrupt
+    U1STAbits.UTXISEL0 = 0;   //when a character is transferred to the
                               //Transmit Shift register and as result,
                               //the transmit buffer becomes empty.
     U1STAbits.UTXEN = 1;    //Enable UART1 transmitter
@@ -102,17 +102,11 @@ void UART2_Init(void)
     IFS1bits.U2RXIF = 0;
     IFS1bits.U2TXIF = 0;
     
-    //Set the interrupt priority
-    //7 = maximum
-    //4 = default
-    //0 = disable int.
-    IPC6bits.U2RXIP = 6;  
-    
     IEC1bits.U2RXIE = 1; // RX interrupt ENABLED
     IEC1bits.U2TXIE = 0; // TX interrupt DISABLED
     
-    U2STAbits.UTXISEL = 1;     //Optional: setup UART1 transmitter to interrupt
-                              //when a character is transferred to the
+    U2STAbits.UTXISEL1 = 0;   //Optional: setup UART1 transmitter to interrupt
+    U2STAbits.UTXISEL0 = 0;   //when a character is transferred to the
                               //Transmit Shift register and as result,
                               //the transmit buffer becomes empty.
     U2STAbits.UTXEN = 1;    //Enable UART1 transmitter

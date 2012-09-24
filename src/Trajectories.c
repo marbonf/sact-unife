@@ -83,7 +83,8 @@ void JogTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
                     pParm->qdVelocity.i[1] = -pParm->qVLIM;
               } 
 
-        pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+        //pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+        pParm->qdPosition += (int32_t)RSH(pParm->qdVelocity.i[1],pParm->qVELshift);
     }
     else
     {
@@ -143,8 +144,9 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
         tempDTF = NLFStatus->qdRprev;
     }
 
-    // integrates Xint with tempX1*(Tc/2)
-    NLFStatus->qdXint += (tempX1 >> (Fc_SHIFT + 1));
+   // integrates Xint with tempX1*(Tc/2)
+//NLFStatus->qdXint += (tempX1 >> (Fc_SHIFT + 1));
+    NLFStatus->qdXint += RSH(tempX1,(Fc_SHIFT + 1));
     
 ////SLIDING CONTROL LAW
     // tracking error derivative
@@ -162,14 +164,17 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
         beta = (int64_t)NLFStatus->qdRcommand << Fc_SHIFT;
     }
 
-    beta += (int64_t)(Y >> 1);
+//beta += (int64_t)(Y >> 1);
+    beta += (int64_t) RSH(Y,1);
     
-    beta = (beta >> Umax_SHIFT);
+//beta = (beta >> Umax_SHIFT);
+    beta = RSH(beta,Umax_SHIFT);
     sigma = (int32_t)(beta << Fc_SHIFT);
     
     abs_sigma = FxAbs(sigma);
     
-    m = (1 + iSqrt(1 + (abs_sigma << 3))) >> 1; // (1 + sqrt(1 + 8*abs_sigma)) / 2
+//m = (1 + iSqrt(1 + (abs_sigma << 3))) >> 1; // (1 + sqrt(1 + 8*abs_sigma)) / 2
+    m = RSH((1 + iSqrt(1 + (abs_sigma << 3))), 1);
     
     // THIS ONE IS ACTUALLY sign(z_n)
     S = 0;
@@ -181,9 +186,11 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
     sigma = sigma / m; // CAN WE AVOID THIS DIVISION????
     
     //(Y/Tc)/amax + sigma  + ((m - 1)/2) *S;
-    longY = ((int64_t)Y << Fc_SHIFT) >> Umax_SHIFT;
+//longY = ((int64_t)Y << Fc_SHIFT) >> Umax_SHIFT;
+    longY = RSH(((int64_t)Y << Fc_SHIFT), Umax_SHIFT);
     Y = (int32_t)longY;
-    sigma += Y + ((m - 1) >> 1) * S; 
+//sigma += Y + ((m - 1) >> 1) * S; 
+    sigma += Y + RSH((m - 1),1) * S; 
     
     // THIS ONE IS sign(sigma_n)
     Y = 0;
@@ -220,9 +227,11 @@ void NLFilter2Fx(tNLFOut *NLFOut,tNLFStatus *NLFStatus, // DATA STRUCTURES
     NLFOut->qdX     = NLFStatus->qdXint;
     
     // UPDATE STATES FOR NEXT CYCLE
-    NLFStatus->qdXdot_int += (tempU >> Fc_SHIFT);
+//NLFStatus->qdXdot_int += (tempU >> Fc_SHIFT);
+    NLFStatus->qdXdot_int += RSH(tempU,Fc_SHIFT);
     NLFStatus->qdRprev = NLFStatus->qdRcommand; // IF MODE = 2 will be overwritten outside..
-    tempX1 = (tempX1 >> (Fc_SHIFT + 1));
+//tempX1 = (tempX1 >> (Fc_SHIFT + 1));
+    tempX1 = RSH(tempX1,(Fc_SHIFT + 1));
     NLFStatus->qdXint += tempX1 ;
     
 }// END NLFilter2Fx

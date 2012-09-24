@@ -477,8 +477,9 @@ while(u2bufhead != u2buftail) // Data Available in the buffer
 // ERROR!!!!
         default: break;
     }// END SWITCH
-} // END WHILE Data Available
+} // END WHILE URXDA (Data Available)
 
+    IFS1bits.U2RXIF = 0; // RESET Interrupt FLAG HERE, buffer should be empty!
     
 }// END U2 SACT Parser
 
@@ -612,8 +613,8 @@ void process_ASCII(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
     unsigned char tempstr[8]; //ONLY INT VAL EXPECTED
 
 ////TOGGLE LED IF CONTROL MODE ACTIVE
-    if(control_mode.state != OFF_MODE)
-        LED2 = !LED2;
+    //if(control_mode.state != OFF_MODE)
+    //    LED2 = !LED2;
 
     CheckHelp(rxbuf,rxcnt,ureg);
     if(!SACT_flags.help_req)
@@ -898,8 +899,8 @@ void ParseBINCommand(void)
     WRD temparg;
 
 ////TOGGLE LED IF CONTROL MODE ACTIVE
-    if(control_mode.state != OFF_MODE)
-        LED2 = !LED2;
+    //if(control_mode.state != OFF_MODE)
+    //    LED2 = !LED2;
 
     
     // to be compatible with lib_crc, u.short corresponds
@@ -1218,8 +1219,7 @@ void SACT_timeout(void)
         SACT_flags.timeout++;
         if(SACT_flags.timeout > SACT_TIME_LIMIT/SLOW_RATE)
         {
-            SACT_flags.timeout = 0;
-            SACT_state = SACT_NOSYNC;
+            SACT_state = 0;
             control_mode.off_mode_req = 1;
         }    
     }
@@ -1273,65 +1273,24 @@ void SACT_SendSSP(void)
         }// END if encoders
 
         if(SSP_config.odometry)
-        {
-            templong.l = (x_odom / 10); // scale back in mm
-            temp.uc[0] = templong.uc[1];
-            temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-            putiUART(temp.i,ureg);
-            putcUART(SC,ureg);
-
-            templong.l = (y_odom / 10); // scale back in mm
-            temp.uc[0] = templong.uc[1];
-            temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-            putiUART(temp.i,ureg);
-            putcUART(SC,ureg);    
-
-            templong.l = (theta_odom >> 3); // in Q16 radians
-            temp.i = templong.i[0];
-            putiUART(temp.i,ureg);
-            putcUART(SC,ureg);
-            
-            #ifdef DEVELOP_MODE
-//                templong.l = x_set - x_odom; // scale 0.1 mm
-//                temp.uc[0] = templong.uc[1];
-//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-//                putiUART(temp.i,ureg);
-//                putcUART(SC,ureg);
-//
-//                templong.l = y_set - y_odom; // scale 0.1 mm
-//                temp.uc[0] = templong.uc[1];
-//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-//                putiUART(temp.i,ureg);
-//                putcUART(SC,ureg);
-                
-                templong.l = (x_set / 10); // scale back in mm
+        {                    
+                templong.l = (x_odom / 10); // scale back in mm
                 temp.uc[0] = templong.uc[1];
                 temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
                 putiUART(temp.i,ureg);
                 putcUART(SC,ureg);
 
-                templong.l = (y_set / 10); // scale back in mm
+                templong.l = (y_odom / 10); // scale back in mm
                 temp.uc[0] = templong.uc[1];
                 temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
                 putiUART(temp.i,ureg);
+                putcUART(SC,ureg);    
+    
+                templong.l = (theta_odom >> 3); // in Q16 radians
+                temp.i = templong.i[0];
+                putiUART(temp.i,ureg);
                 putcUART(SC,ureg);
-//                
-//                templong.l = (x_target / 10); // scale back in mm
-//                temp.uc[0] = templong.uc[1];
-//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-//                putiUART(temp.i,ureg);
-//                putcUART(SC,ureg);
-//
-//                templong.l = (y_target / 10); // scale back in mm
-//                temp.uc[0] = templong.uc[1];
-//                temp.uc[1] = templong.uc[2]; // discard 8 fractional bits
-//                putiUART(temp.i,ureg);
-//                putcUART(SC,ureg);
-//                
-//                temp.ui = NLFState;
-//                putuiUART(temp.ui,ureg);
-//                putcUART(SC,ureg);
-            #endif
+        
         }// END if odometry
         
         if(SSP_config.analogs)
@@ -1492,7 +1451,7 @@ void SACT_SendSSP(void)
             accum++;
             BINTXbuf[accum+6] = temp.uc[1];
             accum++;
-            
+           
         }// END if odometry
         
         if(SSP_config.analogs)
@@ -1650,7 +1609,7 @@ void SACT_SendSDP(void)
 ////IF SACT state ASCII send human readable info about error
     if((SACT_state == SACT_ASCII_U1)||(SACT_state == SACT_ASCII_U2))
         {
-            if((status_flags.b != status_flags_prev.b)&&(status_flags.b != 0))
+            if(status_flags.b != status_flags_prev.b)
             {
                 // TODO: better fault messages..
                 if(SACT_state == SACT_ASCII_U1)
@@ -1658,7 +1617,6 @@ void SACT_SendSDP(void)
                 else
                     putsUART((unsigned char*)"FAULT DETECTED!\r\n",&UART2);
             }
-            status_flags_prev.b = status_flags.b;
             
         }
     else if((SACT_state == SACT_BIN_U1)||(SACT_state == SACT_BIN_U2))
@@ -1679,7 +1637,10 @@ void SACT_SendSDP(void)
         BINTXbuf[7] = 0; // FIRMWARE REVISION v0.x
         BINTXbuf[8] = 9; // FIRMWARE REVISION vx.9
 
-#ifdef SIMULATE
+#ifdef SIMULATE_BASIC
+        BINTXbuf[9] = 0; // BOARD REVISION X
+#endif
+#ifdef SIMULATE_FULL
         BINTXbuf[9] = 0; // BOARD REVISION X
 #endif
 

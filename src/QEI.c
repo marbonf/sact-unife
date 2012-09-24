@@ -98,7 +98,7 @@ void QEI_Init(void)
     POSCNT = 0;               // Reset position counter
     MAXCNT = 0xFFFF; //Set maximum count to full scale
 
-    IFS2bits.QEIIF=0; //Clear off any interrupt due to config
+    IFS3bits.QEI1IF=0; //Clear off any interrupt due to config
 
     // RE-ENABLE QEI
     QEICONbits.QEIM = 7; // 7->X4 | 5->X2 mode with position counter reset by match with MAXCNT

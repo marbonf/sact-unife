@@ -32,29 +32,35 @@
  *                                                                    *
  *    Author: Marcello Bonfe'                                         *
  *                                                                    *
- *    Filename:       ADC.h                                           *
- *    Date:           28/12/2010                                      *
- *    File Version:   0.1                                             *
+ *    Filename:       ADC_DMA.h                                       *
+ *    Date:           20/04/2011                                      *
+ *    File Version:   0.2                                             *
  *    Compiler:       MPLAB C30 v3.23                                 *
  *                                                                    *
  **********************************************************************
  *    Code Description
  *  
- *  Header file for ADC.
+ *  Header file for ADC and DMA module.
  *
  **********************************************************************/
  
-#ifndef ADC_H
-#define ADC_H
+#ifndef ADC_DMA_H
+#define ADC_DMA_H
  
 
 //Functions and Variables with Global Scope:
 void ADC_Init(void);
-void __attribute__((interrupt,auto_psv)) _ADCInterrupt(void);
+void DMA0_Init(void);
+void __attribute__((interrupt,no_auto_psv)) _DMA0Interrupt(void);
 
 //CURRENT FILTERING ORDER AND RELATED CURRENT LOOP FREQUENCY
 #define MCURR_MAV_SHIFT 2
 #define MCURR_MAV_ORDER (1<<MCURR_MAV_SHIFT)
+
+//DMA buffer definitions
+#define AD_CHANNELS 4       // ANxx, AN0, AN1, AN2
+#define DMA_ARRAYS  1 
+#define DMA_TOTAL_LENGTH (DMA_ARRAYS * AD_CHANNELS) //1 * 4 canali -> sample per canale (4)
 
 #endif
 

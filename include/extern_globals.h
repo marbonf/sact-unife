@@ -215,7 +215,7 @@ extern tNLFOut OrientationNLFOut;
 // FINAL OUTPUTS OF THE NONLINEAR FILTER
 // definitions are in the Controls.c source file
 // NOT in globals.c
-extern int32_t x_target,y_target, x_set, y_set; 
+extern int32_t x_target,y_target, x_set, y_set, theta_set; 
 
 // DYNAMIC FEEDBACK LINEARIZATION
 // linear control-loop parameters

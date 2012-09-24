@@ -2,7 +2,7 @@
 
 ## VERSION: 3.60.00.00
 ## FORMAT:  v2.00.01
-## DEVICE:  dsPIC30F6015
+## DEVICE:  dsPIC33FJ128MC802
 
 ## PINREGACTIONS
 cyc
@@ -27,7 +27,7 @@ Any
 &
 ## STIMULUSFILE
 (optional)
-ADCBUF0
+ADC1BUF0
 Demand
 00000
 2
@@ -40,34 +40,6 @@ Yes
 ## RESPONSEFILE
 &
 ## ASYNCH
-Pin
-RD1
-Set High
-
-
--1
---
-Pin
-RD1
-Set Low
-
-
--1
---
-Pin
-RD2
-Set High
-
-
--1
---
-Pin
-RD2
-Set Low
-
-
--1
---
 &
 ## ADVANCEDSCL
 
