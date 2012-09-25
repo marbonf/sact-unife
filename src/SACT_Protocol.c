@@ -98,7 +98,7 @@ const t_command_data command_data [N_COMMANDS+N_PARAMS] =    {
 {1,32767,1,         "POSIT.ANGLE Lim.","PAL"},//30
 {1,32767,1,         "NEGAT.ANGLE Lim.","NAL"},//31
 {1,32767,1,         "ENC. Count. Rev.","ECR"},//32
-{0,31,1,            "DIRECTION flags ","DRF"},//33
+{0,63,1,            "DIRECTION flags ","DRF"},//33
 {1,32767,1,         "ADC TORQUE SCALE","ATS"},//34
 }; 
 
@@ -126,7 +126,7 @@ uint16_t parameters_RAM[N_PARAMS]=
     900,            // 17: POSITIVE ANGLE LIMIT (Command 30)
     200,            // 18: NEGATIVE ANGLE LIMIT (Command 31)
     21500,          // 19: ENCODER COUNTS/REV (Command 32)
-    8,              // 20: DIRECTION flags (Command 33)
+    32,             // 20: DIRECTION flags (Command 33)
     450,            // 21: ADC TORQUE SCALE (Command 34)
     0,              // 22: UNUSED
     0,              // 23: UNUSED
@@ -1169,7 +1169,11 @@ void ExecCommand(uint8_t idx,int16_t *args)
                         else
                         {
                             mposition1 = RSH(((int32_t)temp1 * decdeg_to_ticks),8); // deg to ticks is 8.8 fixed-point so RightSHift!
+                            if(direction_flags.simulate_1)
+                                TRAJMotor1.qdPosition = mposition1;
                             mposition2 = RSH(((int32_t)temp2 * decdeg_to_ticks),8); // deg to ticks is 8.8 fixed-point so RightSHift!
+                            if(direction_flags.simulate_2) 
+                                TRAJMotor2.qdPosition = mposition2;
 		                }
                     }
                     else
@@ -1201,7 +1205,7 @@ void SACT_timeout(void)
         SACT_flags.timeout++;
         if(SACT_flags.timeout > SACT_TIME_LIMIT/SLOW_RATE)
         {
-	    SACT_flags.timeout = 0;
+	        SACT_flags.timeout = 0;
             SACT_state = SACT_NOSYNC;
             control_mode.off_mode_req = 1;
         }    

@@ -48,6 +48,7 @@
  **********************************************************************/
 
 #include "PID.h"
+#include "my_fractmath.h" // for RSH
 
 /************************************************
 * Init PID: resets integral, output and flags
@@ -56,10 +57,12 @@ void InitPID(tPIDParm *pParm, tPIDflags *pFlags, int8_t mode)
 {
     switch(mode)
     {
-        case 1:    pParm->qOut = (pParm->qdOutMax>>pParm->qN);
+        case 1: //pParm->qOut = (pParm->qdOutMax>>pParm->qN);
+                pParm->qOut = RSH(pParm->qdOutMax,pParm->qN);
                 pParm->qdSum = pParm->qdOutMax;
                 break;
-        case -1:pParm->qOut = (pParm->qdOutMin>>pParm->qN);
+        case -1://pParm->qOut = (pParm->qdOutMin>>pParm->qN);
+                pParm->qOut = RSH(pParm->qdOutMin,pParm->qN);
                 pParm->qdSum = pParm->qdOutMin;
                 break;
         case 0:    
@@ -150,7 +153,8 @@ void CalcPID(tPIDParm *pParm, tPIDflags *pFlags)
     }
     
     // SCALE FINAL RESULT
-    pParm->qOut = (temp >> pParm->qN);
+    //pParm->qOut = (temp >> pParm->qN);
+    pParm->qOut = RSH(temp, pParm->qN);
     
     // PREPARE NEXT CYCLE
     pParm->qdErrPrev = error;
@@ -229,7 +233,8 @@ void CalcPI(tPIDParm *pParm, tPIDflags *pFlags)
     }
     
     // SCALE FINAL RESULT
-    pParm->qOut = (temp >> pParm->qN);
+    //pParm->qOut = (temp >> pParm->qN);
+    pParm->qOut = RSH(temp, pParm->qN);
 }
 
 /************************************************
@@ -260,6 +265,7 @@ void CalcP(tPIDParm *pParm, tPIDflags *pFlags)
     }
     
     // SCALE FINAL RESULT
-    pParm->qOut = (temp >> pParm->qN);
+    //pParm->qOut = (temp >> pParm->qN);
+    pParm->qOut = RSH(temp, pParm->qN);
 }
 

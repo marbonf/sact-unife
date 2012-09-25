@@ -205,7 +205,8 @@ uint8_t idxtemp;
     }
     //DISABLE the A/D interrupt
     IEC0bits.ADIE = 0;
-    rcurrent1 = (rcurrent_temp >> RCURR_MAV_SHIFT);
+    //rcurrent1 = (rcurrent_temp >> RCURR_MAV_SHIFT);
+    rcurrent1 = RSH(rcurrent_temp, RCURR_MAV_SHIFT);
     //RE-ENABLE the A/D interrupt
     IEC0bits.ADIE = 1;
     
@@ -218,7 +219,8 @@ uint8_t idxtemp;
     }
     //DISABLE the A/D interrupt
     IEC0bits.ADIE = 0;
-    rcurrent2 = (rcurrent_temp >> RCURR_MAV_SHIFT);
+    //rcurrent2 = (rcurrent_temp >> RCURR_MAV_SHIFT);
+    rcurrent2 = RSH(rcurrent_temp, RCURR_MAV_SHIFT);
     //RE-ENABLE the A/D interrupt
     IEC0bits.ADIE = 1;
 
@@ -289,7 +291,8 @@ void JoggingLoops(void)
     CalcP(&PIDPos1, &PIDPos1_f);
     
     //rvelocity1 = PIDPos1.qOut + (TRAJMotor1.qdVelocity.i[1] >> (TRAJMotor1.qVELshift + SPEED_POS_SHIFT));
-    rvelocity1 = PIDPos1.qOut + (TRAJMotor1.qdVelocity.i[1] >> TRAJMotor1.qVELshift);
+    //rvelocity1 = PIDPos1.qOut + (TRAJMotor1.qdVelocity.i[1] >> TRAJMotor1.qVELshift);
+    rvelocity1 = PIDPos1.qOut + RSH(TRAJMotor1.qdVelocity.i[1], TRAJMotor1.qVELshift);
     
 // SECOND MOTOR
     if(TRAJMotor2_f.enable && !TRAJMotor2_f.active)
@@ -302,7 +305,8 @@ void JoggingLoops(void)
     CalcP(&PIDPos2, &PIDPos2_f);
     
     //rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> (TRAJMotor2.qVELshift + SPEED_POS_SHIFT));
-    rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> TRAJMotor2.qVELshift);
+    //rvelocity2 = PIDPos2.qOut + (TRAJMotor2.qdVelocity.i[1] >> TRAJMotor2.qVELshift);
+    rvelocity2 = PIDPos2.qOut + RSH(TRAJMotor2.qdVelocity.i[1], TRAJMotor2.qVELshift);
 
 
 #ifdef DEVELOP_MODE
@@ -405,18 +409,13 @@ void PositionLoops(void)
  *************************************/
 void UpdateEncoder1(void)
 {
-#ifdef SIMULATE
-    if(DIR1 == !direction_flags.motor1_dir)    
-        mvelocity1 -= (mcurrent1_filt - mcurrent1_offset) >> 4;
-    else
-        mvelocity1 += (mcurrent1_filt - mcurrent1_offset) >> 4;
-    if(mvelocity1 > 550)
-        mvelocity1 = 550;
-    else if(mvelocity1 < -550)
-        mvelocity1 = -550;
-    mposition1 += (int32_t)mvelocity1;
-#endif
-
+if(direction_flags.simulate_1)
+  {
+    mvelocity1 = rvelocity1;
+    mposition1 = TRAJMotor1.qdPosition;
+  }
+else
+  {
 #ifdef REV2_BOARD
     mvelocity1 = PosCount;                            
     PosCount = POSCNT;
@@ -444,23 +443,18 @@ void UpdateEncoder1(void)
       
     mposition1+=(int32_t)mvelocity1;
 #endif
-
+  }// END ELSE of IF SIMULATE
 }
 
 void UpdateEncoder2(void)
 {
-#ifdef SIMULATE
-    if(DIR2 == !direction_flags.motor2_dir)    
-        mvelocity2 -= (mcurrent2_filt - mcurrent2_offset) >> 4;
-    else
-        mvelocity2 += (mcurrent2_filt - mcurrent2_offset) >> 4;
-    if(mvelocity2 > 550)
-        mvelocity2 = 550;
-    else if(mvelocity2 < -550)
-        mvelocity2 = -550;
-    mposition2 += (int32_t)mvelocity2;
-#endif
-
+if(direction_flags.simulate_2)
+  {
+    mvelocity2 = rvelocity2;
+    mposition2 = TRAJMotor2.qdPosition;
+  }
+else
+  {
 #ifdef REV1_BOARD
     mvelocity2 = PosCount;                            
     PosCount = POSCNT;
@@ -488,5 +482,6 @@ void UpdateEncoder2(void)
       
     mposition2+=(int32_t)mvelocity2;
 #endif
+  }// END ELSE of IF SIMULATE
 }
 

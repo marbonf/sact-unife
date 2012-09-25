@@ -8,10 +8,10 @@
 !_TAG_REVISION_VERSION	6.0.1	//
 ADC_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\ADC.h	48;"	d	line:48
 ADC_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\ADC.h	52;"	p	line:52	signature:(void)
-ADC_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	65;"	f	line:65	signature:(void)
+ADC_Init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	66;"	f	line:66	signature:(void)
 ADC_torque_scale	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	91;"	v	line:91
 ADResult	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	51;"	v	line:51
-ADindex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	59;"	v	line:59
+ADindex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	60;"	v	line:60
 AN10_PCFG::ADPCFGbits.PCFG10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	186;"	d	line:186
 AN10_TRIS::TRISBbits.TRISB10	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	173;"	d	line:173
 AN11_PCFG::ADPCFGbits.PCFG11	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	187;"	d	line:187
@@ -61,7 +61,7 @@ CalcPI	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID
 CalcPID	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\PID.h	74;"	p	line:74	signature:( tPIDParm *pParm, tPIDflags *pFlags)
 CalcPID	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	82;"	f	line:82	signature:(tPIDParm *pParm, tPIDflags *pFlags)
 CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	229;"	p	line:229	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	757;"	f	line:757	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+CheckHelp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	756;"	f	line:756	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
 CommandParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	152;"	v	line:152
 ControlModeMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	171;"	v	line:171
 ControlParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	155;"	v	line:155
@@ -91,7 +91,7 @@ ErrorMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\S
 ErrorParaLengthMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	146;"	v	line:146
 ErrorParaLimitMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	147;"	v	line:147
 ErrorParaMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	145;"	v	line:145
-ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1026;"	f	line:1026	signature:(uint8_t idx,int16_t *args)
+ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1025;"	f	line:1025	signature:(uint8_t idx,int16_t *args)
 ExecCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	240;"	p	line:240	file:	signature:(uint8_t idx,int16_t *args)
 FALSE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	56;"	d	line:56
 FALSE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.h	56;"	d	line:56
@@ -105,11 +105,11 @@ FxAbs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math
 GENERIC_DEFS_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	47;"	d	line:47
 GWRP_OFF	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	78;"	v	line:78
 GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	231;"	p	line:231	file:	signature:(unsigned char *rxbuf)
-GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	726;"	f	line:726	signature:(unsigned char *rxbuf)
+GetMsgIndex	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	725;"	f	line:725	signature:(unsigned char *rxbuf)
 GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	232;"	p	line:232	file:	signature:(uint8_t idx, volatile UART *ureg)
-GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	748;"	f	line:748	signature:(uint8_t idx, volatile UART *ureg)
+GetParamASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	747;"	f	line:747	signature:(uint8_t idx, volatile UART *ureg)
 GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	233;"	p	line:233	file:	signature:(uint8_t idx, volatile UART *ureg)
-GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	978;"	f	line:978	signature:(uint8_t idx, volatile UART *ureg)
+GetParamBIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	977;"	f	line:977	signature:(uint8_t idx, volatile UART *ureg)
 HALF_PI_BRADS::0x40000000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\my_fractmath.h	64;"	d	line:64
 HT::0x09	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	61;"	d	line:61
 HWIOPARA::4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	72;"	d	line:72
@@ -174,20 +174,20 @@ J12Pin6_TRIS::TRISDbits.TRISD7	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT
 JogTRAJ	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	83;"	p	line:83	signature:( tTRAJParm *pParm, tTRAJflags *pFlags)
 JogTRAJ	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Trajectories.c	63;"	f	line:63	signature:(tTRAJParm *pParm, tTRAJflags *pFlags)
 JoggingLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Controls.h	54;"	p	line:54	signature:(void)
-JoggingLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	279;"	f	line:279	signature:(void)
+JoggingLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	281;"	f	line:281	signature:(void)
 LED1::LATDbits.LATD3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	149;"	d	line:149
 LED1_TRIS::TRISDbits.TRISD3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	143;"	d	line:143
 LED2::LATDbits.LATD4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	150;"	d	line:150
 LED2_TRIS::TRISDbits.TRISD4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	144;"	d	line:144
 LF::0x0A	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	60;"	d	line:60
 LNG	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	116;"	t	line:116
-LOGDECIM::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	226;"	d	line:226
+LOGDECIM::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	228;"	d	line:228
 LOG_CARTLOOP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	72;"	d	line:72
 LOG_LONG	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	69;"	d	line:69
 LoadEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\EEPROM_params.h	52;"	p	line:52	signature:(void)
 LoadEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\EEPROM_params.c	99;"	f	line:99	signature:(void)
 MAXARGS::3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	121;"	d	line:121
-MAXLOG::400	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	225;"	d	line:225
+MAXLOG::400	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	227;"	d	line:227
 MAX_ASCIILEN::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	66;"	d	line:66
 MAX_HELPMSG::5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	73;"	d	line:73
 MCURR_MAV_ORDER::(1<<MCURR_MAV_SHIFT)	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\ADC.h	57;"	d	line:57
@@ -245,12 +245,12 @@ P_SICK::0x8005	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1
 ParaHeader	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	157;"	v	line:157
 ParaHeader_cmd	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	159;"	v	line:159
 ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	237;"	p	line:237	file:	signature:(void)
-ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	883;"	f	line:883	signature:(void)
+ParseBINCommand	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	882;"	f	line:882	signature:(void)
 PosCount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	94;"	v	line:94
 PosTRAJ	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	84;"	p	line:84	signature:( tTRAJParm *pParm, tTRAJflags *pFlags)
 PosTRAJ	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Trajectories.c	100;"	f	line:100	signature:(tTRAJParm *pParm, tTRAJflags *pFlags)
 PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Controls.h	53;"	p	line:53	signature:(void)
-PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	336;"	f	line:336	signature:(void)
+PositionLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	340;"	f	line:340	signature:(void)
 QEA_TRIS::TRISBbits.TRISB4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	134;"	d	line:134
 QEB_TRIS::TRISBbits.TRISB5	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	135;"	d	line:135
 QEI_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\QEI.h	48;"	d	line:48
@@ -279,14 +279,14 @@ SACT_SDP::0xB1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1
 SACT_SPP::0xC1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	63;"	d	line:63
 SACT_SSP::0xA1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	61;"	d	line:61
 SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	130;"	p	line:130	signature:(void)
-SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1558;"	f	line:1558	signature:(void)
+SACT_SendSDP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1562;"	f	line:1562	signature:(void)
 SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	129;"	p	line:129	signature:(void)
-SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1214;"	f	line:1214	signature:(void)
+SACT_SendSSP	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1218;"	f	line:1218	signature:(void)
 SACT_TIME_LIMIT::3000	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	125;"	d	line:125
 SACT_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	220;"	v	line:220
 SACT_state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	214;"	v	line:214
 SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	128;"	p	line:128	signature:(void)
-SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1198;"	f	line:1198	signature:(void)
+SACT_timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1201;"	f	line:1201	signature:(void)
 SAMPLE_ADVANCE::0	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\PWM.h	61;"	d	line:61
 SC::0x3B	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	63;"	d	line:63
 SLOW_RATE::100	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	73;"	d	line:73
@@ -302,11 +302,11 @@ SYNC_U1_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\s
 SYNC_U2_step	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	216;"	v	line:216
 SYS_HW_H	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\sys_hw.h	51;"	d	line:51
 SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	230;"	p	line:230	file:	signature:(uint8_t table,volatile UART *ureg)
-SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	816;"	f	line:816	signature:(uint8_t table,volatile UART *ureg)
+SendHelpInfo	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	815;"	f	line:815	signature:(uint8_t table,volatile UART *ureg)
 SendNUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Comms.h	91;"	p	line:91	signature:(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 SendNUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	277;"	f	line:277	signature:(unsigned char *buffer, volatile UART *ureg, uint8_t N)
 SpeedLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Controls.h	51;"	p	line:51	signature:(void)
-SpeedLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	232;"	f	line:232	signature:(void)
+SpeedLoops	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	234;"	f	line:234	signature:(void)
 StoreEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\EEPROM_params.h	53;"	p	line:53	signature:(void)
 StoreEEPROMparams	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\EEPROM_params.c	110;"	f	line:110	signature:(void)
 SyncMsg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	150;"	v	line:150
@@ -344,14 +344,14 @@ UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	66;"	m	line:66
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	102;"	m	line:102
 UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	133;"	m	line:133
-UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	155;"	m	line:155
-UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	171;"	m	line:171
+UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	157;"	m	line:157
+UNUSED	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	173;"	m	line:173
 UpCount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	94;"	v	line:94
 UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Controls.h	62;"	p	line:62	signature:()
-UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	406;"	f	line:406	signature:(void)
+UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	410;"	f	line:410	signature:(void)
 UpdateEncoder1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	86;"	p	line:86	file:	signature:(void)
 UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Controls.h	63;"	p	line:63	signature:()
-UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	450;"	f	line:450	signature:(void)
+UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	449;"	f	line:449	signature:(void)
 UpdateEncoder2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	87;"	p	line:87	file:	signature:(void)
 VEL_MODE::2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	143;"	d	line:143
 VL::0x7C	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	62;"	d	line:62
@@ -391,7 +391,7 @@ _8BIT_5::0x20	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\
 _8BIT_6::0x40	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	95;"	d	line:95
 _8BIT_7::0x80	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	96;"	d	line:96
 _ADCInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\ADC.h	53;"	p	line:53	signature:(void)
-_ADCInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	156;"	f	line:156	signature:(void)
+_ADCInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	157;"	f	line:157	signature:(void)
 _AddressError	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\traps.c	68;"	f	line:68	signature:(void)
 _AltAddressError	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\traps.c	120;"	f	line:120	signature:(void)
 _AltMathError	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\traps.c	142;"	f	line:142	signature:(void)
@@ -416,16 +416,16 @@ _U2RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1
 _U2RXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	162;"	f	line:162	signature:(void)
 _U2TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Comms.h	73;"	p	line:73	signature:(void)
 _U2TXInterrupt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	130;"	f	line:130	signature:(void)
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1219;"	l	line:1219
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	602;"	l	line:602
-accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	889;"	l	line:889
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1223;"	l	line:1223
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	601;"	l	line:601
+accum	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	888;"	l	line:888
 active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	57;"	m	line:57
 analogs	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	100;"	m	line:100
-argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	600;"	l	line:600
-argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	887;"	l	line:887
+argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	599;"	l	line:599
+argcount	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	886;"	l	line:886
 args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	114;"	m	line:114
-args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	603;"	l	line:603
-args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	890;"	l	line:890
+args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	602;"	l	line:602
+args	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	889;"	l	line:889
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	104;"	m	line:104
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	120;"	m	line:120
 b	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	88;"	m	line:88
@@ -437,29 +437,29 @@ c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\gene
 c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	298;"	l	line:298
 c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	211;"	l	line:211
 c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	249;"	l	line:249
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	483;"	l	line:483
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	538;"	l	line:538
-cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	729;"	l	line:729
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	482;"	l	line:482
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	537;"	l	line:537
+cmpres	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	728;"	l	line:728
 comm_error_code	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	118;"	m	line:118
 command_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	66;"	v	line:66
 config_value	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PWM.c	80;"	l	line:80
 control_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	78;"	v	line:78
 control_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	80;"	v	line:80
-control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	534;"	f	line:534	signature:(void)
+control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	537;"	f	line:537	signature:(void)
 control_mode_manager	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	86;"	p	line:86	file:	signature:(void)
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1220;"	l	line:1220
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1563;"	l	line:1563
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	601;"	l	line:601
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	820;"	l	line:820
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	888;"	l	line:888
-count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	984;"	l	line:984
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1224;"	l	line:1224
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1567;"	l	line:1567
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	600;"	l	line:600
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	819;"	l	line:819
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	887;"	l	line:887
+count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	983;"	l	line:983
 cr_rec1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	82;"	m	line:82
 cr_rec2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	83;"	m	line:83
 crc	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	298;"	l	line:298
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1223;"	l	line:1223
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1566;"	l	line:1566
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	900;"	l	line:900
-crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	983;"	l	line:983
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1227;"	l	line:1227
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1570;"	l	line:1570
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	899;"	l	line:899
+crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	982;"	l	line:982
 crc_tab16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	96;"	v	line:96	file:
 crc_tab16_init	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	90;"	v	line:90	file:
 current_loop_active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	97;"	m	line:97
@@ -474,10 +474,10 @@ dataLOG3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\g
 dataLOG4	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	102;"	v	line:102
 dataLOGIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	105;"	v	line:105
 dataLOGdecim	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	106;"	v	line:106
-debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	656;"	f	line:656	signature:(void)
+debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	659;"	f	line:659	signature:(void)
 debounce_switches	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	85;"	p	line:85	file:	signature:(void)
 decdeg_to_ticks	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	90;"	v	line:90
-diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	335;"	f	line:335	signature:(void)
+diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	338;"	f	line:338	signature:(void)
 diagnostics	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	87;"	p	line:87	file:	signature:(void)
 digitals	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	101;"	m	line:101
 direction_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	81;"	v	line:81
@@ -488,20 +488,20 @@ encoder1_chB_lead	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v
 encoder2_chB_lead	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	154;"	m	line:154
 encoder_counts_rev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	89;"	v	line:89
 encoders	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	97;"	m	line:97
-endstroke_neg_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	164;"	m	line:164
-endstroke_neg_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	166;"	m	line:166
-endstroke_pos_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	163;"	m	line:163
-endstroke_pos_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	165;"	m	line:165
+endstroke_neg_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	166;"	m	line:166
+endstroke_neg_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	168;"	m	line:168
+endstroke_pos_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	165;"	m	line:165
+endstroke_pos_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	167;"	m	line:167
 error	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	171;"	l	line:171
 error	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	87;"	l	line:87
 exec	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	58;"	m	line:58
 first_scan	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	96;"	m	line:96
 grip_status	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	98;"	m	line:98
 grip_status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	83;"	v	line:83
-grip_touch_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	167;"	m	line:167
-grip_touch_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	168;"	m	line:168
-grip_traj_exec_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	169;"	m	line:169
-grip_traj_exec_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	170;"	m	line:170
+grip_touch_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	169;"	m	line:169
+grip_touch_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	170;"	m	line:170
+grip_traj_exec_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	171;"	m	line:171
+grip_traj_exec_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	172;"	m	line:172
 half_move	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Trajectories.h	62;"	m	line:62
 help_info	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	191;"	v	line:191
 help_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	84;"	m	line:84
@@ -511,12 +511,12 @@ i	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_
 iSqrt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\FxSqrtAbs.c	80;"	f	line:80	signature:(uint32_t x)
 iSqrt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\my_fractmath.h	74;"	p	line:74	signature:(uint32_t a)
 idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	279;"	l	line:279
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	599;"	l	line:599
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	759;"	l	line:759
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	819;"	l	line:819
-idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	886;"	l	line:886
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	598;"	l	line:598
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	758;"	l	line:758
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	818;"	l	line:818
+idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	885;"	l	line:885
 idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Controls.c	190;"	l	line:190
-idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	536;"	l	line:536
+idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	539;"	l	line:539
 init_crc16_tab	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	113;"	p	line:113	file:	signature:( void )
 init_crc16_tab	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	295;"	f	line:295	file:	signature:( void )
 int16_t	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	104;"	t	line:104
@@ -535,19 +535,19 @@ max_angle	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\
 max_current	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	61;"	v	line:61
 max_velocity	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	62;"	v	line:62
 max_velocity_scaled	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	63;"	v	line:63
-mcurr_idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	57;"	v	line:57
+mcurr_idxtemp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	58;"	v	line:58
 mcurrent1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	52;"	v	line:52
 mcurrent1_filt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	52;"	v	line:52
 mcurrent1_offset	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	57;"	v	line:57
-mcurrent1samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	55;"	v	line:55
+mcurrent1samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	56;"	v	line:56
 mcurrent2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	52;"	v	line:52
 mcurrent2_filt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	52;"	v	line:52
 mcurrent2_offset	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	58;"	v	line:58
-mcurrent2samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	55;"	v	line:55
-mcurrent_temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	56;"	v	line:56
-mcurrsampIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	58;"	v	line:58
+mcurrent2samp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	56;"	v	line:56
+mcurrent_temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	57;"	v	line:57
+mcurrsampIdx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\ADC.c	59;"	v	line:59
 medium_event_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	70;"	v	line:70
-medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	304;"	f	line:304	signature:(void)
+medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	307;"	f	line:307	signature:(void)
 medium_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	83;"	p	line:83	file:	signature:(void)
 medium_ticks_limit	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	72;"	v	line:72
 min	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	112;"	m	line:112
@@ -564,9 +564,9 @@ off_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\i
 one	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\FxSqrtAbs.c	82;"	l	line:82
 op	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\FxSqrtAbs.c	82;"	l	line:82
 overcurrent1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	113;"	m	line:113
-overcurrent1_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	337;"	l	line:337	file:
+overcurrent1_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	340;"	l	line:340	file:
 overcurrent2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	114;"	m	line:114
-overcurrent2_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	338;"	l	line:338	file:
+overcurrent2_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	341;"	l	line:341	file:
 p_term	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	169;"	l	line:169
 p_term	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	84;"	l	line:84
 packet_full	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	79;"	m	line:79
@@ -575,13 +575,13 @@ parameters_RAM	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1
 pos_loop_active	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	98;"	m	line:98
 pos_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	131;"	m	line:131
 process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	228;"	p	line:228	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
-process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	597;"	f	line:597	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
+process_ASCII	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	596;"	f	line:596	signature:(unsigned char *rxbuf, uint8_t rxcnt,volatile UART *ureg)
 process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	236;"	p	line:236	file:	signature:(unsigned char *rxbuf, uint8_t rxcnt)
-process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	845;"	f	line:845	signature:(unsigned char *rxbuf, uint8_t rxcnt)
+process_BIN	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	844;"	f	line:844	signature:(unsigned char *rxbuf, uint8_t rxcnt)
 process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	225;"	p	line:225	file:	signature:(void)
-process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	481;"	f	line:481	signature:(void)
+process_SYNC_U1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	480;"	f	line:480	signature:(void)
 process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	226;"	p	line:226	file:	signature:(void)
-process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	536;"	f	line:536	signature:(void)
+process_SYNC_U2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	535;"	f	line:535	signature:(void)
 push_buttons_state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	75;"	v	line:75
 putcUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\Comms.h	87;"	p	line:87	signature:(unsigned char byte, volatile UART *ureg)
 putcUART	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	202;"	f	line:202	signature:(unsigned char symbol, volatile UART *ureg)
@@ -630,15 +630,17 @@ rx2buf	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SAC
 rx2cnt	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	204;"	v	line:204
 saturated	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\PID.h	54;"	m	line:54
 short_c	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	190;"	l	line:190
+simulate_1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	155;"	m	line:155
+simulate_2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	156;"	m	line:156
 slow_event_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	69;"	v	line:69
-slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	428;"	f	line:428	signature:(void)
+slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	431;"	f	line:431	signature:(void)
 slow_event_handler	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	84;"	p	line:84	file:	signature:(void)
 slow_ticks_limit	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	71;"	v	line:71
 sonars	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	102;"	m	line:102
 speed_loop_count	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Timers.c	53;"	v	line:53
 state	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	137;"	m	line:137
 status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\globals.c	79;"	v	line:79
-status_flags_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1560;"	l	line:1560	file:
+status_flags_prev	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1564;"	l	line:1564	file:
 sw1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	79;"	m	line:79
 sw2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	80;"	m	line:80
 sw3	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	81;"	m	line:81
@@ -656,8 +658,8 @@ tTRAJflags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\inc
 t_command_data	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	117;"	t	line:117
 t_control_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	105;"	t	line:105
 t_control_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	138;"	t	line:138
-t_direction_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	158;"	t	line:158
-t_grip_status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	174;"	t	line:174
+t_direction_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	160;"	t	line:160
+t_grip_status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	176;"	t	line:176
 t_push_buttons	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	89;"	t	line:89
 t_status_flags	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	121;"	t	line:121
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\Q16wrappers.c	53;"	l	line:53
@@ -666,19 +668,19 @@ temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	240;"	l	line:240
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PID.c	86;"	l	line:86
 temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\PWM.c	80;"	l	line:80
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1217;"	l	line:1217
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1562;"	l	line:1562
-temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	980;"	l	line:980
-temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1028;"	l	line:1028
-temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	339;"	l	line:339
-temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1028;"	l	line:1028
-temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	339;"	l	line:339
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1221;"	l	line:1221
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1566;"	l	line:1566
+temp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	979;"	l	line:979
+temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1027;"	l	line:1027
+temp1	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	342;"	l	line:342
+temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1027;"	l	line:1027
+temp2	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	342;"	l	line:342
 temp_ptr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\Comms.c	190;"	l	line:190
-temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	604;"	l	line:604
-temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	891;"	l	line:891
-tempidx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	728;"	l	line:728
-templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1218;"	l	line:1218
-tempstr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	605;"	l	line:605
+temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	603;"	l	line:603
+temparg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	890;"	l	line:890
+tempidx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	727;"	l	line:727
+templong	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1222;"	l	line:1222
+tempstr	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	604;"	l	line:604
 timeout	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	91;"	m	line:91
 tmp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	190;"	l	line:190
 tmp	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_math\FxSqrtAbs.c	56;"	l	line:56
@@ -709,13 +711,13 @@ uint8_t	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\includ
 ul	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\generic_defs.h	111;"	m	line:111
 update_crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.c	188;"	f	line:188	signature:( unsigned short crc, char c )
 update_crc_16	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\lib_crc\lib_crc.h	61;"	p	line:61	signature:( unsigned short crc, char c )
-update_params	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	206;"	f	line:206	signature:(void)
+update_params	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	209;"	f	line:209	signature:(void)
 update_params	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\main.c	90;"	p	line:90	file:	signature:(void)
-ureg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1216;"	l	line:1216
+ureg	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\src\SACT_Protocol.c	1220;"	l	line:1220
 valid_header	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	78;"	m	line:78
 valid_idx	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	85;"	m	line:85
 vel_mode_req	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	130;"	m	line:130
 word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	107;"	m	line:107
-word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	157;"	m	line:157
-word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	173;"	m	line:173
+word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	159;"	m	line:159
+word	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\extern_globals.h	175;"	m	line:175
 wrong_mode	C:\home\bonf\ProgettiRicerca\MobileRobots\FW\SACT_FW_Gripper\v0.1\include\SACT_Protocol.h	88;"	m	line:88

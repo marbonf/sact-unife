@@ -83,7 +83,8 @@ void JogTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
                     pParm->qdVelocity.i[1] = -pParm->qVLIM;
               } 
 
-        pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+        //pParm->qdPosition += (int32_t)(pParm->qdVelocity.i[1] >> pParm->qVELshift);
+        pParm->qdPosition += (int32_t)RSH(pParm->qdVelocity.i[1], pParm->qVELshift);
     }
     else
     {
@@ -107,7 +108,8 @@ void PosTRAJ(tTRAJParm *pParm, tTRAJflags *pFlags)
       if(!pFlags->busy)							//if free
       { 
         // compute half distance
-        pParm->qdHalfDIST = (pParm->qdPosCOM - pParm->qdPosition)>>1;
+        //pParm->qdHalfDIST = (pParm->qdPosCOM - pParm->qdPosition)>>1;
+        pParm->qdHalfDIST = RSH((pParm->qdPosCOM - pParm->qdPosition),1);
         
         if(pParm->qdHalfDIST < 0)				
         {
