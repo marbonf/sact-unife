@@ -47,6 +47,7 @@
 #include "sys_hw.h"
 #include "extern_globals.h"
 #include "generic_defs.h"
+#include "my_fractmath.h" //for MyAbs
 #include "ADC.h"
 #include "PWM.h"
 #include "Controls.h"
@@ -160,25 +161,40 @@ void __attribute__((interrupt,auto_psv)) _ADCInterrupt(void)
 J10Pin1_OUT = 1;
 #endif
 
-#ifdef SIMULATE
+if(direction_flags.simulate_1)
+  {
     if(control_flags.current_loop_active)
     {
-        mcurrent1 = ((FULL_DUTY - PDC1) >> 2) + mcurrent1_offset; 
-        mcurrent2 = ((FULL_DUTY - PDC2) >> 2) + mcurrent2_offset;
+        mcurrent1 = MyAbs(rcurrent1) + mcurrent1_offset; 
     }
     else
     {
         mcurrent1_filt = mcurrent1_offset;
-        mcurrent2_filt = mcurrent2_offset;
     }
-#else
+  }
+else
+ {
     // motor currents
     // N.1 (AN1)
     mcurrent1 = ADCBUF2;
-    
+ }
+
+if(direction_flags.simulate_2)
+  {
+    if(control_flags.current_loop_active)
+    {
+        mcurrent2 = MyAbs(rcurrent2) + mcurrent2_offset; 
+    }
+    else
+    {
+        mcurrent2_filt = mcurrent2_offset;
+    }
+  }
+else
+  {
     // N.2 (AN0)
     mcurrent2 = ADCBUF1;
-#endif
+  }
 
     // standard Analog inputs
     ADResult[ADindex] = ADCBUF0;
@@ -210,7 +226,8 @@ J10Pin1_OUT = 1;
             mcurrent_temp += mcurrent1samp[mcurr_idxtemp];
             mcurr_idxtemp++;
         }
-        mcurrent1_filt = (mcurrent_temp >> MCURR_MAV_SHIFT);
+        //mcurrent1_filt = (mcurrent_temp >> MCURR_MAV_SHIFT);
+        mcurrent1_filt = RSH(mcurrent_temp, MCURR_MAV_SHIFT);
 
         mcurrent_temp = 0;
         mcurr_idxtemp = 0;
@@ -219,7 +236,8 @@ J10Pin1_OUT = 1;
             mcurrent_temp += mcurrent2samp[mcurr_idxtemp];
             mcurr_idxtemp++;
         }
-        mcurrent2_filt = (mcurrent_temp >> MCURR_MAV_SHIFT);
+        //mcurrent2_filt = (mcurrent_temp >> MCURR_MAV_SHIFT);
+        mcurrent2_filt = RSH(mcurrent_temp, MCURR_MAV_SHIFT);
 
         CurrentLoops();
     }

@@ -152,7 +152,9 @@ typedef union{
     unsigned motor2_dir          : 1;
     unsigned encoder1_chB_lead   : 1;
     unsigned encoder2_chB_lead   : 1;
-    unsigned UNUSED              : 12;
+    unsigned simulate_1          : 1;
+    unsigned simulate_2          : 1;
+    unsigned UNUSED              : 10;
     };
     uint16_t word;
 } t_direction_flags;
