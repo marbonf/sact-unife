@@ -62,7 +62,8 @@ uint8_t u2bufhead = 0;
 void UART1_Init(void)
 {
 
-    U1MODE = 0x8000; // UART1 Enabled (bit 15)
+    U1MODE = 0x8008; // UART1 Enabled (bit 15)
+                     // and HIGH-SPEED MODE (bit 3, BRGH)
                      // all other standard configs (8bit,noparity, etc)
     U1STA  = 0x0000; // resets all errors etc.
     
