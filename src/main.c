@@ -122,9 +122,9 @@ int main(void)
 // Internal oscillator setup 
 // Fosc = Fin (M/(N1*N2))
 // FCY = Fosc/2
-    PLLFBD = 38; 			// M = 40
-    CLKDIVbits.PLLPOST=0; 	// N2 = 2
-    CLKDIVbits.PLLPRE=0; 	// N1 = 2
+    PLLFBD = 38;                // M = 40
+    CLKDIVbits.PLLPOST=0;       // N2 = 2
+    CLKDIVbits.PLLPRE=0;        // N1 = 2
 
     RCONbits.SWDTEN = 0;	//Watchdog disable
 

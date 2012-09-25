@@ -51,7 +51,8 @@
 
 #define BAUDRATE1       115200  //Desired Baud Rate UART1
 #define BAUDRATE2       230400  //Desired Baud Rate UART2
-#define BRGVAL1         ((FCY/BAUDRATE1)/16)-1   //Formula for U1BRG register
+//#define BRGVAL1         ((FCY/BAUDRATE1)/16)-1   //Formula for U1BRG register with BRGH = 0
+#define BRGVAL1         ((FCY/BAUDRATE1)/4)-1    //Formula for U1BRG register with BRGH = 1
 #define BRGVAL2         ((FCY/BAUDRATE2)/16)-1   //Formula for U2BRG register
 
 // BUFFERING VARIABLES
